@@ -804,13 +804,17 @@ footer img {
 .menuPainel {
   position: absolute;
   top: calc(100% + 10px);
-  left: 0;
-  right: 0;
+  left: auto;
+  right: 12px;
   z-index: 30;
-  padding: 10px;
+  width: min(288px, calc(100% - 24px));
+  max-height: min(70dvh, calc(100dvh - 100px - env(safe-area-inset-bottom, 0px) - var(--altura-aviso-cookies, 0px)));
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 8px;
   border: 1px solid #ffffff1f;
-  border-radius: 22px;
-  background: #16161acc;
+  border-radius: 8px;
+  background: #16161af7;
   -webkit-backdrop-filter: blur(22px) saturate(140%);
   backdrop-filter: blur(22px) saturate(140%);
   box-shadow: 0 22px 54px #0009;
@@ -820,22 +824,24 @@ footer img {
   display: none;
 }
 
-.menuPainel nav {
+.nav .menuPainel nav {
   display: grid;
+  gap: 2px;
+  letter-spacing: 0;
+  text-transform: none;
 }
 
 .menuPainel nav a {
-  /* 52px de altura: alvo de toque com folga, e a lista fica fácil de acertar
-     com o polegar */
   display: flex;
   align-items: center;
-  min-height: 52px;
+  min-height: 44px;
   padding: 0 14px;
-  border-radius: 14px;
+  border-radius: 6px;
   color: var(--paper);
   font-size: 15px;
   font-weight: 600;
   text-decoration: none;
+  opacity: 1;
 }
 
 .menuPainel nav a:active {
@@ -851,7 +857,7 @@ footer img {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 52px;
+  min-height: 44px;
   margin-top: 8px;
   font-size: 14px;
 }

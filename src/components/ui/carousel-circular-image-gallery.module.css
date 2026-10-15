@@ -1,0 +1,36 @@
+.gallery { position: relative; width: min(100%, 792px); margin-inline: auto; padding: 16px 0 48px; }
+.frame {
+  --gallery-size: min(80vmin, 600px);
+  position: relative; width: var(--gallery-size); height: var(--gallery-size); aspect-ratio: 1; margin-inline: auto;
+  overflow: hidden; border-radius: 20px; background: #650f2c;
+  box-shadow: 0 3px 4px #00000005, 0 13px 10px #00000009, 0 42px 34px #0000000d, 0 64px 60px #00000012;
+  touch-action: pan-y;
+}
+.slide, .tabs, .tabs > svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.slide { pointer-events: none; }
+.tabs { z-index: 100; pointer-events: none; }
+.thumbnail {
+  position: absolute; transform: translate(-50%, -50%); width: max(4.5%, 24px); aspect-ratio: 1;
+  padding: 0; border: 2px solid #ffffffb3; border-radius: 50%; background: transparent;
+  cursor: pointer; pointer-events: auto; transition: border-color 300ms ease-out;
+}
+.control {
+  position: absolute; top: calc(50% - 16px); transform: translateY(-50%);
+  display: grid; place-items: center; width: 64px; height: 64px; padding: 0;
+  border: 2px solid #ffffff33; border-radius: 50%; background: #fffffff2; color: #212121;
+  box-shadow: 0 8px 32px #0000001f; cursor: pointer; z-index: 101;
+  transition: transform 300ms ease-out, background-color 300ms ease-out;
+}
+.previous { left: 4px; }
+.next { right: 4px; }
+.control:focus-visible, .thumbnail:focus-visible, .gallery:focus-visible { outline: 3px solid #fff; outline-offset: 4px; }
+@media (hover: hover) and (pointer: fine) {
+  .control:hover { transform: translateY(-50%) scale(1.1); background: #fff; }
+  .thumbnail:hover { border-color: #fff; }
+}
+.control:active { transform: translateY(-50%) scale(0.95); }
+@media (max-width: 639px) {
+  .gallery { padding: 8px 0 32px; }
+  .control { width: 56px; height: 56px; top: calc(50% - 12px); }
+}
+@media (prefers-reduced-motion: reduce) { .control, .thumbnail { transition: none; } }

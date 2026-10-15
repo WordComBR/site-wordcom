@@ -5,7 +5,6 @@ import { FundoOndas } from "@/components/fundo-ondas";
 import { FundoVideo } from "@/components/fundo-video";
 import { MenuMobile } from "@/components/menu-mobile";
 import { HeroSequencia } from "@/components/hero-sequencia";
-import { MetodoJornada } from "@/components/metodo-jornada";
 import { MarcasMarquee } from "@/components/marcas-marquee";
 import { FooterWordcom } from "@/components/footer-wordcom";
 import { EntradaScroll } from "@/components/entrada-scroll";
@@ -61,49 +60,6 @@ const servicos = [
     n: "06",
     titulo: "Mídia ON & OFF",
     texto: "TV, rádio, OOH, mídia programática e plataformas digitais.",
-  },
-];
-
-const metodo = [
-  {
-    etapa: "01 · IMERSÃO",
-    titulo: "Entendemos o cenário",
-    texto:
-      "Conhecemos a empresa, o público, o mercado, o momento e os objetivos.",
-    nota: "Diagnóstico e pesquisa",
-    imagem: "/Cards-Resultados/Imagem do ChatGPT 7 de out. de 2026, 09_46_11.png",
-    largura: 1159,
-    altura: 1356,
-  },
-  {
-    etapa: "02 · DIREÇÃO",
-    titulo: "Definimos o caminho",
-    texto:
-      "Organizamos objetivos, mensagens, canais, investimentos e indicadores.",
-    nota: "Plano de comunicação integrado",
-    imagem: "/Cards-Resultados/Imagem do ChatGPT 7 de out. de 2026, 09_58_49.png",
-    largura: 1122,
-    altura: 1402,
-  },
-  {
-    etapa: "03 · EXECUÇÃO",
-    titulo: "Colocamos a estratégia em ação",
-    texto:
-      "Produzimos conteúdos, campanhas, ativações e experiências de marca.",
-    nota: "Produção e campanhas",
-    imagem: "/Cards-Resultados/Imagem do ChatGPT 7 de out. de 2026, 10_10_04.png",
-    largura: 1122,
-    altura: 1402,
-  },
-  {
-    etapa: "04 · EVOLUÇÃO",
-    titulo: "Medimos e aprimoramos",
-    texto:
-      "Acompanhamos indicadores, identificamos aprendizados e ajustamos as ações.",
-    nota: "Otimização contínua",
-    imagem: "/Cards-Resultados/Imagem do ChatGPT 7 de out. de 2026, 10_14_17.png",
-    largura: 1122,
-    altura: 1402,
   },
 ];
 
@@ -170,7 +126,9 @@ const clientes = [
   { nome: "Se7e", arquivo: "13_03_09", largura: 1820, altura: 864 },
   { nome: "Torneio Beach Tennis Wordcom Praia Grande", arquivo: "13_03_19", largura: 1455, altura: 1081 },
   { nome: "Donna G Beach Bar", arquivo: "13_03_28", largura: 1556, altura: 1011 },
-  { nome: "Encontro Regional Indústria Porto 2024", arquivo: "13_03_37", largura: 1377, altura: 1142 },
+  { nome: "Emblema Solar de Bússola Azul e Laranja", arquivo: "Emblema Solar de Bússola Azul e Laranja.png", largura: 1254, altura: 1254 },
+  { nome: "Empreenda Sim", arquivo: "Logo Empreenda Sim.png", largura: 1803, altura: 872 },
+  { nome: "Jornal Portuário", arquivo: "jornal portuário vertical azul.png", largura: 4408, altura: 1512 },
   { nome: "Liceu São Paulo", arquivo: "13_03_49", largura: 1254, altura: 1254 },
   { nome: "Logline", arquivo: "13_03_58", largura: 2043, altura: 770 },
 ];
@@ -235,7 +193,6 @@ export default function Home() {
         <nav aria-label="Navegação principal">
           <a href="#quem-somos">Quem Somos</a>
           <a href="#solucoes">Soluções</a>
-          <a href="#metodologia">Como atuamos</a>
           <a href="#cases">Cases</a>
           <a href="#projetos">Projetos</a>
         </nav>
@@ -252,7 +209,6 @@ export default function Home() {
           itens={[
             { href: "#quem-somos", texto: "Quem Somos" },
             { href: "#solucoes", texto: "Soluções" },
-            { href: "#metodologia", texto: "Como atuamos" },
             { href: "#cases", texto: "Cases" },
             { href: "#projetos", texto: "Projetos" },
             { href: "#agenda", texto: "Agenda" },
@@ -300,27 +256,6 @@ export default function Home() {
           <EntradaScroll destaque className="scrollContent" delay={0.1}>
             <SolucoesAnel servicos={servicos} />
           </EntradaScroll>
-        </section>
-
-        <section className="section method" id="metodologia">
-          {/* O rótulo acima do título e o gradiente numa palavra do título são
-              os dois padrões que o CLAUDE.md deste projeto proíbe por nome.
-              Entram aqui por decisão explícita do dono, registrada: ele quer a
-              seção igual à referência que mandou. */}
-          <EntradaScroll className="heading headingJornada">
-            <div>
-              <p className="jornadaRotulo">Nosso processo</p>
-              <h2>
-                Do desafio ao <strong className="tituloDestaque">Resultado</strong>
-              </h2>
-            </div>
-            <p className="jornadaApoio">
-              Estratégia, criatividade e execução conectadas para transformar
-              desafios em evolução contínua.
-            </p>
-          </EntradaScroll>
-          {/* as quatro etapas são sequência real: por isso a numeração fica */}
-          <MetodoJornada etapas={metodo} />
         </section>
 
         <section className="section light sectors" id="setores" aria-labelledby="setores-titulo">
@@ -387,13 +322,13 @@ export default function Home() {
           <EntradaScroll destaque className="scrollContent" delay={0.1}>
             <MarcasMarquee marcas={clientes.map(({ arquivo, ...marca }) => ({
               ...marca,
-              imagem: `/confiança/Imagem do ChatGPT 7 de out. de 2026, ${arquivo}.png`,
+              imagem: `/confiança/${arquivo.endsWith(".png") ? arquivo : `Imagem do ChatGPT 7 de out. de 2026, ${arquivo}.png`}`,
             }))} />
           </EntradaScroll>
         </section>
 
         <section className="section about">
-          <FundoVideo />
+          <FundoVideo src="/midia/estrutura/equipe-wordcom.mp4" poster="/midia/estrutura/equipe-wordcom-poster.webp" />
           <EntradaScroll destaque>
             <p className="kicker">Estrutura WordCom</p>
             <h2>
@@ -419,8 +354,7 @@ export default function Home() {
         </section>
 
         <section className="section projects" id="projetos">
-          {/* Mesma decisão já registrada na Metodologia: rótulo acima do
-              título e gradiente numa parte do título são proibidos por nome no
+          {/* Rótulo acima do título e gradiente numa parte do título são proibidos por nome no
               CLAUDE.md deste projeto, e entram por escolha explícita do dono —
               ele quer a seção igual à referência que mandou. */}
           <EntradaScroll destaque className="heading headingProjetos">
@@ -472,8 +406,10 @@ export default function Home() {
                   <h3>{e.nome}</h3>
                 </div>
                 <a
-                  href="/projetos/enip"
-                  aria-label={`Ver o ${e.nome} de ${e.mes}`}
+                  href="https://encontroindustriaporto.com.br/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Ver o ${e.nome} de ${e.mes} (abre em nova aba)`}
                 >
                   ↗
                 </a>

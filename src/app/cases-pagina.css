@@ -1,0 +1,541 @@
+/* Páginas individuais dos cases de campanha.
+
+   Estrutura igual à das páginas de projeto: hero escuro com vídeo ao fundo
+   (classes .productHero / .productHeroVideo, reusadas do original.css) e, logo
+   abaixo, o conteúdo sobre papel claro — o mesmo contraste de blocos que a
+   página de projeto faz com .productInfo.
+
+   Prefixo .casePag em tudo que é próprio daqui. Este projeto já teve problemas
+   repetidos de especificidade entre folhas, e um prefixo próprio tira estas
+   páginas da briga sem inflar seletor nem recorrer a !important.
+
+   CORES, com os números medidos sobre o papel #f9f9f9:
+
+     #ff7d00  laranja da marca ......... 2,44:1  REPROVA, nem como texto grande
+     #c75f00  "laranja legível" do site   3,94:1  só serve para texto grande
+     #a34e00  laranja escurecido ....... 5,47:1  este é o de texto
+     #7d00ff  roxo da marca ............ 6,02:1  passa — no claro, ao contrário
+                                                  do escuro, onde tem teto de 2,69
+     #212121  tinta .................... 15,29:1
+
+   Por isso aqui o roxo é o da marca de verdade, e o laranja precisa escurecer.
+   Nada de gradiente em texto: número é número. */
+
+.casePag {
+  --casePag-papel: var(--paper, #f9f9f9);
+  --casePag-tinta: var(--ink, #212121);
+  --casePag-roxo: var(--purple, #7d00ff);
+  --casePag-laranja: #a34e00;
+  /* só para traço e filete, onde o piso é 3:1 e não 4,5:1 */
+  --casePag-laranja-fio: #c75f00;
+  --casePag-apoio: #5f6066;
+  --casePag-linha: #2121211f;
+  --casePag-superficie: #ffffff;
+
+  background: var(--casePag-papel);
+  padding-bottom: clamp(64px, 10vh, 140px);
+  padding-bottom: calc(clamp(64px, 10vh, 140px) + env(safe-area-inset-bottom, 0px));
+}
+
+.casePag article {
+  max-width: 820px;
+  margin-inline: auto;
+  padding-inline: clamp(20px, 5vw, 72px);
+  color: var(--casePag-tinta);
+}
+
+.casePag.casePagBeach {
+  --casePag-fundo: url("/cases/BeachTennis/fundo-tenis.png");
+  background: #f4eefb url("/cases/BeachTennis/fundo-tenis.png") center / cover no-repeat;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+.casePag.casePagOutubro {
+  --titulo-destaque: #ff1493;
+  --casePag-fundo: url("/cases/OutubroRosa/fundo-rosa-elegante.png");
+  background: #f6dbe6;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+.casePagContent { display: contents; }
+
+.casePag.casePagVai {
+  --casePag-fundo: url("/cases/VaiNessa/fundo-hero.png");
+  background: #faf4f8;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+.casePag.casePagPorto {
+  --titulo-destaque: #00c8f5;
+  --casePag-fundo: url("/cases/Porto360/fundo-conteudo.png");
+  --casePag-tinta: #f9f9f9;
+  background: #061b3a;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+.casePagPorto .casePagIntroducaoTexto { text-align: left; }
+
+.casePag.casePagMulher {
+  --casePag-fundo: url("/cases/DiaDaMulher/fundo-conteudo.png");
+  --casePag-tinta: #f9f9f9;
+  background: #3b0716;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+.casePag.casePagEncontro {
+  --casePag-fundo: url("/cases/EncontroRegional/fundo-conteudo.png");
+  background: #eef2f7;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+.casePag.casePagOds {
+  --casePag-fundo: url("/cases/ODS/fundo-conteudo.png");
+  background: #f5f7f5;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+.casePag.casePagTudoBem {
+  --casePag-fundo: url("/cases/TudoBem/fundo-conteudo.png");
+  background: #f3eef8;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+.casePag.casePagLiceu {
+  --casePag-fundo: url("/cases/LiceuSaoPaulo/fundo-conteudo.png");
+  background: #f6eeee;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+.casePagBeachContent, .casePagOutubroContent, .casePagEncontroContent, .casePagPortoContent, .casePagMulherContent, .casePagVaiContent, .casePagOdsContent, .casePagTudoBemContent, .casePagLiceuContent {
+  display: block;
+  position: relative;
+  isolation: isolate;
+}
+
+.casePagBeachContent::before, .casePagOutubroContent::before, .casePagEncontroContent::before, .casePagPortoContent::before, .casePagMulherContent::before, .casePagVaiContent::before, .casePagOdsContent::before, .casePagTudoBemContent::before, .casePagLiceuContent::before {
+  content: "";
+  position: sticky;
+  top: 0;
+  display: block;
+  height: 100svh;
+  margin-bottom: -100svh;
+  background: #f4eefb var(--casePag-fundo) center / cover no-repeat;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.casePagBeach article, .casePagOutubro article {
+  position: relative;
+  max-width: none;
+  background: transparent;
+  color: var(--casePag-tinta);
+}
+
+.casePagBeach .casePagIntroducao, .casePagOutubro .casePagIntroducao {
+  position: relative;
+  max-width: 676px;
+  margin-inline: auto;
+}
+
+.casePagOutubroContent::before {
+  background-image: linear-gradient(#ffffff99, #ffffff99), var(--casePag-fundo);
+}
+
+.casePagEncontroContent::before {
+  background-image: linear-gradient(#ffffff99, #ffffff99), var(--casePag-fundo);
+}
+
+.casePagPortoContent::before {
+  background-color: #061b3a;
+  background-image: linear-gradient(#07152c99, #07152c99), var(--casePag-fundo);
+}
+
+.casePagMulherContent::before {
+  background-color: #3b0716;
+  background-image: linear-gradient(#20081099, #20081099), var(--casePag-fundo);
+}
+
+.casePagVaiContent::before, .casePagOdsContent::before, .casePagTudoBemContent::before, .casePagLiceuContent::before {
+  background-image: linear-gradient(#ffffff99, #ffffff99), var(--casePag-fundo);
+}
+
+.casePagLiceuContent::before {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  margin-bottom: 0;
+}
+
+.casePagOutubroContent, .casePagEncontroContent, .casePagPortoContent, .casePagMulherContent, .casePagVaiContent, .casePagOdsContent, .casePagTudoBemContent { min-height: 100svh; }
+
+.casePagEncontro article, .casePagPorto article, .casePagMulher article { position: relative; max-width: none; background: transparent; }
+
+.casePagOutubro .casePagIntroducao, .casePagEncontro .casePagIntroducao, .casePagPorto .casePagIntroducao, .casePagMulher .casePagIntroducao {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: center;
+  gap: 48px;
+  max-width: 1132px;
+}
+
+.casePagEncontro .casePagIntroducao, .casePagPorto .casePagIntroducao, .casePagMulher .casePagIntroducao { margin-inline: auto; align-items: start; }
+.casePagEncontro .casePagIntroducaoTexto > h2,
+.casePag .casePagOdsTexto > h2 {
+  font-size: 24px;
+  line-height: 1.35;
+  letter-spacing: 0;
+  font-variant-caps: normal;
+  color: var(--casePag-tinta);
+  margin-bottom: 24px;
+}
+.casePagEncontro .casePagIntroducaoTexto > p + p { margin-top: 20px; }
+
+.casePagIntroducaoTexto { min-width: 0; }
+
+.casePag .casePagOdsTexto > h3 {
+  margin: 32px 0 16px;
+  letter-spacing: 0;
+  color: var(--casePag-tinta);
+}
+.casePagOdsTexto > p {
+  max-width: 68ch;
+}
+.casePagOdsTexto > p + p { margin-top: 20px; }
+.casePagVai article, .casePagTudoBem article, .casePagLiceu article { position: relative; max-width: none; background: transparent; }
+.casePagVai .casePagIntroducao, .casePagTudoBem .casePagIntroducao, .casePagLiceu .casePagIntroducao {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: start;
+  gap: 48px;
+  max-width: 1132px;
+  margin-inline: auto;
+}
+.casePagVai .casePagIntroducaoTexto > p + p, .casePagTudoBem .casePagIntroducaoTexto > p + p { margin-top: 20px; }
+.casePagVideoColuna { min-width: 0; }
+.casePagLiceu .casePagVideoCelular { display: flex; justify-content: center; align-self: center; }
+@media (min-width: 901px) {
+  .casePagTudoBem .casePagVideoColuna { align-self: center; }
+}
+.casePagVideosEmpilhados { display: grid; gap: 24px; }
+.casePagEvento { margin-top: 28px; }
+.casePagEvento h3, .casePag .casePagOdsTexto > h3 { font-size: 20px; font-weight: 700; line-height: 1.4; }
+.casePagEvento h3 { margin: 0 0 12px; }
+.casePagEvento p { font-size: 18px; line-height: 1.6; margin: 0; }
+.casePagEvento p + p { margin-top: 16px; }
+.casePagIntroducaoTexto > p,
+.casePagOdsTexto > p,
+.casePag .casePagOdsTexto .casePagLista li {
+  font-size: 18px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+@media (max-width: 900px) {
+  .casePagVai .casePagIntroducao, .casePagTudoBem .casePagIntroducao, .casePagLiceu .casePagIntroducao { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+  .casePagOutubro .casePagIntroducao, .casePagEncontro .casePagIntroducao, .casePagPorto .casePagIntroducao, .casePagMulher .casePagIntroducao { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+  .casePagIntroducaoTexto > p,
+  .casePagOdsTexto > p,
+  .casePag .casePagOdsTexto .casePagLista li { font-size: 16px; }
+  .casePagEvento p { font-size: 16px; }
+}
+
+.casePagFicha { margin-bottom: 24px; }
+.casePag .casePagFicha h2 {
+  font-size: 20px;
+  line-height: 1.4;
+  letter-spacing: 0;
+  font-variant-caps: normal;
+  color: var(--casePag-tinta);
+  margin-bottom: 8px;
+}
+
+@media (max-width: 600px) {
+  .casePagEncontroContent::before { background-position: right center; }
+  .casePagBeachContent::before {
+    background-position: right center;
+    background-image: linear-gradient(#ffffff80, #ffffff80), url("/cases/BeachTennis/fundo-tenis.png");
+  }
+}
+
+/* ---------- contexto no hero (área escura) ---------- */
+
+.casePag .productHero.casePagHeroSomenteVideo {
+  min-height: 0;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  padding: 0;
+  margin: 104px 0 0;
+  border-radius: 0;
+}
+
+.casePagHeroSomenteVideo::before { display: none; }
+.casePagHeroSomenteVideo .productBackgroundVideo { object-fit: contain; }
+
+.casePagIntroducao h1 {
+  margin: 0 0 24px;
+  font-size: 40px;
+  font-weight: 780;
+  line-height: 1.12;
+  letter-spacing: 0;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 600px) {
+  .casePag .productHero.casePagHeroSomenteVideo { margin-top: 88px; }
+  .casePagIntroducao h1 { font-size: 30px; }
+}
+
+/* O .productHero já estiliza h1, p e .btn. Só a linha de contexto é nova.
+   A especificidade precisa ser (0,2,1) para empatar com
+   `.productHero > p:not(.eyebrow)` do original.css — o :not() não soma, mas o
+   .eyebrow dentro dele soma. No empate vence esta folha, importada depois.
+   Aqui o fundo é escuro, então o laranja cheio da marca pode entrar: 6,98:1. */
+.productHero > p.casePagContexto {
+  position: relative;
+  margin: 0 0 10px;
+  color: var(--orange, #ff7d00);
+  font-size: 14px;
+  font-weight: 650;
+  letter-spacing: 0.01em;
+}
+
+.productHero > p.casePagContexto + h1,
+.productHero h1 {
+  margin-top: 0;
+}
+
+/* ---------- blocos ---------- */
+
+.casePagBloco {
+  padding-block: clamp(26px, 4.5vh, 46px);
+  border-top: 1px solid var(--casePag-linha);
+}
+
+.casePag article > .casePagBloco:first-child {
+  border-top: 0;
+  padding-top: clamp(34px, 6vh, 64px);
+}
+
+.casePagBloco h2 {
+  margin: 0 0 18px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--casePag-roxo);
+  /* versalete tipográfico de verdade, não ALL CAPS forçado no texto */
+  font-variant-caps: all-small-caps;
+}
+
+.casePagBloco > p {
+  margin: 0;
+  max-width: 68ch;
+  font-size: clamp(16px, 1.8vw, 18px);
+  line-height: 1.6;
+}
+
+/* ---------- listas ---------- */
+
+.casePagLista {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 10px;
+}
+
+.casePagLista li {
+  position: relative;
+  padding-left: 22px;
+  max-width: 68ch;
+  font-size: clamp(16px, 1.8vw, 18px);
+  line-height: 1.55;
+}
+
+.casePagLista li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 10px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--casePag-laranja-fio);
+}
+
+.casePagCanais {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.casePagCanais li {
+  padding: 7px 14px;
+  border: 1px solid var(--casePag-linha);
+  border-radius: 999px;
+  font-size: 14px;
+  color: var(--casePag-apoio);
+}
+
+/* ---------- números ---------- */
+
+.casePagNumeros {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 20px 16px;
+}
+
+/* Sem gradiente. O número já é o elemento mais pesado da página; pintá-lo de
+   arco-íris é decoração, e é um dos padrões que o CLAUDE.md manda recusar. */
+.casePagNumeros dt {
+  font-size: clamp(26px, 3.6vw, 40px);
+  font-weight: 760;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  color: var(--casePag-tinta);
+}
+
+.casePagNumeros dd {
+  margin: 7px 0 0;
+  font-size: 14px;
+  line-height: 1.35;
+  color: var(--casePag-apoio);
+}
+
+/* ---------- destaques ---------- */
+
+.casePagDestaques {
+  display: grid;
+  gap: 1px;
+  background: var(--casePag-linha);
+  border: 1px solid var(--casePag-linha);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+@media (min-width: 720px) {
+  .casePagDestaques {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.casePagDestaque {
+  background: var(--casePag-superficie);
+  padding: 20px 22px;
+}
+
+.casePagDestaque h3 {
+  margin: 0 0 8px;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--casePag-tinta);
+}
+
+.casePagDestaque p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--casePag-apoio);
+}
+
+/* ---------- galeria (vagas até as imagens chegarem) ---------- */
+
+.casePagGaleria {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 14px;
+}
+
+.casePagVaga {
+  margin: 0;
+}
+
+.casePagVagaArea {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 4 / 3;
+  border: 1px dashed var(--casePag-linha);
+  border-radius: 8px;
+  background: var(--casePag-superficie);
+  padding: 10px;
+}
+
+.casePagVagaArea span {
+  font-size: 12px;
+  color: var(--casePag-apoio);
+  text-align: center;
+  word-break: break-all;
+}
+
+.casePagVaga figcaption {
+  margin-top: 9px;
+  font-size: 13px;
+  color: var(--casePag-apoio);
+}
+
+/* ---------- citação ---------- */
+
+.casePagCitacao {
+  margin: 0;
+  padding-left: 20px;
+  border-left: 2px solid var(--casePag-laranja-fio);
+  max-width: 62ch;
+  font-size: clamp(18px, 2.2vw, 22px);
+  line-height: 1.5;
+  letter-spacing: -0.015em;
+}
+
+/* ---------- fecho ---------- */
+
+.casePagFim {
+  padding-top: clamp(34px, 6vh, 60px);
+  border-top: 1px solid var(--casePag-linha);
+}
+
+.casePagFim h2 {
+  margin: 0 0 18px;
+  font-size: clamp(22px, 3vw, 30px);
+  font-weight: 740;
+  letter-spacing: -0.025em;
+}
+
+.casePagBotao {
+  display: inline-flex;
+  align-items: center;
+  min-height: 48px;
+  padding: 0 24px;
+  border-radius: 999px;
+  background: var(--casePag-tinta);
+  color: var(--casePag-papel);
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+  transition:
+    transform 200ms cubic-bezier(0.23, 1, 0.32, 1),
+    background-color 200ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .casePagBotao:hover {
+    background: var(--casePag-roxo);
+    transform: translate3d(0, -1px, 0);
+  }
+}
+
+.casePagBotao:focus-visible {
+  outline: 2px solid var(--casePag-roxo);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .casePagBotao {
+    transition: none;
+  }
+  .casePagBotao:hover {
+    transform: none;
+  }
+}

@@ -1,4 +1,74 @@
 /* As artes ja incluem inclinacao, borda e brilho; aparecem inteiras. */
+.section.method.processScroll {
+  position: relative;
+  isolation: isolate;
+  display: block;
+  overflow: visible;
+  padding: 0;
+  background: #120d1a;
+}
+
+.processScroll .headingJornada { margin-bottom: 0; gap: 32px; }
+.processScroll .headingJornada h2 { overflow: visible; letter-spacing: 0; line-height: 1.08; font-size: 64px; }
+.processScroll .headingJornada h2 strong {
+  display: inline-block;
+  padding: 0.06em 0.12em 0.12em;
+  margin: -0.06em -0.12em -0.12em;
+  line-height: 1.12;
+  overflow: visible;
+}
+
+.processScroll .metodoArtes[data-process-sequence] {
+  position: relative;
+  display: block;
+  height: 100%;
+  min-height: 0;
+  container-type: size;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+}
+
+.processScroll .metodoEtapaSequencial {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 0 40px;
+  transform-origin: center top;
+}
+
+.processScroll .metodoEtapaSequencial > div {
+  width: min(100%, 420px, calc((100cqh - 64px) * 0.8));
+}
+
+@media (max-width: 900px) {
+  .processScroll .headingJornada { gap: 16px; }
+  .processScroll .headingJornada h2 { font-size: 46px; }
+}
+
+@media (max-width: 600px) {
+  .processScroll .headingJornada { gap: 12px; }
+  .processScroll .headingJornada h2 { font-size: 34px; }
+  .processScroll .jornadaApoio { font-size: 13px; line-height: 1.5; }
+  .processScroll .jornadaRotulo { margin-bottom: 8px; }
+}
+
+@media (max-width: 360px) {
+  .processScroll .headingJornada h2 { font-size: 30px; }
+}
+
+@media (max-height: 520px) and (min-width: 500px) {
+  .processScroll .headingJornada { grid-template-columns: 1fr; gap: 12px; }
+  .processScroll .headingJornada h2 { font-size: 30px; }
+  .processScroll .jornadaApoio { font-size: 13px; line-height: 1.5; }
+}
+
+.metodoFundoMobile {
+  display: none;
+}
+
 .metodoArtes {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -68,6 +138,33 @@
 }
 
 @media (max-width: 600px) {
+  .section.method {
+    position: relative;
+    isolation: isolate;
+    overflow: visible;
+  }
+
+  .metodoFundoMobile {
+    display: block;
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+  }
+
+  .metodoFundoMobile > div {
+    position: sticky;
+    top: 0;
+    height: 100svh;
+    background-color: #120d1a;
+    background-image:
+      linear-gradient(#120d1a55, #120d1a55),
+      url("/midia/fundo-institucional.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
   .metodoArtes {
     grid-template-columns: minmax(0, 1fr);
     gap: 24px;
@@ -77,6 +174,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .processScroll .headingJornada { margin-bottom: 48px; }
   .metodoArte .metodoDestaque,
   .metodoArte:is(:hover, :focus, :focus-visible, :active) .metodoDestaque {
     transform: none;

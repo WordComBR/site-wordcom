@@ -73,13 +73,21 @@
   width: 100%;
   height: 100%;
   border-radius: 8px;
+  overflow: hidden;
   touch-action: manipulation;
 }
 
 .projectScrollCard img {
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  /* Fill the shared 3:1 frame; only excess transparent margins are cropped. */
+  object-fit: cover;
+  object-position: center;
+}
+
+/* The supplied Jornal artwork has a checkerboard outside its rounded banner. */
+.projectScrollCard [data-project="jornal-portuario"] img {
+  clip-path: inset(16.2% 1.6% 13.5% 1.6% round 2.1% / 6.3%);
 }
 
 .projectScrollCard a:focus-visible {

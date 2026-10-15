@@ -12,6 +12,8 @@
 
 /* Cases em coverflow 3D sobre video de fundo com opacidade reduzida. */
 @import "./cases.css";
+/* Paginas individuais dos cases de campanha (/cases/<slug>). */
+@import "./cases-pagina.css";
 
 /* Solucoes em anel 3D e metodologia com as quatro artes numeradas. */
 @import "./solucoes-anel.css";

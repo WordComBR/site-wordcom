@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
-import { Cookie, Settings2, X } from "lucide-react";
+import { Check, Cookie, Settings2, X } from "lucide-react";
 import {
   abrirPreferenciasCookies, assinarPreferenciasCookies, interpretarPreferencias,
   lerPreferenciasCookies, salvarPreferenciasCookies,
@@ -64,14 +64,16 @@ export function ConsentimentoCookies() {
 
   return <>
     {mostrarAviso && <section ref={faixa} className={styles.banner} aria-labelledby="cookies-titulo">
-      <div className={styles.bannerText}>
-        <h2 id="cookies-titulo"><Cookie size={22} aria-hidden="true" />Sua privacidade importa</h2>
-        <p>Você escolhe se permite cookies de análise e publicidade. Os recursos opcionais estão desativados nesta versão. <Link href="/politica-de-cookies">Saiba mais</Link></p>
-      </div>
-      <div className={styles.actions}>
-        <button type="button" onClick={() => salvar(false, false)}>Rejeitar opcionais</button>
-        <button type="button" onClick={abrirPreferenciasCookies}>Personalizar</button>
-        <button type="button" onClick={() => salvar(true, true)}>Aceitar todos</button>
+      <div className={styles.bannerInner}>
+        <div className={styles.bannerText}>
+          <h2 id="cookies-titulo"><Cookie size={20} aria-hidden="true" />Sua privacidade, sua escolha</h2>
+          <p>Você decide quais cookies opcionais permite. Análise e publicidade seguem desativadas nesta versão. <Link href="/politica-de-cookies">Política de cookies</Link></p>
+        </div>
+        <div className={styles.actions}>
+          <button type="button" onClick={() => salvar(false, false)}>Rejeitar opcionais</button>
+          <button type="button" onClick={() => salvar(true, true)}>Aceitar todos</button>
+          <button type="button" className={styles.customize} onClick={abrirPreferenciasCookies}><Settings2 size={16} aria-hidden="true" />Personalizar</button>
+        </div>
       </div>
     </section>}
     <dialog ref={dialogo} className={styles.dialog} aria-labelledby="cookies-preferencias-titulo" aria-describedby="cookies-descricao" onCancel={(e) => { e.preventDefault(); fechar(); }}>
@@ -82,15 +84,15 @@ export function ConsentimentoCookies() {
       <p id="cookies-descricao">Escolha quais recursos opcionais você permite. É possível mudar sua decisão a qualquer momento pelo rodapé.</p>
       <div className={styles.category}>
         <div><h3>Necessários</h3><p>Guardam sua escolha de privacidade neste navegador por até 180 dias.</p></div>
-        <span className={styles.required}>Sempre ativos</span>
+        <span className={styles.required}><Check size={14} aria-hidden="true" />Sempre ativos</span>
       </div>
       <label className={styles.category}>
         <div><h3>Análise</h3><p>Permitem medir visitas e navegação, com ferramentas como o Google Analytics.</p></div>
-        <input type="checkbox" checked={analise} onChange={(e) => setAnalise(e.target.checked)} aria-label="Permitir cookies de análise" />
+        <input type="checkbox" role="switch" checked={analise} onChange={(e) => setAnalise(e.target.checked)} aria-label="Permitir cookies de análise" />
       </label>
       <label className={styles.category}>
         <div><h3>Publicidade</h3><p>Permitem medir campanhas e ações relacionadas a anúncios, com ferramentas como o Meta Pixel.</p></div>
-        <input type="checkbox" checked={publicidade} onChange={(e) => setPublicidade(e.target.checked)} aria-label="Permitir cookies de publicidade" />
+        <input type="checkbox" role="switch" checked={publicidade} onChange={(e) => setPublicidade(e.target.checked)} aria-label="Permitir cookies de publicidade" />
       </label>
       <p className={styles.note}>Analytics, Meta Pixel e GTM ainda não estão ativados neste novo site. Salvar sua preferência não instala essas ferramentas. <Link href="/politica-de-cookies" onClick={fechar}>Política de cookies</Link></p>
       <div className={styles.dialogActions}>

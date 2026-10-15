@@ -196,8 +196,9 @@ principalmente em `padding`/`margin` entre seções.
 # Ambiente
 
 - Node 24 / npm 11 · Python 3.13 (user scope) · git 2.56
-- `skills/` = material de referência clonado (4 repos git aninhados). **Colocar no
-  `.gitignore`** quando o projeto virar repositório.
+- `skills/` = material de referência clonado (4 repos git aninhados) e `reference/` já
+  estão no `.gitignore` — pendência resolvida. Manter assim: os 4 `.git` aninhados
+  entrariam como submódulo quebrado se versionados.
 - `.agents/skills/frontend-design` = instalada via `npx skills add`, com symlink p/ Claude Code
 - **Pendente:** o engine binário do `impeccable` não foi baixado (precisa de OK do dono
   ou `npx impeccable install`). Sem ele, `critique`/`audit`/`detect`/`live` não rodam — as

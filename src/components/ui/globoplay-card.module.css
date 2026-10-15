@@ -1,0 +1,10 @@
+.card { display: block; width: 100%; overflow: hidden; border: 1px solid #21212126; border-radius: 8px; background: #fff; color: #212121; text-decoration: none; box-shadow: 0 8px 24px #120d1a1a; }
+.preview { position: relative; width: 100%; aspect-ratio: 16 / 9; background: #041e43; }
+.preview img { object-fit: cover; }
+.preview::after { content: ""; position: absolute; inset: 0; background: #041e4340; }
+.play { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); z-index: 1; display: grid; place-items: center; width: 72px; height: 56px; border-radius: 8px; background: #0075b8; color: #fff; }
+.card:hover .play { background: #00548a; }
+.caption { display: grid; gap: 8px; padding: 16px 20px; }
+.caption strong { font-size: 18px; line-height: 1.4; }
+.caption span { display: flex; align-items: center; gap: 8px; font-size: 14px; line-height: 1.5; color: #075987; }
+.card:focus-visible { outline: 3px solid #0075b8; outline-offset: 4px; }

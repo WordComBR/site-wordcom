@@ -200,6 +200,20 @@
   }
 }
 
+@media (max-width: 780px) {
+  /* Lighter veil for the mobile film; desktop keeps its original contrast. */
+  .seqVeu {
+    background: linear-gradient(0deg, #0d050f66 0%, #0d050f26 46%, #0d050f00 100%);
+  }
+}
+
+@media (max-width: 900px) and (max-height: 520px) {
+  .seqFrase { padding: 88px 22px 24px; }
+  .seqTitulo { font-size: 32px; line-height: 1.08; letter-spacing: 0; }
+  .seqFrase--longa .seqTitulo { font-size: 28px; }
+  .seqApoio { margin-top: 12px; font-size: 14px; line-height: 1.45; max-width: 48ch; }
+}
+
 /* --------------------------------------------------------------------------
    Movimento reduzido: um quadro fixo, a primeira frase legível, trilha sem
    altura extra. Nada depende de rolagem para existir.

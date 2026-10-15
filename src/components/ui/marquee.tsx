@@ -1,45 +1,22 @@
 "use client";
 
-import { useSyncExternalStore, type HTMLAttributes } from "react";
-import FastMarquee, { type MarqueeProps as FastMarqueeProps } from "react-fast-marquee";
+import type { CSSProperties, HTMLAttributes } from "react";
 
-export type MarqueeProps = HTMLAttributes<HTMLDivElement>;
-export type MarqueeContentProps = FastMarqueeProps;
-export type MarqueeFadeProps = HTMLAttributes<HTMLDivElement> & { side: "left" | "right" };
-export type MarqueeItemProps = HTMLAttributes<HTMLDivElement>;
+export type MarqueeProps = HTMLAttributes<HTMLDivElement> & {
+  pauseOnHover?: boolean;
+  direction?: "left" | "right";
+  speed?: number;
+};
 
-function subscribeReducedMotion(onChange: () => void) {
-  const query = window.matchMedia("(prefers-reduced-motion: reduce)");
-  query.addEventListener("change", onChange);
-  return () => query.removeEventListener("change", onChange);
-}
-
-function getReducedMotion() {
-  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-}
-
-export const Marquee = ({ className = "", ...props }: MarqueeProps) => (
-  <div className={`marqueeRoot ${className}`} {...props} />
-);
-
-export function MarqueeContent({
-  loop = 0, autoFill = true, pauseOnHover = true, children, ...props
-}: MarqueeContentProps) {
-  const reducedMotion = useSyncExternalStore(subscribeReducedMotion, getReducedMotion, () => true);
-
-  if (reducedMotion) return <div className="marqueeStatic">{children}</div>;
-
+export function Marquee({ children, className = "", pauseOnHover = false,
+  direction = "left", speed = 30, style, ...props }: MarqueeProps) {
   return (
-    <FastMarquee loop={loop} autoFill={autoFill} pauseOnHover={pauseOnHover} {...props}>
-      {children}
-    </FastMarquee>
+    <div className={`marqueeRoot ${pauseOnHover ? "marqueePauseOnHover" : ""} ${className}`}
+      style={{ ...style, "--marquee-duration": `${Number.isFinite(speed) && speed > 0 ? speed : 30}s` } as CSSProperties} {...props}>
+      <div className="marqueeTrack" style={{ animationDirection: direction === "right" ? "reverse" : "normal" }}>
+        <div className="marqueeGroup">{children}</div>
+        <div className="marqueeGroup marqueeDuplicate" aria-hidden="true" inert>{children}</div>
+      </div>
+    </div>
   );
 }
-
-export const MarqueeFade = ({ className = "", side, ...props }: MarqueeFadeProps) => (
-  <div className={`marqueeFade marqueeFade-${side} ${className}`} aria-hidden="true" {...props} />
-);
-
-export const MarqueeItem = ({ className = "", ...props }: MarqueeItemProps) => (
-  <div className={`marqueeItem ${className}`} {...props} />
-);

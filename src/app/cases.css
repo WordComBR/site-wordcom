@@ -112,25 +112,52 @@
     box-shadow var(--tempo) var(--curva);
 }
 
+.cases3dMedia {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Match these frames to their artwork while keeping the carousel height stable. */
+.cases3dCard[data-formato="natural"] {
+  width: min(var(--card), calc(var(--card) / var(--proporcao) * var(--case-crop-ratio)));
+  aspect-ratio: var(--case-crop-ratio);
+}
+
+.cases3dCrop {
+  position: relative;
+  width: min(100%, calc(var(--card) / var(--proporcao) * var(--case-crop-ratio)));
+  overflow: hidden;
+}
+
+.cases3dCard[data-encaixe="contain"] .cases3dCrop {
+  width: 100%;
+  height: 100%;
+}
+
 .cases3dCard img {
   position: absolute;
-  left: -2.31214%;
-  top: -3.33333%;
-  width: 104.62428%;
   max-width: none;
-  height: 106.47059%;
-  object-fit: contain;
   display: block;
 }
 
-/* as três posições do coverflow. Com três artes só existem estas três. */
+/* Only the active card and its immediate neighbors are shown. */
+.cases3dCard[data-pos="oculto"] {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: scale(0.75);
+  z-index: 0;
+}
 .cases3dCard[data-pos="centro"] {
   transform: translateX(0) scale(1) rotateY(0deg);
   opacity: 1;
   z-index: 3;
   filter: none;
   box-shadow: 0 26px 60px #000000a6;
-  cursor: default;
+  cursor: pointer;
 }
 
 .cases3dCard[data-pos="direita"] {
@@ -175,53 +202,15 @@
   touch-action: manipulation;
 }
 
-/* o CTA real, só no card central.
-   CONTRASTE: a arte por baixo é variável, então o texto não pode depender
-   dela. O scrim abaixo compõe para ~#212121 na faixa do rótulo, que é o
-   mesmo fundo do resto do site — #f9f9f9 sobre ele dá 15.29:1 medido, e
-   mesmo com a arte em branco puro a faixa não sobe acima de ~#2e2e2e
-   (12.9:1). Passa AA com folga em qualquer arte que você use. */
+/* O link transparente cobre o card inteiro, sem acrescentar texto à arte. */
 .cases3dCta {
   position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  inset: 0;
   z-index: 2;
-
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  /* 44px de alvo de toque contando o padding, sem inchar o rótulo */
-  min-height: 44px;
-  padding: 14px 20px 17px;
-
-  color: #f9f9f9;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-
-  background: linear-gradient(0deg, #212121f2 0%, #212121d9 52%, #21212100 100%);
-  touch-action: manipulation;
+  cursor: pointer;
+  touch-action: pan-y;
   user-select: none;
   -webkit-user-select: none;
-
-  transition:
-    color 160ms var(--curva),
-    gap 160ms var(--curva);
-}
-
-.cases3dCta svg {
-  flex: none;
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .cases3dCta:hover {
-    color: #ff7d00;
-    /* o ícone se afasta 4px: o movimento diz "isto leva a outro lugar"
-       sem precisar de sublinhado nem de caixa */
-    gap: 14px;
-  }
 }
 
 .cases3dCta:focus-visible {
@@ -311,10 +300,6 @@
     opacity: 0.26;
   }
 
-  .cases3dCta {
-    padding: 12px 16px 14px;
-    letter-spacing: 0.1em;
-  }
 }
 
 /* --------------------------------------------------------------------------
@@ -333,6 +318,7 @@
   .cases3dCard[data-pos="direita"],
   .cases3dCard[data-pos="esquerda"] {
     opacity: 0;
+    visibility: hidden;
     pointer-events: none;
   }
 
@@ -340,11 +326,7 @@
     transform: none;
   }
 
-  .cases3dCta {
-    transition: color 160ms linear;
-  }
-
-  .cases3dCta:hover {
-    gap: 10px;
+  .cases3dControles .cases3dRotacao {
+    display: none;
   }
 }

@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.2.21",
+    "embla-carousel": "^8.6.0",
+    "embla-carousel-react": "^8.6.0",
     "gsap": "^3.15.0",
     "lucide-react": "^1.52.0",
     "motion": "^14.0.0",

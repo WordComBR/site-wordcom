@@ -37,7 +37,7 @@ import {
       espelhado é ilegível. backface-visibility esconde o verso.
    3. Sem espera de imagem: não há imagem para decodificar.
    4. Sem legenda e sem contador. O card já traz número e título.
-   5. Giro automático lento, suspenso durante interação e fora da tela.
+   5. Giro continuo com mouse/toque; pausa no arraste, foco de teclado e fora da tela.
    6. Cards que não estão de frente recebem inert. Sem isso o Tab entra no link
       de um card que está de costas. */
 
@@ -151,7 +151,6 @@ export function SolucoesAnel({
     pitch: 0,
     subida: null as null | { inicio: number },
     subiu: false,
-    reterAte: 0,
     engolirClique: false,
     encaixe: 1,
     desloca: 0,
@@ -278,8 +277,6 @@ export function SolucoesAnel({
         !estado.quieto &&
         !estado.focado &&
         !estado.toque &&
-        !estado.ponteiro.dentro &&
-        agora >= estado.reterAte &&
         Math.abs(estado.velocidade) < 0.01
       ) {
         estado.angulo -= GIRO_AUTOMATICO * dt;
@@ -296,8 +293,6 @@ export function SolucoesAnel({
           Math.abs(estado.velocidade) > 0.01 ||
           estado.alvo !== null;
       }
-
-      if (agora < estado.reterAte) ocupado = true;
 
       const suave = 1 - Math.exp(-dt / 0.35);
       const forca = estado.quieto ? 0 : PARALLAX;
@@ -430,7 +425,6 @@ export function SolucoesAnel({
     let alvo = -i * m.passo;
     alvo += 360 * Math.round((estado.angulo - alvo) / 360);
     estado.alvo = alvo;
-    estado.reterAte = performance.now() + 2800;
     acordarRef.current();
   }, []);
 
@@ -439,7 +433,6 @@ export function SolucoesAnel({
     const m = medidasRef.current;
     const base = estado.alvo ?? Math.round(estado.angulo / m.passo) * m.passo;
     estado.alvo = base - delta * m.passo;
-    estado.reterAte = performance.now() + 2800;
     acordarRef.current();
   }, []);
 
@@ -515,7 +508,6 @@ export function SolucoesAnel({
     const toque = estado.toque;
     if (!toque || toque.id !== ev.pointerId) return;
     estado.toque = null;
-    estado.reterAte = performance.now() + 2800;
     acordarRef.current();
     if (!toque.moveu) return;
     estado.arrasto = false;
@@ -675,14 +667,17 @@ export function SolucoesAnel({
   return (
     <div
       className="solucoesDupla"
-      onFocusCapture={() => {
-        estadoRef.current.focado = true;
+      onPointerDownCapture={() => {
+        estadoRef.current.focado = false;
+        acordarRef.current();
+      }}
+      onFocusCapture={(event) => {
+        estadoRef.current.focado = event.target.matches(":focus-visible");
         acordarRef.current();
       }}
       onBlurCapture={(event) => {
         if (event.currentTarget.contains(event.relatedTarget as Node | null)) return;
         estadoRef.current.focado = false;
-        estadoRef.current.reterAte = performance.now() + 2800;
         acordarRef.current();
       }}
     >

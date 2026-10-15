@@ -34,6 +34,7 @@ const PAD = 4;
    0.09 a imagem fica tantos quadros atrás que o texto anuncia uma coisa e a
    tela mostra outra. A suavidade vem da densidade de quadros, não daqui. */
 const LERP = 0.1;
+const LERP_MOBILE = 0.08;
 
 /* Dwell suave: as três frases estão todas no trecho final, e com pico alto a
    densidade do fim engoliria o orçamento de rolagem — o começo do filme
@@ -79,7 +80,7 @@ export function HeroSequencia() {
 
     const acervos = {
       desktop: criarAcervo("/midia/sequencia/desktop"),
-      mobile: criarAcervo("/midia/sequencia/mobile-polvo"),
+      mobile: criarAcervo("/midia/sequencia/mobile-teste-20261009"),
     };
 
     let usaMobile = mqMobile.matches;
@@ -91,6 +92,8 @@ export function HeroSequencia() {
     let trilhaTopo = 0;
     let trilhaCurso = 1;
     let vivo = true;
+    let ultimoTique = 0;
+    let ultimoPrioritario = -1;
 
     const visibilidade = new WeakMap<HTMLElement, boolean>();
 
@@ -236,11 +239,29 @@ export function HeroSequencia() {
       }
     }
 
-    function tique() {
+    function tique(agora = performance.now()) {
       if (!vivo || !paginaVisivel || quieto) return;
       const efetivo = progressoEfetivo();
       const alvo = efetivo * (QUADROS - 1);
-      quadroAtual += (alvo - quadroAtual) * LERP;
+      const delta = ultimoTique ? Math.min(agora - ultimoTique, 50) : 1000 / 60;
+      ultimoTique = agora;
+      const fator = usaMobile
+        ? 1 - Math.pow(1 - LERP_MOBILE, delta / (1000 / 60))
+        : LERP;
+
+      if (usaMobile) {
+        const prioritario = Math.round(alvo);
+        if (ultimoPrioritario < 0 || Math.abs(prioritario - ultimoPrioritario) >= 4) {
+          ultimoPrioritario = prioritario;
+          // Fetch the visible neighborhood before the background batch reaches it.
+          for (const deslocamento of [0, 1, -1, 2, -2]) {
+            const n = prioritario + deslocamento;
+            if (n >= 0 && n < QUADROS) void carregar(n);
+          }
+        }
+      }
+
+      quadroAtual += (alvo - quadroAtual) * fator;
       desenhar(Math.round(quadroAtual));
       atualizarCapitulos(efetivo);
       raf = requestAnimationFrame(tique);
@@ -287,6 +308,8 @@ export function HeroSequencia() {
 
     async function trocarAcervo(ev: MediaQueryListEvent) {
       usaMobile = ev.matches;
+      ultimoPrioritario = -1;
+      ultimoTique = 0;
       acervo = usaMobile ? acervos.mobile : acervos.desktop;
       ultimoDesenhado = -1;
       redimensionar();
@@ -309,6 +332,7 @@ export function HeroSequencia() {
     const aoTrocarAba = () => {
       paginaVisivel = !document.hidden;
       if (paginaVisivel && !quieto) {
+        ultimoTique = 0;
         cancelAnimationFrame(raf);
         tique();
       }

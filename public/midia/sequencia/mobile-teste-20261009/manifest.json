@@ -1,0 +1,12 @@
+{
+  "source": "faça_com_essa_resolução_1080p_20261009143653.mp4",
+  "duration": 8,
+  "sourceResolution": "1080x1920",
+  "resolution": "720x1280",
+  "fps": 30,
+  "frameCount": 240,
+  "format": "webp",
+  "quality": 75,
+  "namingPattern": "frame-{NNNN}.webp",
+  "purpose": "Local-only mobile hero animation trial"
+}

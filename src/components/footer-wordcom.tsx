@@ -11,7 +11,6 @@ type FooterWordcomProps = {
 };
 
 const navegacao = [
-  { nome: "Nosso processo", href: "#metodologia" },
   { nome: "Experiência setorial", href: "#setores" },
   { nome: "Cases", href: "#cases" },
   { nome: "Nossas marcas", href: "#clientes" },

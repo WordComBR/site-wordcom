@@ -1,0 +1,115 @@
+.scene {
+  position: relative;
+  height: calc(100svh + 900px);
+  isolation: isolate;
+  background: #120d1a;
+}
+
+.scene[data-expansion-hero] { align-content: normal; }
+
+.stage {
+  --media-start-width: 300px;
+  --media-start-height: var(--media-desktop-height, 400px);
+  --expansion-x: max(0px, calc((100vw - var(--media-start-width)) / 2));
+  --expansion-y: max(0px, calc((100svh - var(--media-start-height)) / 2));
+  position: sticky;
+  top: 0;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100svh;
+  overflow: hidden;
+}
+
+.background, .media, .veil { position: absolute; inset: 0; }
+.background img { object-fit: cover; }
+.background::after { content: ""; position: absolute; inset: 0; background: #120d1a99; }
+.media { background: #120d1a; }
+.videoPanel { position: absolute; inset: 0; }
+.video { width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
+.imagePanel { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); background: #fff; }
+.imagePanel img { object-fit: contain; padding: 24px; }
+.imageFill img { object-fit: cover; padding: 0; }
+.veil { background: #000; pointer-events: none; }
+
+.title {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 12px;
+  width: min(100%, 1100px);
+  margin: 0;
+  padding-inline: 24px;
+  color: #f9f9f9;
+  font-size: 64px;
+  font-weight: 780;
+  line-height: 1.12;
+  letter-spacing: 0;
+  text-align: center;
+  text-shadow: 0 3px 18px #0009;
+  pointer-events: none;
+}
+
+.title span { display: block; text-wrap: balance; }
+.hiddenTitle { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+.title .highlight {
+  width: fit-content;
+  justify-self: center;
+  padding: 0.08em 0.12em;
+  margin: -0.08em -0.12em;
+  background: var(--titulo-destaque);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  text-shadow: none;
+}
+
+@media (max-width: 900px) { .title { font-size: 48px; } }
+@media (max-width: 600px) { .title { font-size: 32px; padding-inline: 20px; } }
+@media (max-width: 360px) { .title { font-size: 28px; } }
+
+@media (max-width: 900px) {
+  .stage {
+    --case-header-space: calc(96px + env(safe-area-inset-top, 0px));
+    --media-start-width: min(300px, calc(100vw - 40px), calc((100svh - 2 * var(--case-header-space) - 40px) * var(--media-aspect)));
+    --media-start-height: calc(var(--media-start-width) / var(--media-aspect));
+  }
+
+  /* The proportional opening frame grows into edge-to-edge media. */
+  .videoPanel {
+    inset: auto;
+    left: 50%;
+    top: 50%;
+    width: var(--media-width);
+    height: var(--media-height);
+    transform: translate(-50%, -50%);
+  }
+  .video, .imagePanel img, .imageFill img { object-fit: cover; padding: 0; }
+  .imagePanel { background: transparent; }
+  .title { min-width: 0; overflow-wrap: break-word; }
+
+  /* Keep lettering intact while the surrounding hero still fills the viewport. */
+  .stage[data-mobile-media="complete"] .background { opacity: 1 !important; }
+  .stage[data-mobile-media="complete"] .media { background: transparent; }
+  .stage[data-mobile-media="complete"] :is(.video, .imagePanel img) {
+    object-fit: contain;
+    object-position: center;
+    padding:
+      calc(var(--case-header-space) * var(--media-progress))
+      calc(16px * var(--media-progress))
+      calc((24px + env(safe-area-inset-bottom, 0px)) * var(--media-progress));
+  }
+}
+
+@media (max-width: 900px) and (max-height: 520px) {
+  .title { font-size: 30px; gap: 8px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scene { height: 100svh; }
+  .stage { position: relative; }
+  .media { clip-path: none !important; }
+  .title { opacity: 1 !important; }
+  .title span { transform: none !important; }
+  .veil { opacity: 0.72 !important; }
+}

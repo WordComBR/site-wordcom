@@ -1,6 +1,12 @@
+.section.clients {
+  --clients-title-inset: 8vw;
+  padding-inline: 0;
+}
+
 .clients .heading {
   grid-template-columns: minmax(0, 1fr);
   margin-bottom: 64px;
+  padding-inline: var(--clients-title-inset);
 }
 
 .clientsMarquee {
@@ -13,68 +19,73 @@
   overflow: hidden;
 }
 
-.marqueeItem {
+.clients .clientsMarquee .marqueeRoot {
+  background: #ffffff;
+  padding-block: 36px;
+  mask-image: none;
+  -webkit-mask-image: none;
+}
+
+.marqueeTrack {
+  display: flex;
+  width: max-content;
+  animation: clientsMarqueeScroll var(--marquee-duration, 30s) linear infinite;
+}
+
+.marqueeGroup {
+  display: flex;
+  align-items: center;
   flex-shrink: 0;
-  margin-inline: 32px;
+  gap: 64px;
+  padding-inline-end: 64px;
 }
 
 .clientBrand {
+  --logo-height: 144px;
   display: flex;
+  flex: 0 0 240px;
   align-items: center;
   justify-content: center;
-  width: 208px;
-  height: 208px;
-  padding: 32px;
-  border-radius: 50%;
+  width: 240px;
+  height: var(--logo-height);
+}
+
+.clientBrandCrop {
+  position: relative;
+  width: min(100%, var(--logo-width-desktop));
   overflow: hidden;
-  background: #ffffff;
-  color: #f9f9f9;
-  text-align: center;
-  font-size: 22px;
-  font-weight: 750;
-  line-height: 1.2;
-  letter-spacing: 0;
 }
 
 .clientBrand img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
-
-.marqueeFade {
   position: absolute;
-  inset-block: 0;
-  z-index: 1;
-  width: 64px;
-  pointer-events: none;
+  max-width: none;
+  mix-blend-mode: multiply;
 }
 
-.marqueeFade-left {
-  left: 0;
-  background: linear-gradient(to right, #15101c, transparent);
+@keyframes clientsMarqueeScroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
 }
 
-.marqueeFade-right {
-  right: 0;
-  background: linear-gradient(to left, #15101c, transparent);
+@media (hover: hover) {
+  .marqueePauseOnHover:hover .marqueeTrack { animation-play-state: paused; }
 }
 
-.marqueeStatic {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 24px;
+@media (max-width: 900px) {
+  .section.clients { --clients-title-inset: 6vw; }
 }
 
 @media (max-width: 600px) {
+  .section.clients { --clients-title-inset: 22px; }
   .clients .heading { margin-bottom: 40px; }
-  .marqueeItem { margin-inline: 20px; }
-  .clientBrand { width: 160px; height: 160px; padding: 24px; font-size: 18px; }
-  .marqueeFade { width: 32px; }
+  .clients .marqueeRoot { padding-block: 24px; }
+  .marqueeGroup { gap: 40px; padding-inline-end: 40px; }
+  .clientBrand { --logo-height: 112px; width: 180px; flex-basis: 180px; }
+  .clientBrandCrop { width: min(100%, var(--logo-width-mobile)); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .marqueeFade { display: none; }
-  .marqueeStatic .marqueeItem { margin: 0; }
+  .marqueeTrack { width: 100%; animation: none; }
+  .marqueeGroup { width: 100%; flex-wrap: wrap; justify-content: center; gap: 32px; padding: 0; }
+  .marqueeDuplicate { display: none; }
 }

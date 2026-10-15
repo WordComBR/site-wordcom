@@ -1,0 +1,38 @@
+.scroll { position: relative; height: 300svh; }
+.sticky {
+  position: sticky;
+  top: 0;
+  display: grid;
+  place-items: center;
+  height: 100svh;
+  padding: 104px 24px 32px;
+  overflow: hidden;
+  perspective: 1000px;
+  perspective-origin: center top;
+}
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  width: min(100%, 1180px, calc((100svh - 200px) * 1.6));
+  transform-origin: center center;
+  transform-style: preserve-3d;
+}
+.column { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+
+@media (max-width: 600px) {
+  .sticky { padding: 92px 16px 24px; }
+  .gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; width: min(100%, calc((100svh - 200px) * 0.64)); }
+  .column { gap: 10px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll { height: auto; }
+  .sticky { position: relative; height: auto; padding-block: 32px; overflow: visible; perspective: none; }
+  .gallery { width: min(100%, 1180px); transform: none !important; }
+  .column { transform: none !important; }
+}
+
+@media (max-height: 520px) and (min-width: 500px) {
+  .gallery { grid-template-columns: repeat(3, minmax(0, 1fr)); width: min(100%, calc((100svh - 160px) * 1.6)); }
+}

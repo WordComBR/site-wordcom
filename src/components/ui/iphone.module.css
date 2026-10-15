@@ -1,0 +1,24 @@
+.phone {
+  position: relative;
+  width: min(260px, calc(100% - 16px));
+  flex: 0 1 260px;
+  margin: 0 auto;
+  padding: 6px;
+  border: 4px solid #000;
+  border-radius: 32px;
+  background: #212121;
+  box-shadow: 0 8px 20px #00000026;
+}
+.screen { position: relative; width: 100%; aspect-ratio: 9 / 16; border-radius: 22px; overflow: hidden; background: #000; }
+.screen video { display: block; width: 100%; height: 100%; object-fit: contain; }
+.screen video:focus-visible { outline: 3px solid #fff; outline-offset: -4px; }
+.notch {
+  position: absolute; top: 3px; left: 50%; transform: translateX(-50%);
+  width: 74px; height: 9px; border-radius: 0 0 8px 8px; background: #000;
+  z-index: 1; pointer-events: none;
+}
+.sideButton { position: absolute; width: 4px; border-radius: 2px; background: #000; pointer-events: none; }
+.volumeUp, .volumeDown { left: -7px; height: 26px; }
+.volumeUp { top: 90px; }
+.volumeDown { top: 124px; }
+.power { right: -7px; top: 96px; height: 44px; }

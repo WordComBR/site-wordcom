@@ -1,0 +1,50 @@
+@media (max-width: 600px) {
+  .list[data-scroll-cards] {
+    display: block;
+    max-width: none;
+  }
+
+  .list[data-scroll-cards]::after {
+    content: "";
+    display: block;
+    height: 50svh;
+  }
+
+  .list > .item {
+    position: sticky;
+    top: 0;
+    z-index: var(--scroll-card-index);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100svh;
+    padding-block: calc(92px + env(safe-area-inset-top, 0px))
+      calc(32px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .list > .item > div {
+    width: min(100%, 440px, calc((100svh - 160px) * 0.8));
+  }
+}
+
+@media (max-width: 600px) and (prefers-reduced-motion: reduce) {
+  .list[data-scroll-cards] {
+    display: grid;
+    gap: 24px;
+    max-width: 440px;
+  }
+
+  .list[data-scroll-cards]::after {
+    display: none;
+  }
+
+  .list > .item {
+    position: relative;
+    height: auto;
+    padding-block: 0;
+  }
+
+  .list > .item > div {
+    width: 100%;
+  }
+}

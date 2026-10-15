@@ -1,0 +1,5 @@
+.region { width: 100%; background: transparent; }
+.backdrop { background: transparent; }
+.photo { margin: 0; border-radius: 8px; overflow: hidden; aspect-ratio: 8 / 5; background: #e9edf0; }
+.photo img { display: block; width: 100%; height: 100%; object-fit: cover; }
+

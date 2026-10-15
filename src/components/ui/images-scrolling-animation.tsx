@@ -1,20 +1,20 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { motion, useReducedMotion, useScroll, useTransform, type MotionValue } from "motion/react";
 import { useRef } from "react";
 
 const projects = [
-  { title: "ENIP", slug: "enip", image: "11_55_09" },
-  { title: "Jornal Portuário", slug: "jornal-portuario", image: "11_58_29" },
-  { title: "Empreenda Sim", slug: "empreenda-sim", image: "12_02_03" },
+  { title: "ENIP", slug: "enip", href: "https://encontroindustriaporto.com.br/", image: "/midia/projetos/enip-d87f8285f68e.png" },
+  { title: "Jornal Portuário", slug: "jornal-portuario", href: "https://jornalportuario.com.br/", image: "/midia/projetos/jornal-portuario-6b6769e117f6.png" },
+  { title: "Empreenda Sim", slug: "empreenda-sim", href: "https://empreendasim.com.br/", image: "/midia/projetos/empreenda-sim-6ae463d6ba87.png" },
 ];
 
 type StickyCardProps = {
   i: number;
   title: string;
   slug: string;
+  href: string;
   src: string;
   progress: MotionValue<number>;
   range: [number, number];
@@ -23,7 +23,7 @@ type StickyCardProps = {
 };
 
 export function StickyCard_001({
-  i, title, slug, src, progress, range, targetScale, reducedMotion,
+  i, title, slug, href, src, progress, range, targetScale, reducedMotion,
 }: StickyCardProps) {
   const transform = useTransform(progress, range, ["scale(1)", `scale(${targetScale})`]);
 
@@ -35,7 +35,7 @@ export function StickyCard_001({
           transform: reducedMotion ? "none" : transform,
         }}
       >
-        <Link href={`/projetos/${slug}`} aria-label={`Conhecer o projeto ${title}`}>
+        <a href={href} target="_blank" rel="noopener noreferrer" data-project={slug} aria-label={`Conhecer o projeto ${title} (abre em nova aba)`}>
           <Image
             src={src}
             alt={`Projeto ${i + 1}: ${title}`}
@@ -43,7 +43,7 @@ export function StickyCard_001({
             height={724}
             sizes="(min-width: 1334px) 1120px, (max-width: 600px) 94vw, 84vw"
           />
-        </Link>
+        </a>
       </motion.div>
     </div>
   );
@@ -66,7 +66,8 @@ export function ImagesScrollingAnimation() {
           i={i}
           title={project.title}
           slug={project.slug}
-          src={`/Cards-projetos/Imagem do ChatGPT 7 de out. de 2026, ${project.image}.png`}
+          href={project.href}
+          src={project.image}
           progress={scrollYProgress}
           range={[i * 0.2, 1]}
           targetScale={Math.max(0.6, 1 - (projects.length - i - 1) * 0.08)}
