@@ -22,4 +22,3 @@ Site institucional da WordCom, desenvolvido para apresentar a agência, suas sol
 - **FFmpeg e FFprobe:** processamento de vídeos e geração de frames.
 - **ESLint, TypeScript, Node.js Test Runner e Playwright:** verificações de código, testes automatizados e conferência visual.
 - **Vercel:** hospedagem e variáveis de ambiente.
-
