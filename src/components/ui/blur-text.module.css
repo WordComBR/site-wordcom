@@ -1,0 +1,13 @@
+.word { display: inline-block; }
+
+/* Transformed words need their own text paint until the original markup returns. */
+:global(.tituloDestaque) > .word {
+  background: inherit;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .word { filter: none !important; opacity: 1 !important; transform: none !important; }
+}

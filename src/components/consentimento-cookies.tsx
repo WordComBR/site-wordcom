@@ -18,7 +18,8 @@ export function BotaoPreferenciasCookies() {
 export function ConsentimentoCookies() {
   const valor = useSyncExternalStore(assinarPreferenciasCookies, lerPreferenciasCookies, () => undefined);
   const preferencias = interpretarPreferencias(valor);
-  const mostrarAviso = valor !== undefined && !preferencias;
+  const [dispensado, setDispensado] = useState(false);
+  const mostrarAviso = valor !== undefined && !preferencias && !dispensado;
   const dialogo = useRef<HTMLDialogElement>(null);
   const faixa = useRef<HTMLElement>(null);
   const origemFoco = useRef<HTMLElement | null>(null);
@@ -66,11 +67,14 @@ export function ConsentimentoCookies() {
     {mostrarAviso && <section ref={faixa} className={styles.banner} aria-labelledby="cookies-titulo">
       <div className={styles.bannerInner}>
         <div className={styles.bannerText}>
-          <h2 id="cookies-titulo"><Cookie size={20} aria-hidden="true" />Sua privacidade, sua escolha</h2>
-          <p>Você decide quais cookies opcionais permite. Análise e publicidade seguem desativadas nesta versão. <Link href="/politica-de-cookies">Política de cookies</Link></p>
+          <div className={styles.bannerHeader}>
+            <h2 id="cookies-titulo"><Cookie size={20} aria-hidden="true" />Sua privacidade</h2>
+            <button type="button" className={styles.dismiss} onClick={() => setDispensado(true)} aria-label="Fechar aviso de cookies" title="Fechar sem aceitar cookies"><X size={18} aria-hidden="true" /></button>
+          </div>
+          <p>Você escolhe quais cookies permitir. Análise e publicidade ainda estão desativadas. <Link href="/politica-de-cookies">Política de cookies</Link></p>
         </div>
         <div className={styles.actions}>
-          <button type="button" onClick={() => salvar(false, false)}>Rejeitar opcionais</button>
+          <button type="button" aria-label="Rejeitar opcionais" onClick={() => salvar(false, false)}>Rejeitar</button>
           <button type="button" onClick={() => salvar(true, true)}>Aceitar todos</button>
           <button type="button" className={styles.customize} onClick={abrirPreferenciasCookies}><Settings2 size={16} aria-hidden="true" />Personalizar</button>
         </div>

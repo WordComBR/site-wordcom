@@ -30,7 +30,7 @@
   white-space: nowrap;
 }
 
-.setoresTitulo span {
+.setoresTitulo .tituloDestaque {
   background: linear-gradient(104deg, #a855f7, #e0479a 48%, #ff7d00);
   -webkit-background-clip: text;
   background-clip: text;

@@ -68,6 +68,7 @@ type Case = {
      pediu menos movimento. */
   video?: string;
   posterVideo?: string;
+  videoMobile?: { src: string; poster: string };
 };
 
 const cases: Record<string, Case> = {
@@ -154,6 +155,7 @@ const cases: Record<string, Case> = {
     heroExpansao: true,
     video: "/cases/Porto360/hero.mp4",
     posterVideo: "/cases/Porto360/hero-poster.webp",
+    videoMobile: { src: "/cases/Porto360/hero-mobile.mp4", poster: "/cases/Porto360/hero-mobile-poster.webp" },
     fundoHero: "/cases/Porto360/fundo-hero.png",
     linhasTituloHero: ["Porto", "360"],
     destaqueTituloHero: 1,
@@ -245,6 +247,7 @@ const cases: Record<string, Case> = {
     heroExpansao: true,
     video: "/cases/ODS/hero.mp4",
     posterVideo: "/cases/ODS/hero-poster.webp",
+    videoMobile: { src: "/cases/ODS/hero-mobile.mp4", poster: "/cases/ODS/hero-mobile-poster.webp" },
     fundoHero: "/cases/ODS/fundo-hero.jpg",
     linhasTituloHero: ["1º Seminário de ODS", "da Baixada Santista"],
     resumo:
@@ -305,7 +308,8 @@ export default async function PaginaCase({
   const c = cases[slug];
   if (!c) notFound();
 
-  const preservarMidiaMobile = ["porto-360", "dia-da-mulher", "encontro-regional", "ods-baixada-santista", "tudo-bem"].includes(slug);
+  const preservarMidiaMobile = slug === "vai-nessa";
+  const composicaoImagemMobile = slug === "encontro-regional" ? "light" : ["dia-da-mulher", "tudo-bem"].includes(slug) ? "original" : undefined;
 
   const contexto = [c.cliente, c.ano].filter(Boolean).join(" · ");
   const inicioDestaque = c.destaqueResumo ? c.resumo.indexOf(c.destaqueResumo) : -1;
@@ -334,7 +338,7 @@ export default async function PaginaCase({
           a página de projetos faz nos slugs que ainda não têm filme. */}
       {c.heroExpansao && c.imagemHero && c.fundoHero && c.linhasTituloHero ? (
         <ScrollExpandMedia mediaType="image" mediaSrc={c.imagemHero} bgImageSrc={c.fundoHero}
-          title={c.nome} titleLines={c.linhasTituloHero} imageFit={c.preencherImagemHero ? "cover" : "contain"} imageAspectRatio={c.proporcaoImagemHero} mobileImageAspectRatio={c.proporcaoImagemHeroMobile} preserveMobileMedia={preservarMidiaMobile} hideTitle={c.ocultarTituloHero} />
+          title={c.nome} titleLines={c.linhasTituloHero} imageFit={c.preencherImagemHero ? "cover" : "contain"} imageAspectRatio={c.proporcaoImagemHero} mobileImageAspectRatio={composicaoImagemMobile ? 9 / 16 : c.proporcaoImagemHeroMobile} mobileImageComposition={composicaoImagemMobile} preserveMobileMedia={preservarMidiaMobile} hideTitle={c.ocultarTituloHero} />
       ) : (c.heroSomenteVideo || c.heroExpansao) && c.video && c.posterVideo ? (
         <ScrollExpandMedia
           mediaSrc={c.video}
@@ -343,6 +347,8 @@ export default async function PaginaCase({
           title={c.nome}
           titleLines={c.linhasTituloHero ?? ["Iº Torneio", "Beach Tennis WordCom"]}
           highlightLine={c.destaqueTituloHero}
+          mobileVideo={c.videoMobile}
+          mobileImageAspectRatio={c.videoMobile ? 9 / 16 : undefined}
           preserveMobileMedia={preservarMidiaMobile}
         />
       ) : <section className={`productHero${c.video ? " productHeroVideo" : ""}`}>

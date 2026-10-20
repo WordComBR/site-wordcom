@@ -19,11 +19,13 @@ type ScrollExpandMediaProps = {
   imageFit?: "contain" | "cover";
   imageAspectRatio?: number;
   mobileImageAspectRatio?: number;
+  mobileVideo?: { src: string; poster: string };
+  mobileImageComposition?: "original" | "light";
   preserveMobileMedia?: boolean;
   hideTitle?: boolean;
 } & ({ mediaType?: "video"; posterSrc: string } | { mediaType: "image"; posterSrc?: never });
 
-export default function ScrollExpandMedia({ mediaType = "video", mediaSrc, posterSrc, bgImageSrc, title, titleLines, highlightLine, imageFit = "contain", imageAspectRatio, mobileImageAspectRatio, preserveMobileMedia = false, hideTitle = false }: ScrollExpandMediaProps) {
+export default function ScrollExpandMedia({ mediaType = "video", mediaSrc, posterSrc, bgImageSrc, title, titleLines, highlightLine, imageFit = "contain", imageAspectRatio, mobileImageAspectRatio, mobileVideo, mobileImageComposition, preserveMobileMedia = false, hideTitle = false }: ScrollExpandMediaProps) {
   const section = useRef<HTMLElement>(null);
   const hydrated = useSyncExternalStore(subscribeHydration, clientSnapshot, serverSnapshot);
   const preference = useReducedMotion();
@@ -46,7 +48,7 @@ export default function ScrollExpandMedia({ mediaType = "video", mediaSrc, poste
 
   return (
     <section ref={section} className={styles.scene} aria-label={title} data-expansion-hero>
-      <div className={styles.stage} data-expansion-stage data-mobile-media={preserveMobileMedia ? "complete" : undefined} style={{
+      <div className={styles.stage} data-expansion-stage data-mobile-media={mobileImageComposition ? "portrait" : preserveMobileMedia ? "complete" : undefined} data-mobile-tone={mobileImageComposition} style={{
         "--media-desktop-height": `${initialImageHeight}px`,
         "--media-aspect": mobileImageAspectRatio ?? imageAspectRatio ?? 16 / 9,
       } as CSSProperties}>
@@ -61,9 +63,11 @@ export default function ScrollExpandMedia({ mediaType = "video", mediaSrc, poste
         } as MotionStyle}>
           {mediaType === "image" ? <motion.div className={`${styles.imagePanel}${imageFit === "cover" ? ` ${styles.imageFill}` : ""}`}
             style={{ width: reduced ? "100%" : imageWidth, height: reduced ? "100%" : imageHeight }}>
-            <Image src={mediaSrc} alt="" fill sizes="100vw" priority />
+            {mobileImageComposition ? <div className={styles.portraitBackdrop} aria-hidden="true"><Image src={bgImageSrc} alt="" fill sizes="(max-width: 900px) 100vw, 1px" /></div> : null}
+            <Image src={mediaSrc} alt="" fill sizes="100vw" priority className={mobileImageComposition ? styles.portraitArtwork : undefined} />
           </motion.div> : <div className={styles.videoPanel}>
-            <FundoVideo src={mediaSrc} poster={posterSrc} className={styles.video} />
+            <FundoVideo src={mediaSrc} poster={posterSrc} className={`${styles.video}${mobileVideo ? ` ${styles.desktopVideo}` : ""}`} />
+            {mobileVideo ? <FundoVideo src={mobileVideo.src} poster={mobileVideo.poster} className={`${styles.video} ${styles.mobileVideo}`} /> : null}
           </div>}
           <motion.div className={styles.veil} aria-hidden="true" style={{ opacity: reduced ? 0.72 : veilOpacity }} />
         </motion.div>

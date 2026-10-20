@@ -78,10 +78,29 @@
 @media (max-width: 600px) {
   .section.clients { --clients-title-inset: 22px; }
   .clients .heading { margin-bottom: 40px; }
-  .clients .marqueeRoot { padding-block: 24px; }
+  .clients .clientsMarquee .marqueeRoot { padding-block: 10px; }
   .marqueeGroup { gap: 40px; padding-inline-end: 40px; }
   .clientBrand { --logo-height: 112px; width: 180px; flex-basis: 180px; }
   .clientBrandCrop { width: min(100%, var(--logo-width-mobile)); }
+}
+
+@media (max-width: 600px) and (prefers-reduced-motion: no-preference) {
+  .section.clients { position: relative; }
+  /* Preserve the heading's center while placing the band over the background mark. */
+  .section.clients > .heading {
+    position: absolute;
+    top: 50svh;
+    width: 100%;
+    margin-bottom: 0;
+    translate: 0 calc(-50% - 86px);
+  }
+  .section.clients > .scrollContent {
+    position: absolute;
+    top: 83.3svh;
+    left: 0;
+    width: 100%;
+    translate: 0 -50%;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

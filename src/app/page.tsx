@@ -12,6 +12,7 @@ import { ImagesScrollingAnimation } from "@/components/ui/images-scrolling-anima
 import FAQs from "@/components/ui/text-reveal-faqs";
 import { SolucoesAnel } from "@/components/solucoes-anel";
 import { QuemSomos } from "@/components/quem-somos";
+import { BlurText } from "@/components/ui/blur-text";
 
 /* Porte fiel do site atual para Next.js.
    O design não muda: as classes e a estrutura são as mesmas, e o CSS é o
@@ -251,7 +252,7 @@ export default function Home() {
           {/* Título sozinho: saíram o kicker, a primeira linha e o parágrafo de
               apoio. O h2 carrega a seção. */}
           <EntradaScroll destaque className="heading headingSo">
-            <h2>Uma única <span className="tituloDestaque">direção</span></h2>
+            <BlurText>Uma única <span className="tituloDestaque">direção</span></BlurText>
           </EntradaScroll>
           <EntradaScroll destaque className="scrollContent" delay={0.1}>
             <SolucoesAnel servicos={servicos} />
@@ -267,9 +268,9 @@ export default function Home() {
               sizes="100vw"
             />
           </div>
-          <EntradaScroll destaque as="h2" className="setoresTitulo" id="setores-titulo">
+          <BlurText className="setoresTitulo" id="setores-titulo">
             Experiência <span className="tituloDestaque">Setorial</span>
-          </EntradaScroll>
+          </BlurText>
           <EntradaScroll destaque className="setoresFaqLayout" delay={0.1}>
             <div className="setoresFaqIntro">
               <p>
@@ -293,12 +294,12 @@ export default function Home() {
           <EntradaScroll destaque className="heading">
             <div>
               <p className="kicker">Experiência aplicada</p>
-              <h2>
+              <BlurText>
                 Cases que mostram
                 <br />
                 {" "}
                 <em className="tituloDestaque">como entregamos</em>
-              </h2>
+              </BlurText>
             </div>
             <p>
               Cada case apresenta o desafio, as frentes acionadas, a execução e
@@ -314,9 +315,9 @@ export default function Home() {
           <EntradaScroll destaque className="heading">
             <div>
               <p className="kicker">Confiança construída</p>
-              <h2>
+              <BlurText>
                 Marcas que já escolheram a <em className="tituloDestaque">WordCom</em>
-              </h2>
+              </BlurText>
             </div>
           </EntradaScroll>
           <EntradaScroll destaque className="scrollContent" delay={0.1}>
@@ -331,9 +332,9 @@ export default function Home() {
           <FundoVideo src="/midia/estrutura/equipe-wordcom.mp4" poster="/midia/estrutura/equipe-wordcom-poster.webp" />
           <EntradaScroll destaque>
             <p className="kicker">Estrutura WordCom</p>
-            <h2>
+            <BlurText>
               Ideias ganham força quando existe <em className="tituloDestaque">capacidade de execução</em>
-            </h2>
+            </BlurText>
           </EntradaScroll>
           <EntradaScroll destaque delay={0.12}>
             <p>
@@ -360,12 +361,12 @@ export default function Home() {
           <EntradaScroll destaque className="heading headingProjetos">
             <div>
               <p className="projetoRotulo">Projetos desenvolvidos pela WordCom</p>
-              <h2>
+              <BlurText>
                 Também criamos
                 <br />
                 {" "}
                 <strong className="tituloDestaque">nossas próprias plataformas</strong>
-              </h2>
+              </BlurText>
             </div>
           </EntradaScroll>
           <ImagesScrollingAnimation />
@@ -374,12 +375,12 @@ export default function Home() {
         <section className="section light agenda" id="agenda">
           <EntradaScroll destaque>
             <p className="kicker">Próximos encontros</p>
-            <h2>
+            <BlurText>
               Acompanhe nosso
               <br />
               {" "}
               <em className="tituloDestaque">calendário de eventos</em>
-            </h2>
+            </BlurText>
             <p>
               Experiências que colocam pessoas, empresas e temas relevantes no
               mesmo ambiente.
@@ -421,12 +422,12 @@ export default function Home() {
         <section className="contact" id="contato">
           <div className="glow contactGlow" aria-hidden />
           <p className="kicker">Próximo projeto</p>
-          <EntradaScroll destaque as="h2">
+          <BlurText>
             Qual será a próxima
             <br />
             {" "}
             <em className="tituloDestaque">palavra da sua marca?</em>
-          </EntradaScroll>
+          </BlurText>
           <EntradaScroll destaque as="p" delay={0.08}>
             Conte o que sua empresa precisa comunicar. Nosso time entra em
             contato para entender o desafio e construir o próximo movimento.

@@ -2,7 +2,7 @@
 
 import * as Accordion from "@radix-ui/react-accordion";
 import { Plus } from "lucide-react";
-import { motion, useReducedMotion } from "motion/react";
+import { motion, useInView, useReducedMotion } from "motion/react";
 import { useId, useRef, useState } from "react";
 import styles from "./faq-tabs.module.css";
 import { ShinyButton } from "./shiny-button";
@@ -13,15 +13,19 @@ export type FAQCategory = {
   questions: { question: string; answer: string }[];
 };
 
+const AnimatedAccordionItem = motion.create(Accordion.Item);
+
 export function FAQ({ categories }: { categories: FAQCategory[] }) {
   const [selected, setSelected] = useState(0);
   const [openQuestion, setOpenQuestion] = useState("");
   const id = useId();
   const tabs = useRef<(HTMLButtonElement | null)[]>([]);
+  const root = useRef<HTMLDivElement>(null);
+  const inView = useInView(root, { once: true, amount: 0.1 });
   const reduced = useReducedMotion();
 
   return (
-    <div className={styles.faq}>
+    <div ref={root} className={styles.faq}>
       <div className={styles.tabs} role="tablist" aria-label="Sobre a WordCom">
         {categories.map((category, index) => (
           <ShinyButton
@@ -66,11 +70,7 @@ export function FAQ({ categories }: { categories: FAQCategory[] }) {
           className={styles.panel}
         >
           {selected === index && (
-            <motion.div
-              initial={{ opacity: reduced ? 1 : 0, transform: reduced ? "none" : "translateY(8px)" }}
-              animate={{ opacity: 1, transform: "translateY(0px)" }}
-              transition={{ duration: reduced ? 0 : 0.25, ease: [0.23, 1, 0.32, 1] }}
-            >
+            <div>
               <Accordion.Root
                 type="single"
                 collapsible
@@ -79,10 +79,20 @@ export function FAQ({ categories }: { categories: FAQCategory[] }) {
                 className={styles.list}
               >
                 {category.questions.map((faq, questionIndex) => (
-                  <Accordion.Item
+                  <AnimatedAccordionItem
                     key={faq.question}
                     value={String(questionIndex)}
                     className={styles.item}
+                    data-faq-entrance
+                    initial={reduced ? false : { opacity: 0, transform: "translateY(24px)" }}
+                    animate={inView || reduced
+                      ? { opacity: 1, transform: "translateY(0px)" }
+                      : { opacity: 0, transform: "translateY(24px)" }}
+                    transition={{
+                      duration: reduced ? 0 : 0.85,
+                      delay: reduced || !inView ? 0 : questionIndex * 0.3,
+                      ease: [0.33, 1, 0.68, 1],
+                    }}
                   >
                     <Accordion.Header className={styles.header}>
                       <Accordion.Trigger className={styles.trigger}>
@@ -103,10 +113,10 @@ export function FAQ({ categories }: { categories: FAQCategory[] }) {
                         </div>
                       </div>
                     </Accordion.Content>
-                  </Accordion.Item>
+                  </AnimatedAccordionItem>
                 ))}
               </Accordion.Root>
-            </motion.div>
+            </div>
           )}
         </div>
       ))}

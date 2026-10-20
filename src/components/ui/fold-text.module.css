@@ -1,0 +1,29 @@
+.root { position: relative; }
+.visual { position: absolute; inset: 0; pointer-events: none; }
+.segment { position: absolute; perspective: 700px; }
+.piece {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  transform-origin: 50% 0%;
+  backface-visibility: hidden;
+}
+
+.piece::after {
+  content: attr(data-fold-text);
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  background-image: linear-gradient(180deg, rgb(0 0 0 / 58%) 0%, rgb(0 0 0 / 22%) 42%, rgb(255 255 255 / 26%) 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  opacity: var(--fold-crease, 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .visual { display: none; }
+  .root > [data-fold-original] { opacity: 1 !important; }
+}

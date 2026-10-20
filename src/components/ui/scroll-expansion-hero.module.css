@@ -27,6 +27,8 @@
 .media { background: #120d1a; }
 .videoPanel { position: absolute; inset: 0; }
 .video { width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
+.mobileVideo { display: none; }
+.portraitBackdrop { display: none; }
 .imagePanel { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); background: #fff; }
 .imagePanel img { object-fit: contain; padding: 24px; }
 .imageFill img { object-fit: cover; padding: 0; }
@@ -69,6 +71,8 @@
 @media (max-width: 360px) { .title { font-size: 28px; } }
 
 @media (max-width: 900px) {
+  .desktopVideo { display: none; }
+  .mobileVideo { display: block; }
   .stage {
     --case-header-space: calc(96px + env(safe-area-inset-top, 0px));
     --media-start-width: min(300px, calc(100vw - 40px), calc((100svh - 2 * var(--case-header-space) - 40px) * var(--media-aspect)));
@@ -88,16 +92,23 @@
   .imagePanel { background: transparent; }
   .title { min-width: 0; overflow-wrap: break-word; }
 
+  /* Expand the composition, not a cropped logo, on portrait screens. */
+  .stage[data-mobile-media="portrait"] .portraitBackdrop { display: block; position: absolute; inset: 0; }
+  .stage[data-mobile-media="portrait"] .portraitBackdrop img { object-fit: cover; padding: 0; }
+  .stage[data-mobile-tone="light"] .portraitBackdrop::after { content: ""; position: absolute; inset: 0; background: #ffffffd9; }
+  .stage[data-mobile-media="portrait"] .portraitArtwork {
+    object-fit: contain;
+    object-position: center;
+    padding: calc(16px * var(--media-progress));
+  }
+
   /* Keep lettering intact while the surrounding hero still fills the viewport. */
   .stage[data-mobile-media="complete"] .background { opacity: 1 !important; }
   .stage[data-mobile-media="complete"] .media { background: transparent; }
   .stage[data-mobile-media="complete"] :is(.video, .imagePanel img) {
     object-fit: contain;
     object-position: center;
-    padding:
-      calc(var(--case-header-space) * var(--media-progress))
-      calc(16px * var(--media-progress))
-      calc((24px + env(safe-area-inset-bottom, 0px)) * var(--media-progress));
+    padding: calc(16px * var(--media-progress));
   }
 }
 

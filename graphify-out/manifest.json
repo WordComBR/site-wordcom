@@ -1,0 +1,464 @@
+{
+  ".claude/launch.json": {
+    "mtime": 1791220583.9376442,
+    "seen": 1791921615.7650647,
+    "ast_hash": "b071e29cb7b3fd4ce990d9714030b310",
+    "semantic_hash": "b071e29cb7b3fd4ce990d9714030b310"
+  },
+  "eslint.config.mjs": {
+    "mtime": 1791216398.878585,
+    "seen": 1791921615.765073,
+    "ast_hash": "dfa1f5f6a7037bf39dc510f30b180002",
+    "semantic_hash": "dfa1f5f6a7037bf39dc510f30b180002"
+  },
+  "next.config.ts": {
+    "mtime": 1791480935.8615658,
+    "seen": 1791921615.7650769,
+    "ast_hash": "c6d947a4ee085e28204d03e45db149df",
+    "semantic_hash": "c6d947a4ee085e28204d03e45db149df"
+  },
+  "package.json": {
+    "mtime": 1792004648.8627572,
+    "seen": 1792085804.7604747,
+    "ast_hash": "b1f93a0036249ceb0c03724c1fda82b1",
+    "semantic_hash": "b1f93a0036249ceb0c03724c1fda82b1"
+  },
+  "postcss.config.mjs": {
+    "mtime": 1791216399.1953435,
+    "seen": 1791921615.765082,
+    "ast_hash": "239f3ebf717465dc636818a1a619398d",
+    "semantic_hash": "239f3ebf717465dc636818a1a619398d"
+  },
+  "public/midia/sequencia/manifest.json": {
+    "mtime": 1791292689.8174932,
+    "seen": 1791921615.7650833,
+    "ast_hash": "b5445a89a699ac5dbfd59ff064146d9c",
+    "semantic_hash": "b5445a89a699ac5dbfd59ff064146d9c"
+  },
+  "public/midia/sequencia/mobile-polvo/manifest.json": {
+    "mtime": 1791470276.2757893,
+    "seen": 1791921615.7650855,
+    "ast_hash": "3f949082f34f8fd8c8d16a0bcd0df3b3",
+    "semantic_hash": "3f949082f34f8fd8c8d16a0bcd0df3b3"
+  },
+  "public/midia/sequencia/mobile-teste-20261009/manifest.json": {
+    "mtime": 1791567662.6869483,
+    "seen": 1791921615.7650867,
+    "ast_hash": "2620446580dc7ad01bc7776a0825961b",
+    "semantic_hash": "2620446580dc7ad01bc7776a0825961b"
+  },
+  "skills-lock.json": {
+    "mtime": 1791549413.6757865,
+    "seen": 1791921615.7650883,
+    "ast_hash": "c46d7aa11cb7d71163b30fe578aa04c5",
+    "semantic_hash": "c46d7aa11cb7d71163b30fe578aa04c5"
+  },
+  "src/app/api/lead/route.ts": {
+    "mtime": 1791480935.5635364,
+    "seen": 1791921615.7650898,
+    "ast_hash": "320d246e98319140b2dbbc7d6844930a",
+    "semantic_hash": "320d246e98319140b2dbbc7d6844930a"
+  },
+  "src/app/codigodeetica/page.tsx": {
+    "mtime": 1791400660.4062095,
+    "seen": 1791921615.7650914,
+    "ast_hash": "e6f1c4baae173a6e20de86c241b3f222",
+    "semantic_hash": "e6f1c4baae173a6e20de86c241b3f222"
+  },
+  "src/app/documentos-institucionais/page.tsx": {
+    "mtime": 1791400657.5056784,
+    "seen": 1791921615.765093,
+    "ast_hash": "438ee948ec4cb35867734c403519bf0e",
+    "semantic_hash": "438ee948ec4cb35867734c403519bf0e"
+  },
+  "src/app/layout.tsx": {
+    "mtime": 1791479154.6582563,
+    "seen": 1791921615.7650945,
+    "ast_hash": "d45d43b2597a6c45e18539fb0292c385",
+    "semantic_hash": "d45d43b2597a6c45e18539fb0292c385"
+  },
+  "src/app/page.tsx": {
+    "mtime": 1792078055.5368474,
+    "seen": 1792085804.7662494,
+    "ast_hash": "923c630f4ff86e893b242398342899c8",
+    "semantic_hash": "923c630f4ff86e893b242398342899c8"
+  },
+  "src/app/politica-de-cookies/page.tsx": {
+    "mtime": 1791479210.2757902,
+    "seen": 1791921615.7650971,
+    "ast_hash": "78713c6bf638efb5d58b1cecad0c2638",
+    "semantic_hash": "78713c6bf638efb5d58b1cecad0c2638"
+  },
+  "src/app/preview/documentos/page.tsx": {
+    "mtime": 1791400661.5538745,
+    "seen": 1791921615.7650986,
+    "ast_hash": "b6b60caba09b3ca92f41b453e6068104",
+    "semantic_hash": "b6b60caba09b3ca92f41b453e6068104"
+  },
+  "src/app/procedimentosdecompliance/page.tsx": {
+    "mtime": 1791400661.0040295,
+    "seen": 1791921615.7650998,
+    "ast_hash": "3602728cc6561f06ee77465df7dcd834",
+    "semantic_hash": "3602728cc6561f06ee77465df7dcd834"
+  },
+  "src/app/projetos/[slug]/page.tsx": {
+    "mtime": 1791393752.1723428,
+    "seen": 1791921615.7651012,
+    "ast_hash": "809da6f370627f869c43a410dbd3b773",
+    "semantic_hash": "809da6f370627f869c43a410dbd3b773"
+  },
+  "src/components/cases-carrossel.tsx": {
+    "mtime": 1791219172.009147,
+    "seen": 1791921615.7651026,
+    "ast_hash": "9aee2b7fffa4a5532c29e6ff4adcba33",
+    "semantic_hash": "9aee2b7fffa4a5532c29e6ff4adcba33"
+  },
+  "src/components/cases-coverflow.tsx": {
+    "mtime": 1792083659.051577,
+    "seen": 1792085804.769037,
+    "ast_hash": "c822104e2921ed49354d4eb70d4578b8",
+    "semantic_hash": "c822104e2921ed49354d4eb70d4578b8"
+  },
+  "src/components/consentimento-cookies.tsx": {
+    "mtime": 1791479153.9140017,
+    "seen": 1791921615.7651055,
+    "ast_hash": "c4f25bade8a91dd8734a2b4c7639e22b",
+    "semantic_hash": "c4f25bade8a91dd8734a2b4c7639e22b"
+  },
+  "src/components/entrada-scroll.tsx": {
+    "mtime": 1791393016.2203484,
+    "seen": 1791921615.7651067,
+    "ast_hash": "d7c9a0376248e612850d23dd6ce862cd",
+    "semantic_hash": "d7c9a0376248e612850d23dd6ce862cd"
+  },
+  "src/components/footer-wordcom.tsx": {
+    "mtime": 1791479154.9778924,
+    "seen": 1791921615.7651093,
+    "ast_hash": "c2bf4e1e3dc574d9ac22cc18c7b2da1b",
+    "semantic_hash": "c2bf4e1e3dc574d9ac22cc18c7b2da1b"
+  },
+  "src/components/formulario-contato.tsx": {
+    "mtime": 1791479155.3188837,
+    "seen": 1791921615.7651105,
+    "ast_hash": "17068518efbee4bcca672112b817dfaa",
+    "semantic_hash": "17068518efbee4bcca672112b817dfaa"
+  },
+  "src/components/fundo-ondas.tsx": {
+    "mtime": 1791318809.7845564,
+    "seen": 1791921615.765112,
+    "ast_hash": "5ba69eb87076f292dd62dc545524f6cc",
+    "semantic_hash": "5ba69eb87076f292dd62dc545524f6cc"
+  },
+  "src/components/fundo-video.tsx": {
+    "mtime": 1791383269.5078187,
+    "seen": 1791921615.765113,
+    "ast_hash": "c9dc543a34b0ca0aa74314f4ee088d7b",
+    "semantic_hash": "c9dc543a34b0ca0aa74314f4ee088d7b"
+  },
+  "src/components/hero-sequencia.tsx": {
+    "mtime": 1791569527.1647117,
+    "seen": 1791921615.7651145,
+    "ast_hash": "61a8eec34cf524ef09caf5d0da6a1386",
+    "semantic_hash": "61a8eec34cf524ef09caf5d0da6a1386"
+  },
+  "src/components/marcas-marquee.tsx": {
+    "mtime": 1791920723.4017117,
+    "seen": 1791921615.765116,
+    "ast_hash": "a02c4be385f83ee649ad25996d61a182",
+    "semantic_hash": "a02c4be385f83ee649ad25996d61a182"
+  },
+  "src/components/menu-mobile.tsx": {
+    "mtime": 1791319395.9179504,
+    "seen": 1791921615.7651172,
+    "ast_hash": "b43668a9b8595bc0d6bc8785f363931f",
+    "semantic_hash": "b43668a9b8595bc0d6bc8785f363931f"
+  },
+  "src/components/metodo-jornada.tsx": {
+    "mtime": 1791982011.7062328,
+    "seen": 1792085804.7737339,
+    "ast_hash": "64cce68d218a6bd4b3c6d46a5889159d",
+    "semantic_hash": "64cce68d218a6bd4b3c6d46a5889159d"
+  },
+  "src/components/pagina-institucional.tsx": {
+    "mtime": 1791399156.843537,
+    "seen": 1791921615.7651198,
+    "ast_hash": "d458e75b5085700c00a6e4d8f34f6914",
+    "semantic_hash": "d458e75b5085700c00a6e4d8f34f6914"
+  },
+  "src/components/quem-somos.tsx": {
+    "mtime": 1791467329.0893056,
+    "seen": 1791921615.765121,
+    "ast_hash": "7ecfc847598fad4557455cb24001b26b",
+    "semantic_hash": "7ecfc847598fad4557455cb24001b26b"
+  },
+  "src/components/setores-acordeao.tsx": {
+    "mtime": 1791311057.0244381,
+    "seen": 1791921615.7651224,
+    "ast_hash": "10a508e88e08a0998c541663ed5d919f",
+    "semantic_hash": "10a508e88e08a0998c541663ed5d919f"
+  },
+  "src/components/solucoes-anel.tsx": {
+    "mtime": 1791576956.7655118,
+    "seen": 1791921615.7651236,
+    "ast_hash": "d4891ac1d22a2c604d742c68272e8452",
+    "semantic_hash": "d4891ac1d22a2c604d742c68272e8452"
+  },
+  "src/components/ui/accordion.tsx": {
+    "mtime": 1791377804.9037657,
+    "seen": 1791921615.7651248,
+    "ast_hash": "d79d2ffeb956033a277a003c03d6a492",
+    "semantic_hash": "d79d2ffeb956033a277a003c03d6a492"
+  },
+  "src/components/ui/faq-tabs.tsx": {
+    "mtime": 1791465007.500725,
+    "seen": 1791921615.765126,
+    "ast_hash": "143349886e3fd8bf8e67fea026cea453",
+    "semantic_hash": "143349886e3fd8bf8e67fea026cea453"
+  },
+  "src/components/ui/folder-interaction.tsx": {
+    "mtime": 1791400137.130378,
+    "seen": 1791921615.7651274,
+    "ast_hash": "4896260a964482cd902b428b01b0e734",
+    "semantic_hash": "4896260a964482cd902b428b01b0e734"
+  },
+  "src/components/ui/glass-cards.tsx": {
+    "mtime": 1791317442.5175374,
+    "seen": 1791921615.7651284,
+    "ast_hash": "b129dd5f14d4a4ea63cfd8a0ead2b342",
+    "semantic_hash": "b129dd5f14d4a4ea63cfd8a0ead2b342"
+  },
+  "src/components/ui/images-scrolling-animation.tsx": {
+    "mtime": 1792077859.0179493,
+    "seen": 1792085804.7815762,
+    "ast_hash": "0c87b87f602d070875db7ff160d46d4c",
+    "semantic_hash": "0c87b87f602d070875db7ff160d46d4c"
+  },
+  "src/components/ui/line-waves.jsx": {
+    "mtime": 1791318678.6305165,
+    "seen": 1791921615.765131,
+    "ast_hash": "fc7f8ad8dddec4e4adf4d25fcfd6dab0",
+    "semantic_hash": "fc7f8ad8dddec4e4adf4d25fcfd6dab0"
+  },
+  "src/components/ui/marquee.tsx": {
+    "mtime": 1791919430.2627835,
+    "seen": 1791921615.7651322,
+    "ast_hash": "4c6bdbca5a08fbc25cdbb57b2190682a",
+    "semantic_hash": "4c6bdbca5a08fbc25cdbb57b2190682a"
+  },
+  "src/components/ui/scroll-cards.tsx": {
+    "mtime": 1791897571.9802785,
+    "seen": 1791921615.7651339,
+    "ast_hash": "4abf3a8bb50ee9016e000348300ee4a5",
+    "semantic_hash": "4abf3a8bb50ee9016e000348300ee4a5"
+  },
+  "src/components/ui/shiny-button.tsx": {
+    "mtime": 1791465006.536414,
+    "seen": 1791921615.7651348,
+    "ast_hash": "2215a7c74b060a3df2173dcaa0b0942c",
+    "semantic_hash": "2215a7c74b060a3df2173dcaa0b0942c"
+  },
+  "src/components/ui/text-reveal-faqs.tsx": {
+    "mtime": 1791378144.4303217,
+    "seen": 1791921615.7651374,
+    "ast_hash": "05ba181b5c8ef17ccb518261e5c7321f",
+    "semantic_hash": "05ba181b5c8ef17ccb518261e5c7321f"
+  },
+  "src/lib/contato-email.ts": {
+    "mtime": 1791481283.2871559,
+    "seen": 1791921615.7651386,
+    "ast_hash": "1b4adafd6c5db75243c813a13c55920b",
+    "semantic_hash": "1b4adafd6c5db75243c813a13c55920b"
+  },
+  "src/lib/cookies.ts": {
+    "mtime": 1791479334.7105136,
+    "seen": 1791921615.76514,
+    "ast_hash": "0db1658666d50c9c6f2e91fa5463f021",
+    "semantic_hash": "0db1658666d50c9c6f2e91fa5463f021"
+  },
+  "src/lib/marcas-enquadramento.ts": {
+    "mtime": 1791920723.069039,
+    "seen": 1791921615.7651412,
+    "ast_hash": "1c8be001c4672fd4b88beaef2d3ead84",
+    "semantic_hash": "1c8be001c4672fd4b88beaef2d3ead84"
+  },
+  "src/lib/utils.ts": {
+    "mtime": 1791317407.5545785,
+    "seen": 1791921615.7651424,
+    "ast_hash": "322ed329e15abf4909159b514bda66f5",
+    "semantic_hash": "322ed329e15abf4909159b514bda66f5"
+  },
+  "tests/contato-email.test.mjs": {
+    "mtime": 1791480936.1658893,
+    "seen": 1791921615.7651439,
+    "ast_hash": "2ba1b796567d69cf1e1e89569420fbf0",
+    "semantic_hash": "2ba1b796567d69cf1e1e89569420fbf0"
+  },
+  "tests/cookies.test.mjs": {
+    "mtime": 1791479371.1760569,
+    "seen": 1791921615.765145,
+    "ast_hash": "dd69e59fc4c5fa837c75ac89349020c7",
+    "semantic_hash": "dd69e59fc4c5fa837c75ac89349020c7"
+  },
+  "tsconfig.json": {
+    "mtime": 1791217900.1397483,
+    "seen": 1791921615.7651463,
+    "ast_hash": "5c19dd37f3a37fadee8a7c362e7ce5ae",
+    "semantic_hash": "5c19dd37f3a37fadee8a7c362e7ce5ae"
+  },
+  "public/midia/cases-fundo.mp4": {
+    "mtime": 1791382902.395342,
+    "seen": 1791921615.7651477,
+    "ast_hash": "123e708237755649267ea758dc758ca4",
+    "semantic_hash": "123e708237755649267ea758dc758ca4"
+  },
+  "public/midia/empreenda-sim-fundo.mp4": {
+    "mtime": 1791393310.5887952,
+    "seen": 1791921615.7651489,
+    "ast_hash": "cc1174e21dc88577b84da71c23d5e9a7",
+    "semantic_hash": "cc1174e21dc88577b84da71c23d5e9a7"
+  },
+  "public/midia/estrutura/fabrica.mp4": {
+    "mtime": 1791317970.977559,
+    "seen": 1791921615.7651503,
+    "ast_hash": "b15217448877604754efbc27a9d7eb90",
+    "semantic_hash": "b15217448877604754efbc27a9d7eb90"
+  },
+  "public/midia/estrutura/fabrica.webm": {
+    "mtime": 1791317987.1037395,
+    "seen": 1791921615.7651515,
+    "ast_hash": "8e66bf9cd0aaf67e26c29a4c6b932731",
+    "semantic_hash": "8e66bf9cd0aaf67e26c29a4c6b932731"
+  },
+  "public/midia/quem-somos-fundo.mp4": {
+    "mtime": 1791406553.5420074,
+    "seen": 1791921615.765153,
+    "ast_hash": "5dc3e707ba99a075e41db2e1f3685638",
+    "semantic_hash": "5dc3e707ba99a075e41db2e1f3685638"
+  },
+  "src/app/cases/[slug]/page.tsx": {
+    "mtime": 1792085415.5481727,
+    "seen": 1792085804.7646332,
+    "ast_hash": "219973866e2e13eaf72823cd772ee9ec",
+    "semantic_hash": "219973866e2e13eaf72823cd772ee9ec"
+  },
+  "src/components/beach-tennis-gallery.tsx": {
+    "mtime": 1791997802.601177,
+    "seen": 1792085804.7685022,
+    "ast_hash": "63f26095fa7a7ec769cac9aa4098cafb",
+    "semantic_hash": "63f26095fa7a7ec769cac9aa4098cafb"
+  },
+  "src/components/dia-da-mulher-gallery.tsx": {
+    "mtime": 1792081551.4437394,
+    "seen": 1792085804.769557,
+    "ast_hash": "5bf3f2034b875a232e1b7cf76d90d731",
+    "semantic_hash": "5bf3f2034b875a232e1b7cf76d90d731"
+  },
+  "src/components/encontro-regional-gallery.tsx": {
+    "mtime": 1792004750.199184,
+    "seen": 1792085804.7695618,
+    "ast_hash": "66969dcd74994ce42bfbaa44f4658249",
+    "semantic_hash": "66969dcd74994ce42bfbaa44f4658249"
+  },
+  "src/components/ods-gallery.tsx": {
+    "mtime": 1792071835.2954147,
+    "seen": 1792085804.7737389,
+    "ast_hash": "c3053bc9c52c0abfbde38685dc2301f5",
+    "semantic_hash": "c3053bc9c52c0abfbde38685dc2301f5"
+  },
+  "src/components/ui/animated-gallery.tsx": {
+    "mtime": 1791996661.107963,
+    "seen": 1792085804.778499,
+    "ast_hash": "7d5400b635f5fb8c0be973466c69f213",
+    "semantic_hash": "7d5400b635f5fb8c0be973466c69f213"
+  },
+  "src/components/ui/carousel-circular-image-gallery.tsx": {
+    "mtime": 1792082207.3693936,
+    "seen": 1792085804.7785122,
+    "ast_hash": "49f2a47948bb21a75de75229a24360e6",
+    "semantic_hash": "49f2a47948bb21a75de75229a24360e6"
+  },
+  "src/components/ui/carousel.tsx": {
+    "mtime": 1792005012.472373,
+    "seen": 1792085804.7785199,
+    "ast_hash": "ac68e8c1b309bcf8074c3645e511fecc",
+    "semantic_hash": "ac68e8c1b309bcf8074c3645e511fecc"
+  },
+  "src/components/ui/gallery-animation.tsx": {
+    "mtime": 1791999011.0633533,
+    "seen": 1792085804.7807658,
+    "ast_hash": "885ebc0f9bb9f3eed2a7df7a0d7ca219",
+    "semantic_hash": "885ebc0f9bb9f3eed2a7df7a0d7ca219"
+  },
+  "src/components/ui/globoplay-card.tsx": {
+    "mtime": 1792006892.0682669,
+    "seen": 1792085804.7815614,
+    "ast_hash": "cd04a313d4b10e03fc9fba6c6ced3dd6",
+    "semantic_hash": "cd04a313d4b10e03fc9fba6c6ced3dd6"
+  },
+  "src/components/ui/image-auto-slider.tsx": {
+    "mtime": 1792071906.8665006,
+    "seen": 1792085804.781569,
+    "ast_hash": "2bfe67cbce3264364e834f86854c5cb6",
+    "semantic_hash": "2bfe67cbce3264364e834f86854c5cb6"
+  },
+  "src/components/ui/iphone.tsx": {
+    "mtime": 1792077052.6667564,
+    "seen": 1792085804.781582,
+    "ast_hash": "4588207cf655f5df91784bc77e57dc03",
+    "semantic_hash": "4588207cf655f5df91784bc77e57dc03"
+  },
+  "src/components/ui/scroll-expansion-hero.tsx": {
+    "mtime": 1792085414.664277,
+    "seen": 1792085804.7841303,
+    "ast_hash": "3f1b1710195e5a121e4da5c40d43828f",
+    "semantic_hash": "3f1b1710195e5a121e4da5c40d43828f"
+  },
+  "src/components/ui/smooth-scroll-hero.tsx": {
+    "mtime": 1791982010.924859,
+    "seen": 1792085804.785058,
+    "ast_hash": "f6b9cd52db61acb6da5b17321a39ba5b",
+    "semantic_hash": "f6b9cd52db61acb6da5b17321a39ba5b"
+  },
+  "src/components/ui/youtube-embed.tsx": {
+    "mtime": 1791999971.449104,
+    "seen": 1792085804.785904,
+    "ast_hash": "c701935668968e98ba743d47e68e8b2f",
+    "semantic_hash": "c701935668968e98ba743d47e68e8b2f"
+  },
+  "public/cases/BeachTennis/Create_professional_event_video_1080p_20261014111658.mp4": {
+    "mtime": 1791987420.2410977,
+    "seen": 1792085804.7934546,
+    "ast_hash": "4c180544e2ca9f3ca6cd41487b661c75",
+    "semantic_hash": "4c180544e2ca9f3ca6cd41487b661c75"
+  },
+  "public/cases/LiceuSaoPaulo/hero.mp4": {
+    "mtime": 1792076392.9983544,
+    "seen": 1792085804.793464,
+    "ast_hash": "dc00172ed6e68c97d457673b0671d051",
+    "semantic_hash": "dc00172ed6e68c97d457673b0671d051"
+  },
+  "public/cases/LiceuSaoPaulo/matriculas.mp4": {
+    "mtime": 1792076997.2006478,
+    "seen": 1792085804.7935066,
+    "ast_hash": "d9a40157dbcc2a33bef58a0e8e2d85f8",
+    "semantic_hash": "d9a40157dbcc2a33bef58a0e8e2d85f8"
+  },
+  "public/cases/ODS/hero.mp4": {
+    "mtime": 1792070901.9507568,
+    "seen": 1792085804.7935152,
+    "ast_hash": "8c6cad4dbb791fdffed63c792e017dd4",
+    "semantic_hash": "8c6cad4dbb791fdffed63c792e017dd4"
+  },
+  "public/cases/OutubroRosa/hero.mp4": {
+    "mtime": 1791997548.6050453,
+    "seen": 1792085804.7935207,
+    "ast_hash": "f1141731782761394cb1ba746bee595b",
+    "semantic_hash": "f1141731782761394cb1ba746bee595b"
+  },
+  "public/cases/Porto360/hero.mp4": {
+    "mtime": 1791991114.267698,
+    "seen": 1792085804.7935255,
+    "ast_hash": "0d8555972178bb05a61ff6b48b1d680c",
+    "semantic_hash": "0d8555972178bb05a61ff6b48b1d680c"
+  }
+}

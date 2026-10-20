@@ -116,6 +116,11 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .item {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
   .item,
   .answer,
   .icon {

@@ -1,25 +1,28 @@
 .banner {
   position: fixed;
-  inset: auto 0 0;
+  inset: auto auto max(24px, env(safe-area-inset-bottom, 0px)) max(24px, env(safe-area-inset-left, 0px));
   z-index: 1000;
-  padding: 20px max(28px, env(safe-area-inset-right)) max(20px, env(safe-area-inset-bottom)) max(28px, env(safe-area-inset-left));
+  width: min(400px, calc(100% - 48px));
+  padding: 20px;
   background: #19141f;
-  border-top: 1px solid #68516f;
+  border: 1px solid #68516f;
+  border-radius: 8px;
   color: #f9f9f9;
-  box-shadow: 0 -8px 32px #0005;
-  max-height: 70dvh;
+  box-shadow: 0 12px 32px #0005;
+  max-height: min(70dvh, calc(100dvh - 96px));
   overflow-y: auto;
   font-family: var(--font-wordcom), sans-serif;
   letter-spacing: 0;
 }
-.bannerInner { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 32px; width: 100%; max-width: 1320px; margin-inline: auto; }
+.bannerInner { display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; width: 100%; }
 .bannerText { flex: 1; min-width: 0; }
-.banner h2 { display: flex; align-items: center; gap: 10px; margin: 0 0 8px; font-size: 17px; font-weight: 700; line-height: 1.4; }
+.bannerHeader { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin: -6px -8px 6px 0; }
+.banner h2 { display: flex; align-items: center; gap: 8px; margin: 0; font-size: 16px; font-weight: 700; line-height: 1.4; }
 .banner h2 svg { color: #ffbb7a; flex: none; }
 .banner p, .dialog p { font-size: 14px; line-height: 1.6; color: #d2cad9; margin: 0; max-width: 72ch; }
 .banner a, .dialog a { color: #ffbb7a; text-decoration: underline; text-underline-offset: 3px; }
 .actions, .dialogActions { display: flex; flex-wrap: wrap; gap: 10px; }
-.actions { align-items: center; }
+.actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: stretch; gap: 6px 8px; }
 .banner button, .dialogActions button {
   min-height: 44px;
   padding: 12px 16px;
@@ -36,6 +39,9 @@
   transition: background-color 160ms ease, border-color 160ms ease;
 }
 .banner .customize { display: inline-flex; align-items: center; justify-content: center; gap: 8px; border-color: transparent; background: transparent; color: #dfd1eb; }
+.actions .customize { grid-column: 1 / -1; min-height: 36px; padding-block: 6px; }
+.banner .dismiss { display: grid; place-items: center; width: 44px; height: 44px; min-height: 44px; padding: 0; border-color: transparent; background: transparent; color: #d2cad9; flex: none; }
+.banner .dismiss:active { background: #282130; }
 .banner :is(a, button):focus-visible, .dialog :is(a, button, input):focus-visible, .footerButton:focus-visible { outline: 3px solid #ffbb7a; outline-offset: 4px; }
 .dialog {
   position: fixed;
@@ -73,26 +79,19 @@
 .dialogActions button { padding-inline: 10px; font-size: 13px; }
 .dialogActions .save { background: #ffad68; border-color: #ffad68; color: #26150e; }
 :global(.wordcomFooter) .footerButton { display: inline-flex; gap: 8px; align-items: center; min-height: 44px; font-size: 14px; color: #c9c9cf; text-align: left; cursor: pointer; }
-:global(body):has(.banner) :global(.whatsappFloat) { bottom: calc(var(--altura-aviso-cookies, 0px) + 24px + env(safe-area-inset-bottom, 0px)) !important; }
 @media (hover: hover) and (pointer: fine) {
   .banner button:hover, .dialogActions button:hover, .close:hover { border-color: #ffbb7a; background: #3b2c45; }
   .banner .customize:hover { background: #282130; border-color: transparent; }
   .dialogActions .save:hover { background: #ffc18c; color: #26150e; }
   :global(.wordcomFooter) .footerButton:hover { color: #ffbb7a; }
 }
-@media (max-width: 1100px) {
-  .bannerInner { grid-template-columns: minmax(0, 1fr); gap: 14px; }
-  .banner p { max-width: none; }
-  .actions { justify-content: flex-end; }
-}
 @media (max-width: 600px) {
-  .banner { padding: 16px max(18px, env(safe-area-inset-right)) max(12px, env(safe-area-inset-bottom)) max(18px, env(safe-area-inset-left)); }
-  .banner h2 { font-size: 16px; gap: 8px; margin-bottom: 6px; }
-  .banner p { font-size: 14px; line-height: 1.6; }
+  .banner { left: max(12px, env(safe-area-inset-left, 0px)); bottom: max(12px, env(safe-area-inset-bottom, 0px)); width: min(400px, calc(100% - 24px)); padding: 16px; }
+  .banner p { font-size: 13px; line-height: 1.6; }
   .bannerInner { gap: 12px; }
-  .actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: stretch; gap: 6px 10px; }
-  .actions .customize { grid-column: 1 / -1; min-height: 36px; padding-block: 8px; }
   .banner button { padding-inline: 8px; font-size: 13px; }
+  .banner .dismiss { padding: 0; }
+  :global(body):has(.banner) :global(.whatsappFloat) { bottom: calc(var(--altura-aviso-cookies, 0px) + 32px + env(safe-area-inset-bottom, 0px)) !important; }
   .dialog { padding: 20px; }
   .dialogHeader h2 { font-size: 20px; }
   .category { gap: 16px; }
