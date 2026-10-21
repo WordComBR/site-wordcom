@@ -327,9 +327,13 @@ export default async function PaginaCase({
       {/* O navbar saiu daqui. Era `position: fixed` com z-index 20, então
           acompanhava a rolagem e ficava sobre o conteúdo o tempo todo.
 
-          O caminho de volta não se perdeu: a marca flutuante no canto
-          inferior esquerdo (VoltarAosCases, no fim deste componente) leva ao
-          mesmo destino, /?case=<slug>#cases. */}
+          O caminho de volta não se perdeu: o VoltarAosCases, no fim deste
+          componente, ocupa o topo esquerdo que a barra deixou e leva ao mesmo
+          destino, /?case=<slug>#cases.
+
+          Esta é a diferença entre esta branch e o experimento/sem-navbar: lá
+          o navbar saiu sem substituto e as páginas de case ficavam sem saída
+          alguma. Aqui a saída existe. */}
 
       {/* Hero igual ao do Empreenda Sim: o vídeo roda ao fundo sob a camada
           de contraste. Sem vídeo, entra o brilho da marca — exatamente o que

@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import { notFound } from "next/navigation";
 import { FundoVideo } from "@/components/fundo-video";
 
@@ -78,20 +77,8 @@ export default async function PaginaProjeto({
 
   return (
     <main className="product">
-      <header className="nav">
-        <a href="/">
-          <Image
-            src="/marca/wordcom-logo.png"
-            alt="WordCom"
-            width={135}
-            height={56}
-            priority
-          />
-        </a>
-        <a href="/" className="under" aria-label="Voltar ao site">
-          Voltar ao site ←
-        </a>
-      </header>
+      {/* EXPERIMENTO (branch experimento/sem-navbar): faixa de logo e o link
+          "Voltar ao site" removidos, mesma avaliação das páginas de case. */}
 
       <section className={`productHero${slug === "empreenda-sim" ? " productHeroVideo" : ""}`}>
         {slug === "empreenda-sim" ? (
