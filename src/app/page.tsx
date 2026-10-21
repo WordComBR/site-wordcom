@@ -3,7 +3,6 @@ import { CasesCoverflow } from "@/components/cases-coverflow";
 import { FormularioContato } from "@/components/formulario-contato";
 import { FundoOndas } from "@/components/fundo-ondas";
 import { FundoVideo } from "@/components/fundo-video";
-import { MenuMobile } from "@/components/menu-mobile";
 import { HeroSequencia } from "@/components/hero-sequencia";
 import { MarcasMarquee } from "@/components/marcas-marquee";
 import { FooterWordcom } from "@/components/footer-wordcom";
@@ -181,43 +180,17 @@ const eventos = [
 export default function Home() {
   return (
     <>
-      <header className="nav">
-        <a href="#inicio">
-          <Image
-            src="/marca/wordcom-logo.png"
-            alt="WordCom"
-            width={135}
-            height={56}
-            priority
-          />
-        </a>
-        <nav aria-label="Navegação principal">
-          <a href="#quem-somos">Quem Somos</a>
-          <a href="#solucoes">Soluções</a>
-          <a href="#cases">Cases</a>
-          <a href="#projetos">Projetos</a>
-        </nav>
-        <a
-          href={WHATSAPP}
-          target="_blank"
-          rel="noreferrer"
-          className="btn small"
-          aria-label="Falar com a WordCom pelo WhatsApp"
-        >
-          WhatsApp ↗
-        </a>
-        <MenuMobile
-          itens={[
-            { href: "#quem-somos", texto: "Quem Somos" },
-            { href: "#solucoes", texto: "Soluções" },
-            { href: "#cases", texto: "Cases" },
-            { href: "#projetos", texto: "Projetos" },
-            { href: "#agenda", texto: "Agenda" },
-            { href: "#contato", texto: "Contato" },
-          ]}
-          whatsapp={WHATSAPP}
-        />
-      </header>
+      {/* EXPERIMENTO (branch experimento/sem-navbar): o navbar foi removido
+          para avaliar o formato de landing page — rolagem contínua, sem barra.
+
+          Saíram com ele: a logo, os 4 links de seção, o botão de WhatsApp do
+          topo e o MenuMobile, que era a única navegação em tela pequena.
+
+          O acesso ao WhatsApp NÃO se perde: continua no botão flutuante
+          (mais abaixo nesta página) e no rodapé.
+
+          O link "Pular para o conteúdo" do layout também segue funcionando:
+          o alvo #inicio mora em hero-sequencia.tsx, não aqui. */}
 
       <main>
         {/* A hero é o filme da marca controlado pela rolagem. As frases, os

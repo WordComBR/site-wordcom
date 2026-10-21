@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { FundoVideo } from "@/components/fundo-video";
@@ -324,14 +323,12 @@ export default async function PaginaCase({
   return (
     <main className={`product casePag${slug === "beach-tennis" ? " casePagBeach" : slug === "outubro-rosa" ? " casePagOutubro" : slug === "encontro-regional" ? " casePagEncontro" : slug === "porto-360" ? " casePagPorto" : slug === "dia-da-mulher" ? " casePagMulher" : slug === "vai-nessa" ? " casePagVai" : slug === "ods-baixada-santista" ? " casePagOds" : slug === "tudo-bem" ? " casePagTudoBem" : slug === "liceu-sao-paulo" ? " casePagLiceu" : ""}`}>
       {/* mesmo cabeçalho das páginas de projeto */}
-      <header className="nav">
-        <Link href="/">
-          <Image src="/marca/wordcom-logo.png" alt="WordCom" width={135} height={56} priority />
-        </Link>
-        <Link href={`/?case=${encodeURIComponent(slug)}#cases`} className="under" aria-label="Voltar ao site">
-          Voltar ao site ←
-        </Link>
-      </header>
+      {/* EXPERIMENTO (branch experimento/sem-navbar): faixa de logo e o link
+          "Voltar ao site" removidos.
+
+          ATENÇÃO na avaliação: sem esse link, o único caminho de volta é o
+          botão do navegador. Numa landing page a home não tem para onde
+          voltar, mas um case tem — é o ponto principal a pesar aqui. */}
 
       {/* Hero igual ao do Empreenda Sim: o vídeo roda ao fundo sob a camada
           de contraste. Sem vídeo, entra o brilho da marca — exatamente o que
