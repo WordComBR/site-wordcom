@@ -67,6 +67,8 @@ export default function RootLayout({
         />
       </head>
       <body>
+        {/* camada unica de fundo do site; o CSS explica a opacidade medida */}
+        <div className="fundoSite" aria-hidden="true" />
         {/* Google Tag Manager (noscript) */}
         <noscript>
           <iframe

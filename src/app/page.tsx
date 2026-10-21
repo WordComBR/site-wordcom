@@ -1,8 +1,5 @@
-import Image from "next/image";
 import { CasesCoverflow } from "@/components/cases-coverflow";
 import { FormularioContato } from "@/components/formulario-contato";
-import { FundoOndas } from "@/components/fundo-ondas";
-import { FundoVideo } from "@/components/fundo-video";
 import { HeroSequencia } from "@/components/hero-sequencia";
 import { MarcasMarquee } from "@/components/marcas-marquee";
 import { FooterWordcom } from "@/components/footer-wordcom";
@@ -221,7 +218,6 @@ export default function Home() {
         <QuemSomos />
 
         <section className="section light" id="solucoes">
-          <FundoOndas />
           {/* Título sozinho: saíram o kicker, a primeira linha e o parágrafo de
               apoio. O h2 carrega a seção. */}
           <EntradaScroll destaque className="heading headingSo">
@@ -233,14 +229,6 @@ export default function Home() {
         </section>
 
         <section className="section light sectors" id="setores" aria-labelledby="setores-titulo">
-          <div className="setoresFundo" aria-hidden="true">
-            <Image
-              src="/midia/experiencia-setorial.png"
-              alt=""
-              fill
-              sizes="100vw"
-            />
-          </div>
           <BlurText className="setoresTitulo" id="setores-titulo">
             Experiência <span className="tituloDestaque">Setorial</span>
           </BlurText>
@@ -259,11 +247,6 @@ export default function Home() {
         </section>
 
         <section className="section dark" id="cases">
-          <FundoVideo
-            src="/midia/cases-fundo.mp4"
-            poster="/midia/cases-poster.webp"
-            className="casesVideo"
-          />
           <EntradaScroll destaque className="heading">
             <div>
               <p className="kicker">Experiência aplicada</p>
@@ -302,7 +285,6 @@ export default function Home() {
         </section>
 
         <section className="section about">
-          <FundoVideo src="/midia/estrutura/equipe-wordcom.mp4" poster="/midia/estrutura/equipe-wordcom-poster.webp" />
           <EntradaScroll destaque>
             <p className="kicker">Estrutura WordCom</p>
             <BlurText>

@@ -1,12 +1,6 @@
-.section:is(.method, .clients, .projects, .agenda) {
-  background-color: #120d1a;
-  background-image:
-    linear-gradient(#120d1a55, #120d1a55),
-    url("/midia/fundo-institucional.png");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
+/* O fundo de seção saiu: agora quem pinta é a camada única do site
+   (fundo-site.css). Os cards de evento logo abaixo NÃO saem — são conteúdo,
+   com texto escuro sobre branco, e sem o fundo deles o texto sumiria. */
 
 #agenda .events article {
   background-color: #fff;
@@ -29,10 +23,6 @@
 .clients .marqueeFade { display: none; }
 
 @media (max-width: 600px) {
-  .section.method {
-    background-image: none;
-  }
-
   .clients .marqueeRoot { --marquee-edge: 32px; }
 }
 

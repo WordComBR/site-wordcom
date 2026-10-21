@@ -38,6 +38,10 @@
 /* Paginas institucionais: documentos oficiais, visualizacao e download. */
 @import "./institucional.css";
 
+/* Fundo unico e continuo do site inteiro. Por ultimo: vence por ordem de
+   origem as 15 folhas que pintam fundo de secao. */
+@import "./fundo-site.css";
+
 /* Padrao compartilhado dos destaques nos titulos da pagina inicial. */
 :root {
   --titulo-destaque: linear-gradient(104deg, #a855f7, #e0479a 48%, #ff7d00);

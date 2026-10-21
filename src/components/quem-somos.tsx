@@ -1,4 +1,3 @@
-import { FundoVideo } from "@/components/fundo-video";
 import { FAQ, type FAQCategory } from "@/components/ui/faq-tabs";
 import styles from "./quem-somos.module.css";
 import { FoldText } from "@/components/ui/fold-text";
@@ -53,15 +52,6 @@ export function QuemSomos() {
       id="quem-somos"
       aria-labelledby="quem-somos-titulo"
     >
-      <div className={styles.background} aria-hidden="true">
-        <div className={styles.backgroundFrame}>
-          <FundoVideo
-            src="/midia/quem-somos-fundo.mp4"
-            poster="/midia/quem-somos-poster.webp"
-            className={styles.video}
-          />
-        </div>
-      </div>
       <div className={styles.content}>
         <FoldText id="quem-somos-titulo">Sobre a <span className="tituloDestaque">Wordcom</span></FoldText>
         <div className={styles.layout}>

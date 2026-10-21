@@ -1,0 +1,203 @@
+/* Fundo único e contínuo do site inteiro.
+
+   O PROBLEMA QUE RESOLVE
+
+   O site parecia montado em blocos porque era: só a home empilhava 11 seções
+   opacas, cada uma pintando um quase-preto ligeiramente diferente —
+   rgb(13,5,15), rgb(23,23,25), rgb(7,3,15), rgb(21,16,28), rgb(18,13,26),
+   rgb(28,28,31). Seis tons de preto em sequência leem como faixas.
+
+   Aqui as seções deixam de pintar fundo e passam a deixar ver uma camada
+   única, declarada uma vez só no layout.
+
+   POR QUE UMA CAMADA FIXA, E NÃO background-repeat
+
+   A imagem foi medida: 1448x1086, e a diferença entre a borda de cima e a de
+   baixo (0,0298) é metade da variação interna dela (0,0569). Repetir criaria
+   costura visível a cada 1086px. Uma camada fixa cobrindo a viewport não
+   repete, não emenda, e é literalmente a mesma em todas as páginas.
+
+   E não `background-attachment: fixed`, que o Safari do iOS trata mal e faz a
+   rolagem travar. Elemento próprio resolve sem esse custo.
+
+   POR QUE 15% DE OPACIDADE
+
+   Medido sobre a imagem real. Ela é quase preta na mediana (luminância
+   0,0045) mas tem traços neon que chegam a 0,90 — quase branco, em 0,38% dos
+   pixels. Texto #f9f9f9 direto sobre ela dá 18:1 no escuro e 1,05:1 em cima do
+   neon: ilegível exatamente onde cair sobre um traço claro.
+
+   A 15% sobre o corpo rgb(12,12,13), o PIOR pixel da imagem ainda mantém o
+   texto em 5,01:1. A 20% cai para 4,03 e reprova. Não é escolha de gosto: é o
+   limiar onde a superfície inteira fica segura.
+
+      opacidade | p99      | pior pixel
+         15%    | 10,25:1  | 5,01:1   <- seguro em toda a superfície
+         20%    |  8,92:1  | 4,03:1
+         30%    |  7,08:1  | 2,90:1
+         50%    |  5,01:1  | 1,85:1
+
+   PESO
+
+   O PNG original tinha 1,53 MB. Em WebP q75 ficou em 33 KB — 98% menor. Num
+   fundo a 15% a perda é imperceptível. */
+
+.fundoSite {
+  position: fixed;
+  inset: 0;
+  /* atrás do conteúdo, à frente da cor de fundo do body */
+  z-index: -1;
+  pointer-events: none;
+
+  background-image: url("/midia/fundo-site.webp");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  opacity: 0.15;
+}
+
+/* ---------- as superfícies param de pintar ---------- */
+
+/* Esta folha é importada por último no globals.css, então vence por ordem de
+   origem sem precisar de !important nem de seletor inflado — é o mesmo
+   mecanismo que o melhorias.css já usa neste projeto.
+
+   O body mantém a cor: ela é o que aparece nos 85% que a imagem não cobre, e
+   é também o estado de segurança se o WebP falhar ao carregar. */
+
+/* A especificidade aqui é deliberada, não acidental. Medido no navegador,
+   três mecanismos diferentes venciam uma regra simples `main .section` (0,1,1):
+
+     #cases                                    seletor de id .......... (1,0,0)
+     .section:is(.method,.clients,.projects)   :is() assume o maior ... (0,2,0)
+     .quem-somos-module__hash__section.section classe de módulo ....... (0,2,0)
+
+   Por isso a classe aparece repetida (`.section.section` = 0,2,1) e os ids
+   vêm prefixados por `main` (1,0,1). É o mínimo para vencer cada caso, sem
+   recorrer a !important — que tiraria de quem vier depois a chance de
+   sobrescrever. */
+
+main .section.section,
+main .numbers.numbers,
+main .contact.contact,
+main #quem-somos,
+main #solucoes,
+main #setores,
+main #cases,
+main #clientes,
+main #projetos,
+main #agenda,
+main #contato {
+  background: transparent;
+}
+
+/* ---------- uma superfície só ---------- */
+
+/* Sem painel, sem margem, sem canto arredondado: as seções ficam coladas e o
+   site é uma rolagem contínua sobre o mesmo fundo. A tentativa anterior usou
+   painéis flutuantes e continuou lendo como bloco — era exatamente o que o
+   dono não queria.
+
+   Sem painel o texto fica direto sobre a imagem, e é por isso que a opacidade
+   de 15% medida antes não é um detalhe: é o que torna isso possível. No pior
+   pixel da imagem (os traços neon, 0,38% da área) o texto branco ainda mantém
+   5,01:1. A 20% cairia para 4,03 e reprovaria. */
+
+/* páginas de projeto: o bloco de conteúdo claro era o maior contraste de
+   faixa do site */
+.productInfo,
+.productHero {
+  background: transparent;
+}
+
+/* Fundo e cor de texto são a mesma decisão, não duas.
+
+   O .productInfo era claro (#f5f5f7) com tinta #212121. Ao ficar transparente
+   sobre o fundo escuro, essa tinta foi medida em 1,1:1 no `em` e 2,83:1 no
+   `p` — ilegível. Estas cores são as do próprio site, remedidas aqui:
+
+     #f9f9f9 (--paper) sobre o fundo .......... ~17:1
+     #c3b9d1 no corpo, tingido do matiz ....... ~9,3:1   (nunca cinza neutro)
+     #ff7d00 no kicker, já medido .............. 6,92:1
+
+   O laranja da marca é o caso curioso de sempre: reprovava no claro com
+   2,36:1 e passa no escuro. A inversão corrigiu esse de brinde. */
+
+/* `main.product` também pintava: rgb(24,24,24). Sem isto, a camada de fundo
+   ficava tapada na página inteira de projeto. */
+main.product {
+  background: transparent;
+}
+
+/* `:not(.stats *)` protege os chips de números: eles têm fundo branco próprio
+   e tinta escura, medidos em 16,1:1. Pintá-los de branco junto com o resto
+   criava branco sobre branco — 1,05:1. Defeito que eu mesmo introduzi na
+   primeira tentativa desta regra. */
+.productInfo,
+.productInfo h2,
+.productInfo em,
+.productInfo strong {
+  color: var(--paper, #f9f9f9);
+}
+
+/* Os chips de número mantêm fundo branco próprio e, portanto, tinta escura.
+   Excluí-los da regra acima não bastava: sem cor própria, herdavam o branco
+   do .productInfo e viravam branco sobre branco. Precisam da cor declarada.
+   #212121 sobre o chip branco mede 16,1:1. */
+.productInfo .stats strong {
+  color: var(--ink, #212121);
+}
+
+/* (0,2,1) para empatar com `.productInfo > p:not(.kicker)` do original.css —
+   o `:not()` não soma sozinho, mas o `.kicker` dentro dele soma. No empate
+   vence esta folha, que é importada por último. Mesma armadilha que já pegou
+   a linha de contexto das páginas de case. */
+.productInfo > p:not(.kicker),
+.productInfo li:not(.kicker) {
+  color: #c3b9d1;
+}
+
+/* o kicker mantém o laranja: passa a 6,92:1 sobre o fundo escuro */
+.productInfo .kicker {
+  color: var(--orange, #ff7d00);
+}
+
+/* páginas de case: os 9 fundos próprios e a segunda camada de imagem com véu
+   que cada uma trazia */
+.casePag,
+.casePag article,
+.casePagContent::before {
+  background: transparent;
+}
+
+/* páginas institucionais */
+.institutionalMain,
+.institutionalHeader {
+  background: transparent;
+}
+
+/* ---------- dois rótulos que a imagem derrubou ---------- */
+
+/* Medido: sobre o fundo do site puro estes dois passavam, e a imagem a 15%
+   os derrubou no ponto mais claro dela (fundo composto rgb(48,48,48)):
+
+     .numbers span   #888888  9px  ... 5,43:1 antes  ->  3,72:1  REPROVA
+     .indiceN        #d873a6 11px  ... passava        ->  4,35:1  REPROVA
+
+   Baixar a imagem para 8% faria os dois passarem, e a essa altura ela
+   praticamente some — não valeria tê-la. Clarear os dois rótulos custa menos
+   e preserva a informação: nenhum texto muda, só o tom.
+
+   Os dois têm 9px e 11px, abaixo do piso de 12px do projeto. Isso é anterior
+   a esta mudança e continua em aberto; aqui só se corrige o contraste. */
+
+.numbers span {
+  color: #a0a0a0;   /* 5,05:1 no pior ponto */
+}
+
+/* (0,3,1) para empatar com `.solucoesIndice button[aria-current] .indiceN` do
+   solucoes-anel.css — a regra que pinta o item ATIVO do índice. A versão
+   simples `.indiceN` (0,1,0) perdia e só o item ativo seguia reprovando. */
+.solucoesIndice button[aria-current] .indiceN {
+  color: #e895c0;   /* 5,97:1 no pior ponto */
+}
