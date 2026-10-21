@@ -10,6 +10,7 @@ import { ExpandableGallery, type GalleryImage } from "@/components/ui/gallery-an
 import { YouTubeEmbed } from "@/components/ui/youtube-embed";
 import { EncontroRegionalGallery } from "@/components/encontro-regional-gallery";
 import { GloboplayCard } from "@/components/ui/globoplay-card";
+import { VoltarAosCases } from "@/components/voltar-aos-cases";
 import { OdsGallery } from "@/components/ods-gallery";
 import { IPhoneVideo } from "@/components/ui/iphone";
 import { DiaDaMulherGallery } from "@/components/dia-da-mulher-gallery";
@@ -493,6 +494,10 @@ export default async function PaginaCase({
       {slug === "dia-da-mulher" ? <DiaDaMulherGallery /> : null}
       {c.galeria ? <ExpandableGallery images={c.galeria} /> : null}
       </div>
+
+      {/* última coisa do DOM: quem navega por teclado chega nela depois de
+          ter percorrido a página, não antes de começar a ler */}
+      <VoltarAosCases slug={slug} nome={c.nome} />
     </main>
   );
 }
