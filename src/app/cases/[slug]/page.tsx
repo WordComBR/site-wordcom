@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { FundoVideo } from "@/components/fundo-video";
@@ -325,14 +324,12 @@ export default async function PaginaCase({
   return (
     <main className={`product casePag${slug === "beach-tennis" ? " casePagBeach" : slug === "outubro-rosa" ? " casePagOutubro" : slug === "encontro-regional" ? " casePagEncontro" : slug === "porto-360" ? " casePagPorto" : slug === "dia-da-mulher" ? " casePagMulher" : slug === "vai-nessa" ? " casePagVai" : slug === "ods-baixada-santista" ? " casePagOds" : slug === "tudo-bem" ? " casePagTudoBem" : slug === "liceu-sao-paulo" ? " casePagLiceu" : ""}`}>
       {/* mesmo cabeçalho das páginas de projeto */}
-      <header className="nav">
-        <Link href="/">
-          <Image src="/marca/wordcom-logo.png" alt="WordCom" width={135} height={56} priority />
-        </Link>
-        <Link href={`/?case=${encodeURIComponent(slug)}#cases`} className="under" aria-label="Voltar ao site">
-          Voltar ao site ←
-        </Link>
-      </header>
+      {/* O navbar saiu daqui. Era `position: fixed` com z-index 20, então
+          acompanhava a rolagem e ficava sobre o conteúdo o tempo todo.
+
+          O caminho de volta não se perdeu: a marca flutuante no canto
+          inferior esquerdo (VoltarAosCases, no fim deste componente) leva ao
+          mesmo destino, /?case=<slug>#cases. */}
 
       {/* Hero igual ao do Empreenda Sim: o vídeo roda ao fundo sob a camada
           de contraste. Sem vídeo, entra o brilho da marca — exatamente o que
