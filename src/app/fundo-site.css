@@ -201,3 +201,21 @@ main.product {
 .solucoesIndice button[aria-current] .indiceN {
   color: #e895c0;   /* 5,97:1 no pior ponto */
 }
+
+/* ---------- Estrutura WordCom: resquício do vídeo removido ---------- */
+
+/* `.section.about::before` (melhorias.css:619) pinta um véu de 80% de preto
+   sobre a seção inteira, em z-index 1. Ele existia para dar leitura ao texto
+   sobre o vídeo da equipe, e a opacidade dele foi medida na época contra os
+   quadros desse vídeo.
+
+   Com o vídeo removido, o véu virou uma laje escura sobre o fundo comum — e
+   era isso que deixava a Estrutura visivelmente mais escura que as vizinhas.
+
+   Desligado aqui, na folha de sobreposição, em vez de editado no melhorias.css:
+   se o vídeo um dia voltar, basta remover estas quatro linhas e o véu volta
+   calibrado como estava. */
+
+.section.about::before {
+  content: none;
+}
