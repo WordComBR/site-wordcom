@@ -14,22 +14,16 @@
   /* esquerda porque o canto direito é do WhatsApp na home; o mesmo canto não
      deve significar coisas diferentes conforme a página */
   left: max(16px, env(safe-area-inset-left, 0px));
-  /* Sobe acima do aviso de cookies enquanto ele estiver na tela.
+  /* No topo, ocupando o lugar que o navbar removido deixou.
 
-     O banner é `position: fixed` com z-index 1000 e cobria este botão na
-     primeira visita — medido. Subir o z-index acima de 1000 resolveria o
-     empilhamento e criaria um problema pior: o botão passaria a cobrir a UI
-     de consentimento, que é obrigatória e precisa estar alcançável.
+     Continua `fixed`: acompanha a rolagem, que era justamente o que o navbar
+     fazia e o que mantém o caminho de volta sempre ao alcance.
 
-     `--altura-aviso-cookies` é publicada no :root pelo consentimento-cookies.tsx
-     e removida quando o banner sai, então o fallback 0px vale sozinho depois
-     da escolha. O botão de WhatsApp já usa esse mesmo mecanismo.
-
-     A constante é 32px e não 16px por uma razão medida: o banner não encosta
-     no fundo da tela — numa viewport de 502px ele ocupa de 223 a 478, com 24px
-     de folga embaixo. Somar só a altura dele deixava o botão 8px sobre a sua
-     borda. 32px é a mesma constante que o botão de WhatsApp já usa. */
-  bottom: calc(32px + env(safe-area-inset-bottom, 0px) + var(--altura-aviso-cookies, 0px));
+     Antes este botão vivia embaixo e precisava somar `--altura-aviso-cookies`
+     para não ficar sob o banner de consentimento, que é fixo na parte de baixo
+     com z-index 1000. No topo não existe essa colisão, então o cálculo saiu —
+     mantê-lo seria complexidade sem função. */
+  top: max(16px, env(safe-area-inset-top, 0px));
   /* acima dos dois elementos sticky que cobrem a viewport nas páginas de case
      (o palco do hero e o fundo da galeria) */
   z-index: 60;
