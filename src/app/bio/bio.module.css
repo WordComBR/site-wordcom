@@ -1,0 +1,246 @@
+/* Página de links do Instagram.
+
+   A MARCA É O FUNDO
+
+   O dono pediu que a logo ocupasse o fundo inteiro. O banner que ele entregou
+   (1672x941, 16:9) não serve cru: medido, o pior pixel dele tem luminância
+   1,0 — é o próprio wordmark branco — e qualquer texto que caísse ali ficaria
+   em 1,05:1. Recortá-lo em `cover` num celular também cortava o wordmark ao
+   meio, porque numa viewport alta o corte é horizontal e a palavra ocupa 65%
+   da largura da arte.
+
+   Então o fundo não é o banner: é um retrato gerado a partir dele por
+   `scripts/gera-fundo-bio.py` (`/marca/bio-fundo.webp`, 1080x975, 22 KB).
+   A marca aparece inteira no alto, ocupando 80% da largura, e a mesma noite
+   estrelada desce até virar #0a0710 chapado. A tela termina exatamente onde
+   a cor já é chapada, e o `background-color` continua dali para baixo — por
+   isso não há emenda em viewport nenhuma, e as bordas laterais também morrem
+   na cor base.
+
+   O script reporta que o conteúdo é seguro a partir de 0,658 da largura do
+   fundo; o CSS usa 0,700, com folga. Medido na página montada, o pior pixel
+   atrás da frase dá 7,8:1 em #f6f4f8, e atrás dos cartões o campo já é cor
+   chapada: 19,2:1.
+
+   OS CARTÕES: A PILHA PERCORRE O GRADIENTE DA MARCA
+
+   O comportamento veio da referência que o dono mandou (edu.koko.ag/links):
+   blocos de cor chapada, canto reto, fio da própria cor, seta à direita, e o
+   hover que escurece o bloco e levanta 2px.
+
+   As cores são as da WordCom. O gradiente da marca é #7d00ff -> #be3f80 ->
+   #ff7d00, e a pilha o percorre, um passo por cartão: roxo, violeta, magenta,
+   e o laranja puro no fim, no WhatsApp. A interpolação para no magenta em vez
+   de seguir até o laranja porque o meio desse trecho dá um tijolo (#993e40)
+   que não é cor de marca nenhuma — e, medido, reprovava no hover com 3,67:1.
+
+   Na primeira tentativa eu escureci cada tom até o texto passar, e o
+   resultado virou lama: #a7366f e #a32a93 são magentas sem convicção. A
+   referência acerta porque usa cor CHEIA (amarelo puro, azul puro) e resolve
+   o contraste pela tinta, não baixando a cor. Aqui é o mesmo: a saturação de
+   cada bloco fica entre 0,67 e 1,00, e só o magenta levou um empurrão mínimo
+   rumo ao preto — que preserva matiz — porque com papel em cima dava 4,48:1,
+   dois centésimos abaixo do piso.
+
+   Medidos em repouso E no hover, que é onde bloco colorido costuma reprovar:
+
+     cartão       cor       hover     título  hover  apoio  saturação
+     Nosso site   #f4f2f6   #d6d3d8   16,93   12,71   6,05    —
+     Instagram    #7d00ff   #6e01e0    5,69    6,88   4,52   1,00
+     TikTok       #a426b3   #90229e    5,38    6,49   4,57   0,79
+     Portfólio    #b83d7c   #a1366e    4,72    5,78   4,55   0,67
+     WhatsApp     #ff7d00   #df6e02    7,34    5,71   5,80   1,00
+
+   Um bloco preto, como o da referência, foi testado e descartado: lá ele
+   funciona porque o fundo é papel; aqui mede 1,07:1 contra a base e some.
+
+   O APOIO NUNCA É CINZA
+
+   Dentro de cada cartão o texto de apoio é a tinta do cartão misturada à cor
+   do próprio cartão: o máximo de tingimento que ainda dá 4,5:1 nos dois
+   estados. Sobre superfície colorida, cinza neutro lê como falha de
+   impressão.
+
+   O QUE NÃO VEIO DA REFERÊNCIA
+
+   A referência põe um kicker em caixa alta acima de cada título
+   ("CURSO · NO KAMPUS"). Isso é ban absoluto no piso de craft deste projeto —
+   o título carrega o próprio peso. Ficaram título e descrição.
+
+   E a referência usa serifa no título. Aqui não: a voz display deste site é a
+   Montserrat, que é o que combina com o wordmark geométrico da marca. Uma
+   serifa brigaria com a logo que está logo acima, no fundo. O peso editorial
+   vem do tamanho e do espaço, não de outra família. */
+
+.page {
+  --bio-base: #0a0710;
+  --bio-text: #f6f4f8;
+  --bio-muted: #c9c2d6;
+  --bio-ink: #140f1c;
+
+  /* a largura em que o fundo é desenhado; o conteúdo se posiciona por ela */
+  --palco: 100vw;
+
+  position: relative;
+  z-index: 1;
+  min-height: 100svh;
+  display: flex;
+  justify-content: center;
+
+  background-color: var(--bio-base);
+  background-image: url("/marca/bio-fundo.webp");
+  background-repeat: no-repeat;
+  background-position: top center;
+  background-size: var(--palco) auto;
+
+  /* 0,700 da largura do fundo é onde o degradê já virou cor chapada */
+  padding: calc(var(--palco) * 0.700) 24px max(32px, env(safe-area-inset-bottom));
+  padding-bottom: calc(max(32px, env(safe-area-inset-bottom)) + var(--altura-aviso-cookies, 0px));
+
+  color: var(--bio-text);
+  font-family: var(--font-wordcom), Arial, sans-serif;
+  color-scheme: dark;
+}
+
+/* Acima disto o fundo deixa de crescer com a janela: vira um palco centrado,
+   e as bordas laterais do arquivo já morrem na cor base, então ele encosta no
+   campo escuro sem mostrar emenda. */
+@media (min-width: 540px) {
+  .page { --palco: 540px; }
+}
+
+.page ::selection { background: var(--bio-text); color: var(--bio-ink); }
+
+.content { width: 100%; max-width: 416px; }
+
+/* A assinatura é o título visível da página: a logo está no fundo, em
+   imagem, então quem carrega a hierarquia aqui é a frase. Ela cresceu de 27
+   para 40px porque o dono pediu mais destaque — e porque, com a marca logo
+   acima, um texto de 27px ficava sendo legenda de imagem. */
+.assinatura {
+  margin: 0 0 30px;
+  text-align: center;
+  font-size: clamp(30px, 8.2vw, 40px);
+  font-weight: 400;
+  line-height: 1.08;
+  /* o piso de tracking do projeto é -0.04em; isto fica dentro */
+  letter-spacing: -0.038em;
+  text-wrap: balance;
+}
+.assinatura strong { font-weight: 700; }
+
+.links { display: flex; flex-direction: column; gap: 8px; }
+
+/* ---------- o bloco ---------- */
+
+/* Blocos editoriais, não linhas. A primeira versão tinha 70px de altura com
+   ícone à esquerda e título de 15px: isso é um item de Linktree vestido de
+   cor, e foi o que o dono chamou de feio. A referência são blocos de 111 a
+   148px, sem ícone, com título grande e um parágrafo de verdade. O ícone saiu
+   porque o título já diz "Instagram", "TikTok" — o ícone só roubava a largura
+   que o texto precisa. */
+
+.card {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  min-height: 118px;
+  padding: 24px 22px;
+  /* canto reto, como a referência: o bloco é uma superfície, não um botão */
+  border: 1px solid var(--cor);
+  background: var(--cor);
+  color: var(--txt);
+  text-decoration: none;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  /* esta é a SAÍDA: mais rápida que a entrada, declarada no :hover */
+  transition:
+    background-color 160ms cubic-bezier(0.23, 1, 0.32, 1),
+    border-color 160ms cubic-bezier(0.23, 1, 0.32, 1),
+    transform 160ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.corpo { display: flex; flex: 1; flex-direction: column; gap: 7px; min-width: 0; }
+.titulo {
+  margin: 0;
+  font-size: clamp(19px, 4.8vw, 21px);
+  font-weight: 650;
+  line-height: 1.16;
+  letter-spacing: -0.028em;
+  text-wrap: balance;
+}
+.desc { font-size: 14px; line-height: 1.5; color: var(--apoio); }
+.seta {
+  flex-shrink: 0;
+  transition: transform 160ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* ---------- os tons: um passo do gradiente da marca por cartão ---------- */
+
+.destaque { --cor: #f4f2f6; --hover: #d6d3d8; --txt: #140f1c; --apoio: #5e5a64; }
+.roxo     { --cor: #7d00ff; --hover: #6e01e0; --txt: #f4f2f6; --apoio: #e5d3f7; }
+.violeta  { --cor: #a426b3; --hover: #90229e; --txt: #f4f2f6; --apoio: #ebdcef; }
+.magenta  { --cor: #b83d7c; --hover: #a1366e; --txt: #f4f2f6; --apoio: #f2edf2; }
+.laranja  { --cor: #ff7d00; --hover: #df6e02; --txt: #140f1c; --apoio: #3a2118; }
+
+/* ---------- estados ---------- */
+
+.card:focus-visible {
+  outline: 2px solid var(--bio-text);
+  outline-offset: 3px;
+}
+
+.card:active {
+  background: var(--hover);
+  border-color: var(--hover);
+  transform: translateY(0);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .card:hover {
+    background: var(--hover);
+    border-color: var(--hover);
+    transform: translateY(-2px);
+    /* ENTRADA: 250ms, como a referência; a saída na regra base é 160ms */
+    transition:
+      background-color 250ms cubic-bezier(0.23, 1, 0.32, 1),
+      border-color 250ms cubic-bezier(0.23, 1, 0.32, 1),
+      transform 250ms cubic-bezier(0.23, 1, 0.32, 1);
+  }
+  .card:hover .seta {
+    transform: translateX(4px);
+    transition: transform 250ms cubic-bezier(0.23, 1, 0.32, 1);
+  }
+}
+
+/* ---------- rodapé ---------- */
+
+.page .footer {
+  margin: 24px 0 0;
+  padding: 0;
+  width: 100%;
+  background: transparent;
+  border: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+.brandLine { width: 34px; height: 2px; background: linear-gradient(90deg, #7d00ff, #be3f80, #ff7d00); }
+.footer p { margin: 0; color: var(--bio-muted); font-size: 12px; line-height: 1.6; letter-spacing: 0.01em; }
+
+.srOnly {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0;
+}
+
+@media (max-width: 360px) {
+  .page { padding-inline: 18px; }
+  .card { padding-inline: 18px; gap: 14px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card, .seta { transition: none; }
+  .card:hover, .card:active { transform: none; }
+  .card:hover .seta { transform: none; }
+}
