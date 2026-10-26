@@ -58,7 +58,19 @@ export function abrirPreferenciasCookies() {
   window.dispatchEvent(new Event("wordcom:abrir-cookies"));
 }
 
-export function permiteEventoDeConversao() {
-  const preferencias = interpretarPreferencias(lerPreferenciasCookies());
-  return preferencias?.analise === true && preferencias.publicidade === true;
+/* Analise mede, publicidade otimiza: sao portoes separados.
+
+   Antes havia so `permiteEventoDeConversao()`, que exigia as duas. Com isso,
+   quem aceitava apenas analise ficava invisivel na medicao — a empresa
+   descartava um dado que tinha direito de ter, e a pessoa havia consentido.
+
+   Quais tags consomem cada evento e decisao do contentor do GTM; aqui o
+   codigo so informa o que foi consentido. */
+
+export function permiteAnalise() {
+  return interpretarPreferencias(lerPreferenciasCookies())?.analise === true;
+}
+
+export function permitePublicidade() {
+  return interpretarPreferencias(lerPreferenciasCookies())?.publicidade === true;
 }

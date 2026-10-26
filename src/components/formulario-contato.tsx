@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { permiteEventoDeConversao } from "@/lib/cookies";
+import { permiteAnalise } from "@/lib/cookies";
 
 /* Formulário de contato — reimplementação do que o site já fazia:
    POST em /api/lead com os campos, a origem, a URL de entrada e os cinco
@@ -92,7 +92,7 @@ export function FormularioContato() {
       }
       setEstado("success");
       form.reset();
-      if (permiteEventoDeConversao()) {
+      if (permiteAnalise()) {
         const w = window as unknown as { dataLayer?: Record<string, unknown>[] };
         w.dataLayer = w.dataLayer || [];
         w.dataLayer.push({ event: "lead_form_submit", form_name: "contato_wordcom" });

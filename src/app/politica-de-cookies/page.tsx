@@ -20,13 +20,13 @@ export default function PoliticaDeCookies() {
       <h2>O que são cookies?</h2>
       <p>Cookies são pequenos arquivos que os sites podem armazenar no navegador. Outras tecnologias, como o armazenamento local, também podem guardar informações entre visitas.</p>
       <h2>O que está ativo neste site?</h2>
-      <p>Atualmente, este novo site não carrega Google Tag Manager, Google Analytics nem Meta Pixel. Aceitar recursos opcionais não ativa essas ferramentas nesta versão. A eventual integração dependerá de configuração e testes de consentimento.</p>
+      <p>Este site carrega o Google Tag Manager, que gerencia as ferramentas de análise e publicidade. O carregamento acontece em todas as visitas, mas o consentimento é aplicado antes dele: enquanto você não permitir uma categoria, as ferramentas correspondentes operam em modo negado e não gravam cookies nem identificadores no seu navegador. As categorias opcionais começam negadas e só mudam quando você escolhe.</p>
       <h2>Sua preferência de privacidade</h2>
       <p>Usamos o armazenamento local do seu navegador, sob a chave <code>wordcom:consentimento:v1</code>, para lembrar sua escolha por até 180 dias. O registro contém a versão da preferência, a data da escolha e as categorias permitidas. Ele não contém nome, e-mail ou telefone e não é enviado a um servidor por este controle.</p>
       <p>Quando esse prazo expira, a preferência é inválida ou o armazenamento é apagado, o aviso volta a aparecer. Se o navegador bloquear o armazenamento, sua escolha pode ser solicitada novamente na próxima visita.</p>
       <h2>Categorias opcionais</h2>
-      <p><strong>Análise:</strong> destinada à medição de visitas e navegação, como a realizada pelo Google Analytics, quando essa integração for ativada.</p>
-      <p><strong>Publicidade:</strong> destinada à medição de campanhas e ações relacionadas a anúncios, como a realizada pelo Meta Pixel, quando essa integração for ativada.</p>
+      <p><strong>Análise:</strong> destinada à medição de visitas e navegação, como a realizada pelo Google Analytics. Permitir esta categoria libera o armazenamento usado por essa medição.</p>
+      <p><strong>Publicidade:</strong> destinada à medição de campanhas e ações relacionadas a anúncios, como a realizada pelo Meta Pixel. Permitir esta categoria libera o armazenamento de anúncios, os dados enviados ao anunciante e a personalização.</p>
       <p>As categorias opcionais começam desmarcadas. Rejeitá-las não impede a navegação, o acesso aos documentos ou o contato com a empresa.</p>
       <h2>Como mudar sua escolha</h2>
       <p>Use o botão abaixo ou o acesso “Preferências de cookies” no rodapé. Você também pode apagar o armazenamento do site nas configurações do navegador.</p>

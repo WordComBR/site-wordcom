@@ -71,7 +71,7 @@ export function ConsentimentoCookies() {
             <h2 id="cookies-titulo"><Cookie size={20} aria-hidden="true" />Sua privacidade</h2>
             <button type="button" className={styles.dismiss} onClick={() => setDispensado(true)} aria-label="Fechar aviso de cookies" title="Fechar sem aceitar cookies"><X size={18} aria-hidden="true" /></button>
           </div>
-          <p>Você escolhe quais cookies permitir. Análise e publicidade ainda estão desativadas. <Link href="/politica-de-cookies">Política de cookies</Link></p>
+          <p>Você escolhe quais cookies permitir. Enquanto não escolher, análise e publicidade ficam bloqueadas. <Link href="/politica-de-cookies">Política de cookies</Link></p>
         </div>
         <div className={styles.actions}>
           <button type="button" aria-label="Rejeitar opcionais" onClick={() => salvar(false, false)}>Rejeitar</button>
@@ -98,7 +98,7 @@ export function ConsentimentoCookies() {
         <div><h3>Publicidade</h3><p>Permitem medir campanhas e ações relacionadas a anúncios, com ferramentas como o Meta Pixel.</p></div>
         <input type="checkbox" role="switch" checked={publicidade} onChange={(e) => setPublicidade(e.target.checked)} aria-label="Permitir cookies de publicidade" />
       </label>
-      <p className={styles.note}>Analytics, Meta Pixel e GTM ainda não estão ativados neste novo site. Salvar sua preferência não instala essas ferramentas. <Link href="/politica-de-cookies" onClick={fechar}>Política de cookies</Link></p>
+      <p className={styles.note}>Este site usa o Google Tag Manager para gerenciar as ferramentas de análise e publicidade. Enquanto você não permitir, elas não gravam cookies nem identificadores. <Link href="/politica-de-cookies" onClick={fechar}>Política de cookies</Link></p>
       <div className={styles.dialogActions}>
         <button type="button" onClick={() => salvar(false, false)}>Rejeitar opcionais</button>
         <button type="button" onClick={() => salvar(true, true)}>Aceitar todos</button>

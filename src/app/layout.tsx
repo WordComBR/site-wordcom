@@ -3,6 +3,7 @@ import { Montserrat } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import { ConsentimentoCookies } from "@/components/consentimento-cookies";
+import { ConsentimentoGtm } from "@/components/consentimento-gtm";
 import { NavbarWordcom } from "@/components/navbar-wordcom";
 
 
@@ -53,6 +54,55 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" className={montserrat.variable}>
       <head>
+        {/* ---- Consent Mode v2: o estado PRECISA existir antes do GTM ----
+
+           Script inline e sincrono, de proposito. Ele roda durante a analise
+           do HTML, ou seja, antes do contentor do GTM, que entra por
+           `afterInteractive`. Se a ordem se inverter, as tags disparam antes
+           de haver estado de consentimento e o aviso vira decoracao.
+
+           Nao usa `next/script` nem importa de `@/lib/cookies`: os dois so
+           executam depois do bundle, tarde demais. A validacao abaixo e a
+           mesma de `interpretarPreferencias`, repetida aqui por necessidade —
+           se a regra mudar la, muda aqui tambem.
+
+           O servidor nunca sabe a escolha (ela mora no localStorage), entao
+           sem registro valido tudo comeca em `denied`. Negar por padrao e o
+           comportamento exigido, nao uma limitacao.
+
+           Os tres sinais de publicidade sao o que diferencia a v2 da v1:
+           omitir `ad_user_data` e `ad_personalization` e o erro mais comum. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function(){
+                window.dataLayer=window.dataLayer||[];
+                function gtag(){window.dataLayer.push(arguments)}
+                window.gtag=gtag;
+                var a=false,p=false;
+                try{
+                  var r=JSON.parse(window.localStorage.getItem('wordcom:consentimento:v1'));
+                  var agora=Date.now();
+                  if(r&&r.versao===1&&typeof r.analise==='boolean'&&typeof r.publicidade==='boolean'
+                    &&typeof r.atualizadoEm==='number'&&isFinite(r.atualizadoEm)
+                    &&r.atualizadoEm<=agora&&agora-r.atualizadoEm<15552000000){
+                    a=r.analise;p=r.publicidade;
+                  }
+                }catch(e){}
+                gtag('consent','default',{
+                  analytics_storage:a?'granted':'denied',
+                  ad_storage:p?'granted':'denied',
+                  ad_user_data:p?'granted':'denied',
+                  ad_personalization:p?'granted':'denied',
+                  security_storage:'granted',
+                  functionality_storage:'granted',
+                  wait_for_update:500
+                });
+                window.dataLayer.push({event:'wordcom_consentimento',analise:a,publicidade:p});
+              })();
+            `,
+          }}
+        />
         {/* Google Tag Manager Script */}
         <Script
           id="gtm-script"
@@ -91,6 +141,7 @@ export default function RootLayout({
         <NavbarWordcom />
         {children}
         <ConsentimentoCookies />
+        <ConsentimentoGtm />
       </body>
     </html>
   );
