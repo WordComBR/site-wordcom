@@ -56,15 +56,19 @@ export default function RootLayout({
       <head>
         {/* ---- Consent Mode v2: o estado PRECISA existir antes do GTM ----
 
-           Script inline e sincrono, de proposito. Ele roda durante a analise
-           do HTML, ou seja, antes do contentor do GTM, que entra por
+           `beforeInteractive` de proposito: o script entra no HTML servido e
+           roda durante a analise dele, antes do contentor do GTM, que usa
            `afterInteractive`. Se a ordem se inverter, as tags disparam antes
            de haver estado de consentimento e o aviso vira decoracao.
 
-           Nao usa `next/script` nem importa de `@/lib/cookies`: os dois so
-           executam depois do bundle, tarde demais. A validacao abaixo e a
-           mesma de `interpretarPreferencias`, repetida aqui por necessidade —
-           se a regra mudar la, muda aqui tambem.
+           Com `<script>` cru em vez de `next/script` o React reclama —
+           "Encountered a script tag while rendering React component" — porque
+           script dentro de componente nao executa em render de cliente. No
+           HTML inicial ele funcionava, mas o aviso era legitimo e some assim.
+
+           Nao importa de `@/lib/cookies`: o bundle so executa depois, tarde
+           demais. A validacao abaixo e a mesma de `interpretarPreferencias`,
+           repetida aqui por necessidade — se a regra mudar la, muda aqui.
 
            O servidor nunca sabe a escolha (ela mora no localStorage), entao
            sem registro valido tudo comeca em `denied`. Negar por padrao e o
@@ -72,7 +76,9 @@ export default function RootLayout({
 
            Os tres sinais de publicidade sao o que diferencia a v2 da v1:
            omitir `ad_user_data` e `ad_personalization` e o erro mais comum. */}
-        <script
+        <Script
+          id="consent-default"
+          strategy="beforeInteractive"
           dangerouslySetInnerHTML={{
             __html: `
               (function(){

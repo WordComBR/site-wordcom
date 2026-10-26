@@ -110,7 +110,11 @@ export function NavBar({ items }: { items: NavItem[] }) {
                 aria-current={estaAtivo ? "true" : undefined}
                 aria-label={item.imageSrc ? "WordCom — início" : item.name}
               >
-                {item.imageSrc ? <Image src={item.imageSrc} alt="" width={28} height={32} className={estilos.marca} /> : <>
+                {item.imageSrc ? <Image src={item.imageSrc} alt="" width={28} height={32} className={estilos.marca}
+                    /* a barra e fixa no topo: esta marca e o maior elemento
+                       pintado na primeira dobra, e o Next apontou ela como LCP.
+                       Sem priority ela entra com lazy load e atrasa a metrica. */
+                    priority /> : <>
                 <span className={estilos.rotulo}>{item.name}</span>
                 <span className={estilos.icone} aria-hidden="true">
                   <Icone size={18} strokeWidth={2.5} />
