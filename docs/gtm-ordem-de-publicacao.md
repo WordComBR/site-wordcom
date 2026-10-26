@@ -106,9 +106,18 @@ durante os testes e só então mudar para **Ativo**.
 git switch main
 git merge lp/versao-final
 git push
+vercel --prod
 ```
 
-A Vercel publica sozinha ao receber o push na `main`.
+**O push NAO publica.** O projeto da Vercel nao esta conectado ao repositorio
+Git — descoberto em 26/10/2026, depois de um push que nao mudou nada no ar. A
+publicacao e sempre manual, por `vercel --prod`, e ela envia **o que esta no
+disco**, nao o que foi commitado. Por isso o `git status` antes.
+
+A conexao com o Git foi avaliada e descartada: `WordComBR` e uma conta pessoal
+do GitHub, nao uma organizacao, e a Vercel esta ligada a outra conta
+(`matyamauti`). Uma conta pessoal nao concede escopo sobre os repositorios de
+outra, entao a ligacao exigiria mexer na propriedade das contas.
 
 Antes do merge, remover do commit `0ec6d58` o aviso de "não publicar" não é
 possível (mensagem de commit é imutável sem reescrever história) — fica como
