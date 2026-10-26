@@ -1,0 +1,191 @@
+/* Tubelight navbar — tradução das classes Tailwind do componente original
+   para CSS próprio, porque o Tailwind não está ativo neste projeto.
+
+   Equivalência, para conferência contra o original:
+
+     fixed top-0 left-1/2 -translate-x-1/2 z-50 pt-6  -> .barra
+     flex items-center gap-3 ... rounded-full         -> .pilula
+     bg-background/5 border-border backdrop-blur-lg   -> .pilula (cores do site)
+     text-sm font-semibold px-6 py-2 rounded-full     -> .link
+     bg-muted text-primary (estado ativo)             -> .ativo
+     bg-primary/5 rounded-full -z-10                  -> .lampada
+     os 4 divs de brilho sobrepostos                  -> .lampada::before + .facho
+
+   O z-index é 60 e não 50: o banner de cookies é fixed com z-index 1000 e
+   precisa continuar por cima; 60 põe a barra acima do conteúdo e dos dois
+   elementos sticky das páginas de case, sem disputar com o consentimento. */
+
+.barra {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 60;
+  padding-top: max(18px, env(safe-area-inset-top, 0px));
+  pointer-events: none;
+}
+
+.pilula {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin: 0;
+  padding: 5px;
+  list-style: none;
+  pointer-events: auto;
+
+  border-radius: 999px;
+  /* Véu ESCURO, e não o `bg-background/5` claro do original — divergência
+     forçada por medição, não por gosto.
+
+     A hero é uma sequência de 240 quadros que rola por baixo desta barra.
+     Os quadros são escuros (luminância média 0,020 na faixa do topo), mas há
+     traços quentes que caem bem onde a pílula fica, e eles sobrevivem ao blur
+     de 14px. Com o véu branco de 6% o link media 1,77:1 ali — ilegível.
+
+     O pior ponto foi varrido no canvas renderizado, não estimado no arquivo:
+     96 amostras ao longo dos 3840px de rolagem da hero, média em blocos de
+     14px (o raio do blur) sob a pílula. Deu rgb(246,140,207) — o rosa da
+     marca, bem mais claro que a estimativa feita sobre o WebP, porque o
+     `cover` recorta a imagem. #1a1622 a 80% é o escuro tingido de roxo que o
+     site já usa:
+
+                        pior ponto real   fundo da landing
+         link  #c3b9d1      6,46:1             9,31:1
+         ativo #f9f9f9     11,53:1            16,58:1
+
+     80% e não o mínimo que passa (68% dá 4,89:1): a varredura andou de 40 em
+     40px, e entre duas amostras pode haver quadro mais claro.
+
+     Armadilha que custou duas medições erradas aqui: o site tem
+     `scroll-behavior: smooth`, então `scrollTo` anima. Varredura que não
+     passe `behavior: 'instant'` e não confira `window.scrollY` fica presa no
+     topo e devolve um pior caso falso — foi o que aconteceu duas vezes. */
+  background-color: #1a1622cc;
+  border: 1px solid #ffffff1f;
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  backdrop-filter: blur(14px) saturate(140%);
+  /* sombra com deslocamento E desfoque, como o piso do projeto exige */
+  box-shadow: 0 10px 30px #00000059;
+}
+
+.item {
+  display: flex;
+}
+
+.link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* 44px de alvo de toque: o piso do projeto. O original usava py-2, que
+     daria cerca de 33px e reprovaria. */
+  min-height: 44px;
+  padding: 0 20px;
+  border-radius: 999px;
+
+  font-size: 14px;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  white-space: nowrap;
+  /* #c3b9d1 sobre o fundo da landing: tingido do matiz, nunca cinza neutro */
+  color: #c3b9d1;
+
+  transition: color 200ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .link:hover {
+    color: #f9f9f9;
+  }
+}
+
+.link:focus-visible {
+  outline: 2px solid #ff7d00;
+  outline-offset: 3px;
+}
+
+.ativo {
+  color: #f9f9f9;
+}
+
+/* o rótulo manda; o ícone é a versão compacta e só aparece quando não cabe */
+.rotulo {
+  display: inline;
+}
+
+.icone {
+  display: none;
+  line-height: 0;
+}
+
+/* ---------- a lâmpada ---------- */
+
+/* A camada que desliza entre os itens. O movimento vem do layoutId do motion,
+   não daqui — este arquivo só desenha. */
+.lampada {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: 999px;
+  background-color: #ff7d0014;
+}
+
+/* o filete aceso no topo do item ativo */
+.lampada::before {
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 32px;
+  height: 4px;
+  border-radius: 999px 999px 0 0;
+  background: var(--titulo-destaque, linear-gradient(104deg, #a855f7, #e0479a 48%, #ff7d00));
+}
+
+/* o halo. O original empilhava três divs com blur de raios diferentes; um
+   gradiente radial faz o mesmo com um elemento, e sem três camadas de blur
+   para o navegador compor a cada quadro do deslize. */
+.facho {
+  position: absolute;
+  top: -22px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 72px;
+  height: 44px;
+  pointer-events: none;
+  background: radial-gradient(
+    50% 60% at 50% 100%,
+    #e0479a52,
+    #a855f726 45%,
+    transparent 72%
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .link {
+    transition: none;
+  }
+}
+
+/* ---------- estreito ---------- */
+
+/* O comportamento mobile definitivo virá em prompt separado. Por ora a barra
+   continua no topo também no celular: o original a joga para `bottom-0`, e
+   lá já estão o botão flutuante de WhatsApp e o banner de cookies. */
+@media (max-width: 760px) {
+  .rotulo {
+    display: none;
+  }
+
+  .icone {
+    display: inline-flex;
+  }
+
+  .link {
+    padding: 0 14px;
+    min-width: 44px;
+  }
+}

@@ -3,6 +3,8 @@ import { Montserrat } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import { ConsentimentoCookies } from "@/components/consentimento-cookies";
+import { NavbarWordcom } from "@/components/navbar-wordcom";
+
 
 /* A mesma Montserrat que o site já usa. Via next/font ela é self-hosted no
    build, com preload e font-display: swap — sem requisição a terceiro e sem
@@ -83,6 +85,10 @@ export default function RootLayout({
         <a href="#inicio" className="pularConteudo">
           Pular para o conteúdo
         </a>
+        {/* Navbar do site inteiro. Depois do "Pular para o conteúdo" de
+            propósito: o skip link tem de continuar sendo o primeiro foco da
+            página, antes da navegação. */}
+        <NavbarWordcom />
         {children}
         <ConsentimentoCookies />
       </body>
