@@ -41,14 +41,60 @@ E os sinais do Consent Mode v2:
 
 ---
 
-## Passo 0 — Antes de mexer: salvar a volta
+## Passo 0 — Antes de mexer: a volta atrás
 
-1. **Admin → Exportar contêiner** → versão publicada → guardar o JSON.
-   É a única forma de desfazer se algo quebrar.
-2. **Admin → Configurações do contêiner → Ativar recursos de consentimento**
-   (se ainda não estiver ligado). É o que faz aparecer a aba de consentimento
-   nas tags.
-3. Anotar, em **Tags**, quais existem e qual é o ID de cada uma:
+São três redes de proteção, da mais usada para a mais drástica. Na prática a
+primeira resolve quase tudo.
+
+### 1. Trabalhar num espaço de trabalho novo — é o que realmente protege
+
+**Nada que você editar vai ao ar até clicar em Enviar → Publicar.** Tags,
+acionadores e variáveis ficam presos ao espaço de trabalho enquanto você
+mexe. O site publicado continua rodando a versão antiga o tempo inteiro.
+
+No canto superior esquerdo, onde aparece o nome do espaço de trabalho atual,
+clique e escolha **+** para criar um novo — por exemplo
+`consentimento-lgpd`. Se desistir no meio, é só apagar o espaço de trabalho e
+nada aconteceu.
+
+### 2. Voltar para uma versão anterior — a reversão de verdade
+
+O GTM **guarda sozinho** todas as versões publicadas. Não precisa de backup
+para isso: em **Versões**, você acha a versão que estava no ar, abre e
+clica em **Publicar**. O contêiner volta ao estado dela.
+
+> Cuidado com o botão **Restaurar versão**: ele carrega a versão no espaço de
+> trabalho em vez de publicar na hora. Para voltar ao ar mesmo, é **Publicar**.
+
+Antes de começar, vale abrir **Versões** e anotar qual é a versão publicada
+hoje (número e data). É para ela que você volta se der errado.
+
+### 3. Exportar o JSON — para o caso catastrófico
+
+Serve para o que as duas anteriores não cobrem: contêiner apagado, acesso
+perdido, ou querer uma cópia fora do Google.
+
+**Administrador → seção Contêiner → Exportar contêiner →
+Escolher uma versão ou um espaço de trabalho** → selecionar a **versão
+publicada** → **Fazer download**. Sai um `.json`; guarde junto deste projeto.
+
+Para restaurar: **Administrador → Importar contêiner**, escolher o arquivo, um
+espaço de trabalho **Novo**, e **Substituir** (apaga tudo e troca pelo do
+arquivo) em vez de **Mesclar**. O GTM cria uma versão nova antes de substituir,
+e ainda mostra uma prévia das alterações para você conferir antes de confirmar.
+
+### 4. Ligar a visão geral do consentimento
+
+**Administrador → Configurações do contêiner → Configurações adicionais →
+marcar "Ativar Visão geral da permissão"**.
+
+Sem isso a página de consentimento não aparece em **Tags**, e você fica sem a
+tela que mostra, tag por tag, qual exige o quê — que é justamente como você vai
+conferir o trabalho nos passos 3 e 4.
+
+### 5. Anotar o que existe hoje
+
+Em **Tags**, anotar quais existem e o ID de cada uma:
    - a tag do **GA4** e seu ID de métricas (`G-…`)
    - a tag do **Meta Pixel** e seu ID
    - se há tag da **CAPI da Meta** (é ela que manda para o endereço `on.aws`)
@@ -101,9 +147,10 @@ Na tag do **Meta Pixel**:
 1. **Remover o acionador `All Pages` / `Todas as páginas`.** Se ele ficar, a
    tag continua disparando e todo o resto é inútil.
 2. Adicionar o acionador `Consentimento - publicidade permitida`.
-3. Em **Configurações avançadas → Configurações de consentimento**, marcar
-   *Exigir consentimento adicional* e listar `ad_storage`. É cinto e
-   suspensório: a condição do acionador é o que de fato segura.
+3. Em **Configurações avançadas → Configurações de consentimento**, escolher
+   **"Exigir consentimento adicional para disparar a tag"** e listar
+   `ad_storage`. É cinto e suspensório: a condição do acionador é o que de
+   fato segura.
 
 **Fazer o mesmo na tag da CAPI da Meta**, se existir — ela manda do servidor e
 não aparece no bloqueio do navegador.
@@ -114,8 +161,11 @@ não aparece no bloqueio do navegador.
 
 Na tag de configuração do GA4 e nas de evento:
 
-- **Configurações avançadas → Configurações de consentimento → Exigir
-  consentimento adicional**: `analytics_storage`.
+- **Configurações avançadas → Configurações de consentimento →
+  "Exigir consentimento adicional para disparar a tag"**: `analytics_storage`.
+
+  (O padrão de toda tag é **"Não definido"**, que não faz verificação nenhuma —
+  é por isso que hoje elas disparam mesmo com o consentimento negado.)
 
 Se houver **Conversion Linker**, exigir `ad_storage` nele — é de onde vem o
 `_gcl_au`.
