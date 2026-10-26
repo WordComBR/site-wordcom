@@ -1,5 +1,20 @@
+/* Escala FLUIDA, e nao degraus de breakpoint.
+
+   O problema media assim num iPhone de 375px: o degrau de 48px valia de 700px
+   ate 360px, ou seja, a mesma fonte para um tablet pequeno e para um celular.
+   O resultado era titulo picado:
+
+     "Ideias ganham forca quando existe capacidade..."  7 linhas
+     "Cases que mostram como entregamos"                4 linhas
+     "Marcas que ja escolheram a WordCom"               4 linhas
+     "Acompanhe nosso calendario de eventos"            4 linhas
+     "Qual sera a proxima palavra da sua marca?"        4 linhas
+
+   Com clamp o tamanho acompanha a largura real em vez de pular de degrau, e o
+   piso de 30px mantem o titulo legivel nos aparelhos mais estreitos. O teto de
+   80px e o mesmo de antes, e continua abaixo do limite de 6rem do projeto. */
 :root {
-  --titulo-secao-tamanho: 80px;
+  --titulo-secao-tamanho: clamp(30px, 7.4vw, 80px);
 }
 
 /* Shared only by homepage section headings, never hero or case-page titles. */
@@ -74,12 +89,9 @@ main > .section.agenda > .events {
   margin-inline: auto;
 }
 
-@media (max-width: 1100px) {
-  :root { --titulo-secao-tamanho: 64px; }
-}
-
+/* Os degraus de 64px e 48px sairam: o clamp acima cobre a faixa inteira. O
+   que fica aqui e so o espacamento, que nao e tipografia. */
 @media (max-width: 700px) {
-  :root { --titulo-secao-tamanho: 48px; }
   main > .section:is(.about, .agenda) { gap: 36px; }
   main > .section.projects > .headingProjetos { margin-bottom: 8px; }
 }
@@ -101,6 +113,4 @@ main > .section.clients > .heading {
   margin-bottom: clamp(64px, 6vw, 88px);
 }
 
-@media (max-width: 360px) {
-  :root { --titulo-secao-tamanho: 40px; }
-}
+/* O degrau de 360px tambem saiu: o piso do clamp ja protege essa faixa. */

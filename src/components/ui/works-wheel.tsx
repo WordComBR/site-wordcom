@@ -67,10 +67,18 @@ export function WorksWheel({ items, label = "Wordcom", logoSrc, className, ...pr
 
   const metrics = React.useMemo(() => {
     const compact = stage.w <= 700 || stage.h < 340;
-    const cardW = Math.min(stage.h * (compact ? 0.34 : 0.38), stage.w * (compact ? 0.72 : 0.78), 600);
+    /* No celular os cards sairam ilegiveis: 162px de largura num aparelho de
+       375px, ou seja, 43% da tela, para uma arte que e um banner com texto.
+       Tres coisas disputavam o espaco — o card, o raio da roda e o logo
+       central — e o logo levava 112px do miolo.
+
+       Medido e ajustado no aparelho, nao calculado: o logo encolheu, o card
+       cresceu e o raio diminuiu um pouco para o card caber sem sair da tela.
+       As proporcoes de desktop ficaram intactas. */
+    const cardW = Math.min(stage.h * (compact ? 0.50 : 0.38), stage.w * (compact ? 0.88 : 0.78), 600);
     const cardH = cardW;
-    const ringR = compact ? Math.min(stage.w * 0.35, stage.h * 0.29) : Math.min(cardH * 1.14, stage.w * 0.25);
-    const logoSize = compact ? Math.min(132, stage.w * 0.34, stage.h * 0.24, ringR * 1.1) : 200;
+    const ringR = compact ? Math.min(stage.w * 0.30, stage.h * 0.26) : Math.min(cardH * 1.14, stage.w * 0.25);
+    const logoSize = compact ? Math.min(84, stage.w * 0.22, stage.h * 0.16, ringR * 0.8) : 200;
     const ringScale = count ? clamp(((2 * Math.PI * ringR / count) * 0.82) / (cardW || 1), 0.16, 0.72) : 1;
     // Keep the ring inside the viewport and leave clear space around the central logo.
     const fittedScale = compact ? Math.max(0.1, Math.min(ringScale,
