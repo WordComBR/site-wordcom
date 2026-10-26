@@ -44,6 +44,64 @@
   color: var(--casePag-tinta);
 }
 
+.casePag.casePagBeach {
+  --casePag-fundo: url("/cases/BeachTennis/fundo-tenis.png");
+  background: #f4eefb url("/cases/BeachTennis/fundo-tenis.png") center / cover no-repeat;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+.casePag.casePagOutubro {
+  --titulo-destaque: #ff1493;
+  --casePag-fundo: url("/cases/OutubroRosa/fundo-rosa-elegante.png");
+  background: #f6dbe6;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+.casePag.casePagVai {
+  --casePag-fundo: url("/cases/VaiNessa/fundo-hero.png");
+  background: #faf4f8;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+.casePag.casePagPorto {
+  --titulo-destaque: #00c8f5;
+  --casePag-fundo: url("/cases/Porto360/fundo-conteudo.png");
+  --casePag-tinta: #f9f9f9;
+  background: #061b3a;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+.casePag.casePagMulher {
+  --casePag-fundo: url("/cases/DiaDaMulher/fundo-conteudo.png");
+  --casePag-tinta: #f9f9f9;
+  background: #3b0716;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+.casePag.casePagEncontro {
+  --casePag-fundo: url("/cases/EncontroRegional/fundo-conteudo.png");
+  background: #eef2f7;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+.casePag.casePagOds {
+  --casePag-fundo: url("/cases/ODS/fundo-conteudo.png");
+  background: #f5f7f5;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+.casePag.casePagTudoBem {
+  --casePag-fundo: url("/cases/TudoBem/fundo-conteudo.png");
+  background: #f3eef8;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+.casePag.casePagLiceu {
+  --casePag-fundo: url("/cases/LiceuSaoPaulo/fundo-conteudo.png");
+  background: #f6eeee;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
 
 
 .casePagContent { display: contents; }
@@ -60,6 +118,43 @@
   display: block;
   position: relative;
   isolation: isolate;
+}
+
+.casePagBeachContent::before, .casePagOutubroContent::before, .casePagEncontroContent::before, .casePagPortoContent::before, .casePagMulherContent::before, .casePagVaiContent::before, .casePagOdsContent::before, .casePagTudoBemContent::before, .casePagLiceuContent::before {
+  content: "";
+  position: sticky;
+  top: 0;
+  display: block;
+  height: 100svh;
+  margin-bottom: -100svh;
+  background: #f4eefb var(--casePag-fundo) center / cover no-repeat;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.casePagOutubroContent::before, .casePagEncontroContent::before {
+  background-image: linear-gradient(#ffffff99, #ffffff99), var(--casePag-fundo);
+}
+
+.casePagPortoContent::before {
+  background-color: #061b3a;
+  background-image: linear-gradient(#07152c99, #07152c99), var(--casePag-fundo);
+}
+
+.casePagMulherContent::before {
+  background-color: #3b0716;
+  background-image: linear-gradient(#20081099, #20081099), var(--casePag-fundo);
+}
+
+.casePagVaiContent::before, .casePagOdsContent::before, .casePagTudoBemContent::before, .casePagLiceuContent::before {
+  background-image: linear-gradient(#ffffff99, #ffffff99), var(--casePag-fundo);
+}
+
+.casePagLiceuContent::before {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  margin-bottom: 0;
 }
 
 
@@ -166,6 +261,11 @@
 }
 
 @media (max-width: 600px) {
+  .casePagEncontroContent::before { background-position: right center; }
+  .casePagBeachContent::before {
+    background-position: right center;
+    background-image: linear-gradient(#ffffff80, #ffffff80), url("/cases/BeachTennis/fundo-tenis.png");
+  }
 }
 
 /* ---------- contexto no hero (área escura) ---------- */

@@ -9,6 +9,8 @@ import FAQs from "@/components/ui/text-reveal-faqs";
 import { SolucoesAnel } from "@/components/solucoes-anel";
 import { QuemSomos } from "@/components/quem-somos";
 import { BlurText } from "@/components/ui/blur-text";
+import { TituloSolucoes } from "@/components/ui/rotating-text";
+import { TextoEstrutura } from "@/components/texto-estrutura";
 
 /* Porte fiel do site atual para Next.js.
    O design não muda: as classes e a estrutura são as mesmas, e o CSS é o
@@ -221,7 +223,7 @@ export default function Home() {
           {/* Título sozinho: saíram o kicker, a primeira linha e o parágrafo de
               apoio. O h2 carrega a seção. */}
           <EntradaScroll destaque className="heading headingSo">
-            <BlurText>Uma única <span className="tituloDestaque">direção</span></BlurText>
+            <TituloSolucoes />
           </EntradaScroll>
           <EntradaScroll destaque className="scrollContent" delay={0.1}>
             <SolucoesAnel servicos={servicos} />
@@ -284,47 +286,27 @@ export default function Home() {
           </EntradaScroll>
         </section>
 
-        <section className="section about">
+        <section className="section about" id="estrutura">
           <EntradaScroll destaque>
             <p className="kicker">Estrutura WordCom</p>
             <BlurText>
               Ideias ganham força quando existe <em className="tituloDestaque">capacidade de execução</em>
             </BlurText>
           </EntradaScroll>
-          <EntradaScroll destaque delay={0.12}>
-            <p>
-              Somos uma agência 360º com núcleos de publicidade, marketing
-              digital, conteúdo, produção audiovisual e eventos. Essa estrutura
-              permite conduzir projetos integrados sem fragmentar a comunicação
-              entre diferentes fornecedores.
-            </p>
-            <p>
-              Com escritórios em São Paulo, Santos e Campinas, reunimos
-              atendimento, criação, redação, mídia, tráfego, tecnologia, foto,
-              vídeo e produção.
-            </p>
-            <a className="under" href="#contato" aria-label="Conheça a WordCom">
-              Conheça a WordCom ↗
-            </a>
-          </EntradaScroll>
+          <TextoEstrutura />
         </section>
 
         <section className="section projects" id="projetos">
-          {/* Rótulo acima do título e gradiente numa parte do título são proibidos por nome no
-              CLAUDE.md deste projeto, e entram por escolha explícita do dono —
-              ele quer a seção igual à referência que mandou. */}
           <EntradaScroll destaque className="heading headingProjetos">
             <div>
-              <p className="projetoRotulo">Projetos desenvolvidos pela WordCom</p>
               <BlurText>
-                Também criamos
-                <br />
-                {" "}
-                <strong className="tituloDestaque">nossas próprias plataformas</strong>
+                Plataformas Próprias <span className="tituloDestaque">Wordcom</span>
               </BlurText>
             </div>
           </EntradaScroll>
-          <ImagesScrollingAnimation />
+          <EntradaScroll destaque className="scrollContent" delay={0.2} deslocamento={0}>
+            <ImagesScrollingAnimation />
+          </EntradaScroll>
         </section>
 
         <section className="section light agenda" id="agenda">

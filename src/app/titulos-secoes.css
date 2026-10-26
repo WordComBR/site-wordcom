@@ -1,0 +1,106 @@
+:root {
+  --titulo-secao-tamanho: 80px;
+}
+
+/* Shared only by homepage section headings, never hero or case-page titles. */
+main > :is(.section, .contact) h2:is([data-blur-title], [data-fold-title], [data-rotating-title]) {
+  min-width: 0;
+  width: 100%;
+  max-width: 1180px;
+  margin-inline: auto;
+  padding-block: 0.08em;
+  font-size: var(--titulo-secao-tamanho);
+  font-weight: 780;
+  line-height: 1.12;
+  letter-spacing: 0;
+  white-space: normal;
+  overflow: visible;
+  overflow-wrap: anywhere;
+  word-break: normal;
+  text-wrap: balance;
+  text-align: center;
+}
+
+main > .section :is(.heading, .heading > div) {
+  min-width: 0;
+}
+
+/* Fit the fixed phrase and longest rotating word on one line, including phones. */
+main > .section h2[data-rotating-title] {
+  font-size: clamp(16px, 5.6vw, min(76px, var(--titulo-secao-tamanho)));
+}
+
+main > .section .heading {
+  grid-template-columns: minmax(0, 1fr);
+  justify-items: center;
+  gap: 24px;
+  text-align: center;
+}
+
+main > .section .heading > div { width: 100%; }
+
+main > .section .heading > p {
+  max-width: 60ch;
+  margin-inline: auto;
+}
+
+main > :is(.section, .contact) :is(.kicker, .projetoRotulo) {
+  justify-content: center;
+  text-align: center;
+}
+
+main > .section:is(.about, .agenda) {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 48px;
+}
+
+main > .section:is(.about, .agenda) > div:first-child { text-align: center; }
+
+main > .section:is(.about, .agenda) > div:first-child > p:not(.kicker) {
+  max-width: 60ch;
+  margin-inline: auto;
+}
+
+main > .section.about > div:last-child {
+  width: 100%;
+  max-width: 880px;
+  margin-inline: auto;
+  padding-top: 0;
+}
+
+main > .section.agenda > .events {
+  width: 100%;
+  max-width: 1100px;
+  margin-inline: auto;
+}
+
+@media (max-width: 1100px) {
+  :root { --titulo-secao-tamanho: 64px; }
+}
+
+@media (max-width: 700px) {
+  :root { --titulo-secao-tamanho: 48px; }
+  main > .section:is(.about, .agenda) { gap: 36px; }
+  main > .section.projects > .headingProjetos { margin-bottom: 8px; }
+}
+
+/* Follow the normal section flow instead of centering the title in an empty viewport. */
+main > .section.clients {
+  min-height: 0;
+  align-content: normal;
+}
+
+main > .section.clients > :is(.heading, .scrollContent) {
+  position: relative;
+  top: auto;
+  left: auto;
+  translate: none;
+}
+
+main > .section.clients > .heading {
+  margin-bottom: clamp(64px, 6vw, 88px);
+}
+
+@media (max-width: 360px) {
+  :root { --titulo-secao-tamanho: 40px; }
+}

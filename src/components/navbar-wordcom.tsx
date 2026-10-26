@@ -22,7 +22,7 @@ import { NavBar, type NavItem } from "@/components/ui/tubelight-navbar";
    um array novo a cada render recriaria o observador sem parar. */
 
 const SECOES: NavItem[] = [
-  { name: "Home", hash: "#inicio", icon: House },
+  { name: "Home", hash: "#inicio", icon: House, imageSrc: "/marca/favicon.svg" },
   { name: "Quem Somos", hash: "#quem-somos", icon: Users },
   { name: "Soluções", hash: "#solucoes", icon: Lightbulb },
   { name: "Cases", hash: "#cases", icon: Star },

@@ -1,0 +1,45 @@
+.region {
+  position: relative;
+  width: 100%;
+  height: calc(100svh + var(--wheel-travel, 255svh));
+  isolation: isolate;
+  color: #f9f9f9;
+}
+
+.pinned { position: sticky; top: 0; height: 100svh; width: 100%; overflow: hidden; isolation: isolate; }
+.stage { position: absolute; inset: 92px 0 24px; touch-action: pan-y pinch-zoom; }
+.stage:focus-visible { outline: 2px solid #ffbb7a; outline-offset: -4px; }
+.wheel { position: absolute; left: 50%; top: 50%; transform-style: preserve-3d; list-style: none; margin: 0; padding: 0; }
+.region .card { position: absolute; backface-visibility: hidden; transform-origin: center; max-width: none; }
+.region .face { display: block; position: relative; width: 100%; height: 100%; border-radius: 8%; overflow: hidden; background: #071b31; border: 1px solid #ffffff24; box-shadow: 0 18px 40px -18px #000a; }
+.face[data-project="empreenda-sim"] { background: #06271e; }
+.artwork { position: absolute; inset: 0; border-radius: inherit; overflow: hidden; }
+.region .card .face img { width: 100%; height: 100%; object-fit: contain; clip-path: none; user-select: none; }
+.label { position: absolute; inset: 0; display: grid; place-items: center; pointer-events: none; font-size: 24px; font-weight: 700; }
+.label img { width: 200px; height: 200px; object-fit: contain; }
+.index { position: absolute; top: 12px; right: 16px; list-style: none; margin: 0; padding: 0; text-align: right; }
+.index button { min-height: 36px; font-size: 14px; color: #cfcfd4; cursor: pointer; }
+.index button[aria-pressed="true"] { color: #ffbb7a; font-weight: 700; }
+.index button:focus-visible { outline: 2px solid #ffbb7a; outline-offset: 4px; }
+.region[data-enhanced="false"] { height: auto; min-height: 0; overflow: visible; }
+.region[data-enhanced="false"] .pinned { position: relative; height: auto; overflow: visible; }
+.region[data-enhanced="false"] .stage { position: relative; inset: auto; }
+.region[data-enhanced="false"] .wheel { position: relative; inset: auto; display: grid; justify-items: center; gap: 24px; }
+.region[data-enhanced="false"] .card { position: relative; width: min(100%, 520px); aspect-ratio: 1; transform: none !important; opacity: 1 !important; pointer-events: auto !important; }
+.region[data-enhanced="false"] .face { transform: none !important; }
+
+@media (max-width: 700px) {
+  .region { height: calc(72svh + var(--wheel-travel, 255svh)); }
+  .pinned { height: 72svh; }
+  .stage { inset: 104px 0 max(16px, env(safe-area-inset-bottom)); }
+  .index { top: -48px; right: 0; left: 0; display: flex; justify-content: center; align-items: center; gap: 12px; text-align: center; }
+  .index button { min-height: 44px; font-size: 11px; touch-action: manipulation; }
+}
+@media (max-height: 500px) {
+  .stage { inset: 76px 0 12px; }
+}
+@media (max-width: 700px) and (max-height: 500px) {
+  .region { height: calc(100svh + var(--wheel-travel, 255svh)); }
+  .pinned { height: 100svh; }
+  .stage { inset: 116px 0 16px; }
+}

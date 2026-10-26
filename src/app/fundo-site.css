@@ -162,13 +162,7 @@ main.product {
   color: var(--orange, #ff7d00);
 }
 
-/* páginas de case: os 9 fundos próprios e a segunda camada de imagem com véu
-   que cada uma trazia */
-.casePag,
-.casePag article,
-.casePagContent::before {
-  background: transparent;
-}
+/* Individual cases retain their own backgrounds and contrast layers. */
 
 /* páginas institucionais */
 .institutionalMain,

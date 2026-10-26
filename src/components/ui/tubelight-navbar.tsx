@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import type { LucideIcon } from "lucide-react";
 import estilos from "./tubelight-navbar.module.css";
@@ -49,6 +50,7 @@ export interface NavItem {
   /** âncora da home, sempre com "#". O componente resolve o prefixo por rota. */
   hash: string;
   icon: LucideIcon;
+  imageSrc?: string;
 }
 
 export function NavBar({ items }: { items: NavItem[] }) {
@@ -106,11 +108,14 @@ export function NavBar({ items }: { items: NavItem[] }) {
                 href={destino}
                 className={`${estilos.link}${estaAtivo ? ` ${estilos.ativo}` : ""}`}
                 aria-current={estaAtivo ? "true" : undefined}
+                aria-label={item.imageSrc ? "WordCom — início" : item.name}
               >
+                {item.imageSrc ? <Image src={item.imageSrc} alt="" width={28} height={32} className={estilos.marca} /> : <>
                 <span className={estilos.rotulo}>{item.name}</span>
                 <span className={estilos.icone} aria-hidden="true">
                   <Icone size={18} strokeWidth={2.5} />
                 </span>
+                </>}
 
                 {estaAtivo ? (
                   <motion.span

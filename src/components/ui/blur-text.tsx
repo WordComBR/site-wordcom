@@ -27,7 +27,7 @@ function plainText(children: ReactNode): string {
 }
 
 // React Bits' word-by-word blur reveal, adapted to preserve existing heading markup.
-export function BlurText({ children, text, delay = 200, stepDuration = 0.35, blur = 10, distance = 50, onAnimationComplete, ...props }: BlurTextProps) {
+export function BlurText({ children, text, delay = 220, stepDuration = 0.55, blur = 8, distance = 28, onAnimationComplete, ...props }: BlurTextProps) {
   const content = children ?? text;
   const ref = useRef<HTMLHeadingElement>(null);
   const hydrated = useSyncExternalStore(subscribeHydration, clientSnapshot, serverSnapshot);

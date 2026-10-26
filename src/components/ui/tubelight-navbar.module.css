@@ -120,6 +120,14 @@
   line-height: 0;
 }
 
+.marca {
+  display: block;
+  flex: none;
+  width: 28px;
+  height: 32px;
+  object-fit: contain;
+}
+
 /* ---------- a lâmpada ---------- */
 
 /* A camada que desliza entre os itens. O movimento vem do layoutId do motion,
@@ -176,6 +184,10 @@
    continua no topo também no celular: o original a joga para `bottom-0`, e
    lá já estão o botão flutuante de WhatsApp e o banner de cookies. */
 @media (max-width: 760px) {
+  .marca {
+    width: 24px;
+    height: 28px;
+  }
   .rotulo {
     display: none;
   }

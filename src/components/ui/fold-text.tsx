@@ -112,7 +112,7 @@ export function FoldText({ children, className = "", ...props }: FoldTextProps) 
       entered = true;
       root!.dataset.foldState = "revealing";
       tween = gsap.fromTo(pieces, { t: 0 }, {
-        t: 1, duration: 0.65, stagger: { each: 0.045, from: "start" }, ease: "none",
+        t: 1, duration: 0.95, stagger: { each: 0.065, from: "start" }, ease: "none",
         onUpdate: render,
         onComplete: () => { root!.dataset.foldState = "complete"; },
       });

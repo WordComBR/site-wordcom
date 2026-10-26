@@ -41,6 +41,7 @@
 /* Fundo unico e continuo do site inteiro. Por ultimo: vence por ordem de
    origem as 15 folhas que pintam fundo de secao. */
 @import "./fundo-site.css";
+@import "./titulos-secoes.css";
 
 /* Padrao compartilhado dos destaques nos titulos da pagina inicial. */
 :root {

@@ -1,6 +1,14 @@
 .faq {
+  position: relative;
   width: 100%;
   min-width: 0;
+}
+
+.measurement {
+  position: absolute;
+  inset: 0 0 auto;
+  visibility: hidden;
+  pointer-events: none;
 }
 
 .tabs {

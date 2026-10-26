@@ -3,7 +3,7 @@
 import * as Accordion from "@radix-ui/react-accordion";
 import { Plus } from "lucide-react";
 import { motion, useInView, useReducedMotion } from "motion/react";
-import { useId, useRef, useState } from "react";
+import { useId, useLayoutEffect, useRef, useState } from "react";
 import styles from "./faq-tabs.module.css";
 import { ShinyButton } from "./shiny-button";
 
@@ -21,11 +21,55 @@ export function FAQ({ categories }: { categories: FAQCategory[] }) {
   const id = useId();
   const tabs = useRef<(HTMLButtonElement | null)[]>([]);
   const root = useRef<HTMLDivElement>(null);
+  const measurement = useRef<HTMLDivElement>(null);
   const inView = useInView(root, { once: true, amount: 0.1 });
   const reduced = useReducedMotion();
 
+  useLayoutEffect(() => {
+    const faq = root.current;
+    const sizing = measurement.current;
+    const tablist = faq?.querySelector<HTMLElement>('[role="tablist"]');
+    if (!faq || !sizing || !tablist) return;
+    let disposed = false;
+
+    // Reserve the tallest category with one answer open, independent of the active tab.
+    function measure() {
+      if (disposed) return;
+      const tabHeight = tablist!.getBoundingClientRect().height + parseFloat(getComputedStyle(tablist!).marginBottom);
+      const panelHeights = Array.from(sizing!.querySelectorAll<HTMLElement>("[data-measure-category]")).map(category => {
+        const list = category.querySelector<HTMLElement>("[data-measure-list]")!;
+        const answers = Array.from(category.querySelectorAll<HTMLElement>("[data-measure-answer]"));
+        return list.getBoundingClientRect().height + Math.max(0, ...answers.map(answer => answer.getBoundingClientRect().height));
+      });
+      faq!.style.minHeight = `${Math.ceil(tabHeight + Math.max(0, ...panelHeights))}px`;
+    }
+
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(sizing);
+    observer.observe(tablist);
+    void document.fonts.ready.then(measure);
+    return () => {
+      disposed = true;
+      observer.disconnect();
+      faq.style.minHeight = "";
+    };
+  }, [categories]);
+
   return (
     <div ref={root} className={styles.faq}>
+      <div ref={measurement} className={styles.measurement} aria-hidden="true" inert>
+        {categories.map(category => <div key={category.id} data-measure-category>
+          <div className={styles.list} data-measure-list>
+            {category.questions.map(faq => <div key={faq.question} className={styles.item}>
+              <div className={styles.trigger}><span>{faq.question}</span><Plus size={20} className={styles.icon} /></div>
+            </div>)}
+          </div>
+          {category.questions.map(faq => <div key={faq.question} className={styles.answer} style={{ gridTemplateRows: "1fr" }} data-measure-answer>
+            <div className={styles.answerInner}><p>{faq.answer}</p></div>
+          </div>)}
+        </div>)}
+      </div>
       <div className={styles.tabs} role="tablist" aria-label="Sobre a WordCom">
         {categories.map((category, index) => (
           <ShinyButton
