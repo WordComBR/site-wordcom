@@ -153,3 +153,53 @@ alcança o que já saiu.
 As duas são independentes e podem ser desfeitas em qualquer ordem — exceto que
 voltar só o site, mantendo o contêiner novo, reproduz a perda de medição
 descrita no topo.
+
+---
+
+# Resultado do teste de 26/10/2026 (Tag Assistant + localhost)
+
+Contêiner em **modo de visualização** (rascunho, não publicado), site em
+`localhost:3000` com o código novo.
+
+## Consentimento REJEITADO — passou
+
+| instrumento | resultado |
+|---|---|
+| Tag Assistant | **"Tags disparadas: Nenhuma"** — GA4, Vinculador e Meta Pixel todas em "Nenhuma tag foi disparada" |
+| cookies | só `NEXT_LOCALE` e o token do Supabase. Nenhum `_ga`, `_fbp`, `_gcl_au`, `_ga_N3QZDQSE3J` |
+| rede | zero requisições a `facebook`, `analytics.google.com` e à CAPI |
+| `window.fbq` | `undefined` — o Pixel nem inicializa |
+
+### Armadilha encontrada na medição
+
+Na primeira tentativa os cookies `_fbp` e `_ga_N3QZDQSE3J` reapareceram depois
+de limpos, **sem nenhuma requisição de rede**. Causa: entre a limpeza e o
+reload, o `fbevents` do carregamento ANTERIOR ainda estava vivo e regravou o
+cookie. Repetindo a limpeza com a página já sem script de rastreamento
+(`fbq === undefined`), os cookies não voltaram.
+
+Lição: limpar e recarregar **duas vezes**, ou usar janela anônima.
+
+## Consentimento ACEITO — parcialmente confirmado
+
+| tag | resultado |
+|---|---|
+| GA4 | **confirmado** — `analytics.google.com/g/collect` com `en=page_view` e `gcs=G111` |
+| Vinculador | **confirmado** — `google.com/ccm/collect` com `gcs=G111` |
+| Meta Pixel | **não confirmado** (ver abaixo) |
+
+O `gcs=G111` é o sinal de consentimento viajando junto com o evento: é a prova
+de que o Consent Mode está integrado, e não apenas bloqueando.
+
+### O que ficou em aberto, e é o risco a fechar
+
+Com o consentimento aceito, o Meta Pixel **roda** — `window.fbq` vira função e
+o cookie `_fbp` é gravado — mas **não observei nenhum envio**: nem
+`facebook.com/tr`, nem a CAPI. Pode ser limitação de `localhost`/HTTP, ou a
+tag pode estar sendo segurada pela verificação de consentimento.
+
+Isso importa porque o risco simétrico de bloquear o vazamento é **quebrar a
+medição**. Antes de publicar o contêiner, confirmar em
+**Meta Gerenciador de Eventos → Eventos de teste**, que mostra os eventos
+chegando em tempo real. Se não chegar nada com consentimento aceito, a
+exigência de `ad_storage` na tag do Pixel precisa ser revista.
