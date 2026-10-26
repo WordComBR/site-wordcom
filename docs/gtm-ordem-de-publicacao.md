@@ -221,3 +221,47 @@ consente.
 
 Vale olhar o Gerenciador de Eventos depois de publicar, como boa prática, mas
 não é bloqueio para publicar.
+
+---
+
+# MEDIÇÃO FINAL — site publicado, 26/10/2026
+
+Site em `https://wordcom.com.br` com o código novo no ar, contêiner na versão 6
+publicada. Medido no navegador embutido do Claude: perfil isolado, sem nenhuma
+extensão.
+
+| | consentimento REJEITADO | consentimento ACEITO no carregamento |
+|---|---|---|
+| cookies gravados | **nenhum** | `_fbp`, `_ga`, `_ga_N3QZDQSE3J`, `_gcl_au` |
+| `window.fbq` | `undefined` | `function` |
+| Meta Pixel (`facebook.com/tr`) | **0** | **3** |
+| `fbevents.js` | não carrega | carrega |
+| CAPI de servidor (`on.aws/events`) | **0** | **3** |
+| GA4 / Vinculador (`collect`) | **0** | **3** |
+
+O portão abre e fecha nos dois sentidos. **A CAPI de servidor também parou**,
+o que responde a dúvida que estava anotada sobre o contêiner `SERVER WORDCOM`:
+como o envio partia da tag web, bloquear a tag bloqueou a CAPI junto. Não foi
+preciso mexer no contêiner de servidor.
+
+Com isso, a política de cookies publicada passou a descrever o que de fato
+acontece.
+
+## Armadilha de medição, a terceira desta série
+
+A primeira leitura no site publicado mostrou o comportamento ANTIGO — Pixel
+disparando 3 vezes com consentimento rejeitado. Não era o contêiner: era o
+`gtm.js` em **cache no navegador**, de uns 15 minutos antes, quando eu testava
+em `localhost` no mesmo perfil. O `gtm.js` tem cache curto, mas suficiente para
+enganar uma medição feita logo após publicar.
+
+Confirmado por duas vias: o `curl` direto no `gtm.js` já trazia a versão 6 com
+as variáveis novas, e refazendo o `fetch` com `cache: 'reload'` antes de
+recarregar a página o resultado virou.
+
+Ao medir logo após publicar um contêiner, forçar a atualização do `gtm.js`:
+
+```js
+await fetch('https://www.googletagmanager.com/gtm.js?id=GTM-NPMMSFKF', {cache:'reload'});
+location.reload();
+```
