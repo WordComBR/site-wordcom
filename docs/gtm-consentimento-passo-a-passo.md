@@ -3,6 +3,52 @@
 Contêiner: **GTM-NPMMSFKF** · Propriedade GA4 do site: **G-N3QZDQSE3J**
 (deduzida do cookie `_ga_N3QZDQSE3J`; confirmar no passo 0)
 
+## ESTADO: passos 1 a 4 FEITOS em 26/10/2026, aguardando publicação
+
+As alterações estão no `Default Workspace` do contêiner web, **não publicadas**
+— 5 alterações pendentes. Falta: testar (passo 5), isolar o preview (passo 6) e
+publicar (passo 7). E o contêiner de servidor, descrito no fim.
+
+| # | alteração | estado |
+|---|---|---|
+| 1 | `Ativar Visão geral do consentimento` ligado | feito |
+| 2 | variável `dlv - publicidade` → chave `publicidade` | feito |
+| 3 | variável `dlv - analise` → chave `analise` | feito |
+| 4 | Meta Pixel: `Consent Granted (GDPR)` de `True` para `{{dlv - publicidade}}` | feito |
+| 5 | Meta Pixel: exigir `ad_storage` | feito |
+| 6 | GA4 `GA4 - CONF - ALL PAGES`: exigir `analytics_storage` | feito |
+| 7 | `VINCULADOR DE CONVERSÃO`: exigir `ad_storage` | feito |
+
+### A causa raiz, encontrada no contêiner
+
+A tag do Meta Pixel tinha **`Consent Granted (GDPR)` fixo em `True`**. Ela não
+ignorava o consentimento por omissão — ela afirmava ao Meta, em toda carga de
+página, que o consentimento havia sido concedido.
+
+A tela de Visão geral do consentimento também mostrou que **GA4 e Vinculador já
+tinham permissão integrada** (`analytics_storage`, `ad_storage`, etc.): essas
+duas sempre respeitaram o Consent Mode. A permissão adicional foi acrescentada
+assim mesmo, para a exigência ficar explícita. O Pixel era o único com a coluna
+"Permissão integrado" vazia — ou seja, o furo real.
+
+### Correção de uma afirmação anterior deste documento
+
+A tabela de medição dizia que, com o consentimento rejeitado, o site "gravou 4
+cookies". Isso estava **contaminado pela própria sequência do teste**: antes de
+medir, eu havia clicado em "Aceitar todos", e negar o consentimento depois não
+apaga cookie já gravado. O que foi medido de fato é a presença deles, não a
+gravação naquele momento.
+
+O que **continua valendo**, porque foi medido depois de recarregar a página com
+o consentimento negado: o Pixel disparou 3 vezes para `facebook.com/tr` e a
+CAPI mandou 3 eventos. Isso é real, e é exatamente o que o `Consent Granted
+(GDPR) = True` explica.
+
+O teste do passo 5 tem de ser feito em **janela anônima ou com os cookies
+apagados**, senão repete o mesmo erro.
+
+---
+
 ## Por que este documento existe
 
 O código do site já está pronto e medido. Ele define o Consent Mode v2 com
