@@ -191,15 +191,33 @@ Lição: limpar e recarregar **duas vezes**, ou usar janela anônima.
 O `gcs=G111` é o sinal de consentimento viajando junto com o evento: é a prova
 de que o Consent Mode está integrado, e não apenas bloqueando.
 
-### O que ficou em aberto, e é o risco a fechar
+### Ponto fechado: o Pixel dispara com consentimento concedido
 
-Com o consentimento aceito, o Meta Pixel **roda** — `window.fbq` vira função e
-o cookie `_fbp` é gravado — mas **não observei nenhum envio**: nem
-`facebook.com/tr`, nem a CAPI. Pode ser limitação de `localhost`/HTTP, ou a
-tag pode estar sendo segurada pela verificação de consentimento.
+Primeiro eu não tinha observado envio do Pixel e registrei isso como risco
+em aberto, a confirmar no Gerenciador de Eventos da Meta. **Não foi preciso.**
 
-Isso importa porque o risco simétrico de bloquear o vazamento é **quebrar a
-medição**. Antes de publicar o contêiner, confirmar em
-**Meta Gerenciador de Eventos → Eventos de teste**, que mostra os eventos
-chegando em tempo real. Se não chegar nada com consentimento aceito, a
-exigência de `ad_storage` na tag do Pixel precisa ser revista.
+Zerando o histórico do Tag Assistant e fazendo UMA carga com o consentimento
+aceito, o resultado foi:
+
+```
+Tags disparadas
+  GA4 - CONF - ALL PAGES ............... Disparou 1 vez
+  VINCULADOR DE CONVERSÃO .............. Disparou 1 vez
+  FB_CONVERSIONS_API-...-Pixel_Template  Disparou 3 vezes
+
+Nenhuma tag foi disparada: None
+```
+
+Ou seja: a exigência de `ad_storage` **não** segura a tag demais. Com
+consentimento concedido as três disparam; com consentimento negado nenhuma
+dispara. O portão abre e fecha como deve.
+
+A ausência de `facebook.com/tr` na captura de rede é, portanto, da camada de
+transmissão — `localhost` sem HTTPS, `sendBeacon`, ou roteamento pela CAPI —
+e não do consentimento. E é comportamento **anterior** a esta mudança: com
+consentimento concedido, o campo `Consent Granted (GDPR)` recebe `true`
+exatamente como recebia quando estava fixo em `True`. Nada mudou para quem
+consente.
+
+Vale olhar o Gerenciador de Eventos depois de publicar, como boa prática, mas
+não é bloqueio para publicar.
