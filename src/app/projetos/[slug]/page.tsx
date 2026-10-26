@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { FundoVideo } from "@/components/fundo-video";
 
@@ -11,10 +12,15 @@ import { FundoVideo } from "@/components/fundo-video";
    - logo via next/image, com dimensões declaradas
    - aria-label nos links cujo rótulo termina em seta
 
-   PENDÊNCIA DE CONTEÚDO (não alterei, é decisão sua): o último parágrafo das
-   três páginas é um recado de desenvolvimento — "Esta é a estrutura inicial da
-   página individual..." — que está publicado para o visitante. Vale substituir
-   por história, programação, parceiros e resultados reais. */
+   PENDÊNCIA DE CONTEÚDO: o último parágrafo das três páginas era um recado de
+   desenvolvimento — "Esta é a estrutura inicial da página individual..." —
+   publicado para o visitante. Removido antes do deploy: dizer ao público que a
+   página está inacabada é pior do que a seção ficar mais curta.
+
+   O buraco continua: falta história, programação, parceiros e resultados reais
+   de cada projeto. O tipo `Projeto` não tem campo para isso, então é escrever o
+   texto e acrescentar o campo. O mesmo vale para o <h2> desta seção, que hoje é
+   igual nos três projetos. */
 
 type Projeto = {
   nome: string;
@@ -110,18 +116,13 @@ export default async function PaginaProjeto({
             <strong key={s}>{s}</strong>
           ))}
         </div>
-        <p>
-          Esta é a estrutura inicial da página individual. Ela está pronta para
-          receber história, programação, parceiros, galeria, vídeos, resultados
-          e um direcionamento específico para cada público.
-        </p>
-        <a
+        <Link
           href="/#contato"
           className="btn"
           aria-label="Falar com a WordCom"
         >
           Falar com a WordCom ↗
-        </a>
+        </Link>
       </section>
     </main>
   );

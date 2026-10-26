@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Montserrat } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
+import { SITE } from "@/lib/site";
 import { ConsentimentoCookies } from "@/components/consentimento-cookies";
 import { ConsentimentoGtm } from "@/components/consentimento-gtm";
 import { NavbarWordcom } from "@/components/navbar-wordcom";
@@ -18,6 +19,16 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
+  /* Sem metadataBase, as URLs de Open Graph e Twitter saem RELATIVAS, e nenhuma
+     rede social resolve isso: o site compartilhado no WhatsApp, LinkedIn ou
+     Instagram aparecia sem imagem de preview. Para uma agencia de publicidade
+     esse era o defeito mais caro dos que estavam em aberto.
+
+     A imagem em si o Next acha sozinho: `opengraph-image.png` ao lado deste
+     arquivo e convencao de App Router, e o `.alt.txt` vira o texto alternativo.
+     Ela foi composta dos assets ja commitados (a marca sobre o mesmo fundo a
+     15%), entao acompanha a identidade sem inventar uma nova. */
+  metadataBase: new URL(SITE),
   title: "WordCom — A última PALAVRA em comunicação",
   description:
     "Publicidade, marketing, conteúdo, audiovisual e eventos em uma comunicação integrada.",
@@ -30,8 +41,19 @@ export const metadata: Metadata = {
     title: "WordCom — A última PALAVRA em comunicação",
     description:
       "Publicidade, marketing, conteúdo, audiovisual e eventos em uma comunicação integrada.",
+    url: SITE,
+    siteName: "WordCom Publicidade",
     locale: "pt_BR",
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "WordCom — A última PALAVRA em comunicação",
+    description:
+      "Publicidade, marketing, conteúdo, audiovisual e eventos em uma comunicação integrada.",
+  },
+  alternates: {
+    canonical: "/",
   },
 };
 
